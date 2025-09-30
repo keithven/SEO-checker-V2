@@ -1,0 +1,317 @@
+{
+  "https://www.cremedevape.com/e-liquid": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T09:06:36.207Z",
+    "lastUpdated": "2025-09-30T09:06:36.207Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-09-30T10:33:02.441Z"
+  },
+  "https://www.cremedevape.com/Batteries": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T09:06:56.933Z",
+    "lastUpdated": "2025-09-30T09:06:56.933Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-09-30T10:03:01.039Z"
+  },
+  "https://www.cremedevape.com/Mixology": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T09:07:03.631Z",
+    "lastUpdated": "2025-09-30T09:07:03.631Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-09-30T10:42:01.807Z"
+  },
+  "https://www.cremedevape.com/Miscellaneous": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T09:40:44.809Z",
+    "lastUpdated": "2025-09-30T09:40:44.809Z"
+  },
+  "https://www.cremedevape.com/Clearance": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T10:12:07.290Z",
+    "lastUpdated": "2025-09-30T10:12:07.290Z"
+  },
+  "https://www.cremedevape.com/DripTips": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T10:59:52.192Z",
+    "lastUpdated": "2025-09-30T10:59:52.192Z"
+  },
+  "https://www.cremedevape.com/Batteries/Cells": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T14:24:15.470Z",
+    "lastUpdated": "2025-09-30T14:24:15.470Z"
+  },
+  "https://www.cremedevape.com/Batteries/Midi-e-cig-batteries": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T15:37:05.120Z",
+    "lastUpdated": "2025-09-30T15:37:05.120Z"
+  },
+  "https://www.cremedevape.com/Resistance": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T10:42:26.371Z",
+    "lastUpdated": "2025-09-30T10:42:26.371Z"
+  },
+  "https://www.cremedevape.com/Polycarbonate": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:09:47.225Z",
+    "lastUpdated": "2025-09-30T16:09:47.225Z"
+  },
+  "https://www.cremedevape.com/Mixology/Unflavoured-E-Liquid": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T14:21:43.480Z",
+    "lastUpdated": "2025-09-30T14:21:43.480Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-09-30T14:22:26.299Z"
+  },
+  "https://www.cremedevape.com/Mixology/Accessories": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:46:41.071Z",
+    "lastUpdated": "2025-09-30T16:46:41.071Z"
+  },
+  "https://www.cremedevape.com/Mixology/E-liquid-Diluents": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:34:39.309Z"
+  },
+  "https://www.cremedevape.com/Mixology/Mixing-Calculator": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:48:35.871Z",
+    "lastUpdated": "2025-09-30T16:48:35.871Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:48:57.170Z",
+    "lastUpdated": "2025-09-30T16:48:57.170Z"
+  },
+  "https://www.cremedevape.com/Cases-Stands": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T09:08:07.443Z"
+  },
+  "https://www.cremedevape.com/Brands": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:50:27.052Z",
+    "lastUpdated": "2025-09-30T16:50:27.052Z"
+  },
+  "https://www.cremedevape.com/Innokin": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T09:08:07.443Z"
+  },
+  "https://www.cremedevape.com/Evolv": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T09:08:07.443Z"
+  },
+  "https://www.cremedevape.com/Evolv-Resources": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T09:08:07.443Z"
+  },
+  "https://www.cremedevape.com/Brands/XTAR": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/SvoeMesto": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Kanger": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Big-Battery-Mods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/StattQualm": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Mystic": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Mystic-Juice-E-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Aspire": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Brands/Youde": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T10:00:04.588Z"
+  },
+  "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:50:43.453Z",
+    "lastUpdated": "2025-09-30T16:50:43.453Z"
+  },
+  "https://www.cremedevape.com/Atomisers-Cartomiser-Tanks/Heads": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/HeadCompatibility": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:50:57.871Z",
+    "lastUpdated": "2025-09-30T16:50:57.871Z"
+  },
+  "https://www.cremedevape.com/Brands/Frenchy-Fog": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/Box-Mods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/Batteries/Box-Mods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/Tube-Mods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts/Drippers-RDAs": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T13:57:59.704Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts/Rebuildable-Tanks-RTAs": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T14:01:10.526Z",
+    "lastUpdated": "2025-09-30T14:01:10.526Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts/Rebuildable-Accessories": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:51:26.311Z",
+    "lastUpdated": "2025-09-30T16:51:26.311Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts/Wick-Wire": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:51:44.031Z",
+    "lastUpdated": "2025-09-30T16:51:44.031Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Decadent-Vapours": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:43:40.853Z"
+  },
+  "https://www.cremedevape.com/Brands/Creme-de-Vape": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:58:46.054Z",
+    "lastUpdated": "2025-09-30T16:58:46.054Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Creme-de-Vape-Classic": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T15:57:21.270Z",
+    "lastUpdated": "2025-09-30T15:57:21.270Z"
+  },
+  "https://www.cremedevape.com/Twelve-Monkeys": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:43:40.853Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Twelve-Monkeys": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:43:40.853Z"
+  },
+  "https://www.cremedevape.com/Brands/Uwell": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:43:40.853Z"
+  },
+  "https://www.cremedevape.com/Brands/Dicodes": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T16:59:01.887Z",
+    "lastUpdated": "2025-09-30T16:59:01.887Z"
+  },
+  "https://www.cremedevape.com/Brands/The-Flavour-Apprentice": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:45:40.363Z"
+  },
+  "https://www.cremedevape.com/Rebuildable-Atomisers-Parts/Parts-for-Rebuildables": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:45:40.363Z"
+  },
+  "https://www.cremedevape.com/Brands/Valley-Liquids": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-09-30T15:45:40.363Z"
+  },
+  "https://www.cremedevape.com/Batteries/Cylindrical-Midi-vape-battery-devices": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-09-30T17:05:21.020Z",
+    "lastUpdated": "2025-09-30T17:05:21.020Z"
+  }
+}
