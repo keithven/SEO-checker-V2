@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import * as cheerio from 'cheerio';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -14,6 +15,79 @@ export class AIService {
     }
 
     /**
+     * Build prompt with page context (for preview before sending to AI)
+     * @param {Object} pageData - Page data including url, title, currentMeta
+     * @returns {Promise<Object>} Prompt and page context
+     */
+    async buildPromptWithContext(pageData) {
+        const { url, title, currentMeta } = pageData;
+
+        // Fetch page content for context
+        let pageContext = '';
+        try {
+            const { WebCrawler } = await import('./webCrawler.js');
+            const crawler = new WebCrawler({ usePuppeteer: true });
+            const crawlResult = await crawler.fetchPageWithPuppeteer(url);
+
+            if (crawlResult.success) {
+                pageContext = this.extractPageContext(crawlResult.html);
+            }
+        } catch (error) {
+            console.log('Could not fetch page content:', error.message);
+        }
+
+        const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta, pageContext);
+
+        return {
+            success: true,
+            prompt,
+            pageContext,
+            url,
+            title,
+            currentMeta
+        };
+    }
+
+    /**
+     * Generate suggestions from a custom prompt
+     * @param {string} prompt - The prompt to send to AI
+     * @param {number} count - Number of suggestions to generate
+     * @returns {Promise<Object>} AI response with suggestions
+     */
+    async generateFromPrompt(prompt, count = 5) {
+        try {
+            const response = await this.client.messages.create({
+                model: this.model,
+                max_tokens: this.maxTokens,
+                temperature: this.temperature,
+                messages: [{
+                    role: 'user',
+                    content: prompt
+                }]
+            });
+
+            const suggestions = this.parseMetaDescriptionResponse(response.content[0].text);
+
+            return {
+                success: true,
+                suggestions: suggestions.slice(0, count),
+                usage: {
+                    inputTokens: response.usage.input_tokens,
+                    outputTokens: response.usage.output_tokens,
+                    estimatedCost: this.calculateCost(response.usage)
+                }
+            };
+        } catch (error) {
+            console.error('AI Service Error:', error);
+            return {
+                success: false,
+                error: error.message,
+                suggestions: []
+            };
+        }
+    }
+
+    /**
      * Generate meta description suggestions for a URL
      * @param {Object} pageData - Page data including url, title, currentMeta
      * @param {number} count - Number of suggestions to generate (default: 5)
@@ -22,7 +96,21 @@ export class AIService {
     async generateMetaDescriptions(pageData, count = 5) {
         const { url, title, currentMeta } = pageData;
 
-        const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta);
+        // Fetch page content for context
+        let pageContext = '';
+        try {
+            const { WebCrawler } = await import('./webCrawler.js');
+            const crawler = new WebCrawler({ usePuppeteer: true });
+            const crawlResult = await crawler.fetchPageWithPuppeteer(url);
+
+            if (crawlResult.success) {
+                pageContext = this.extractPageContext(crawlResult.html);
+            }
+        } catch (error) {
+            console.log('Could not fetch page content, proceeding without it:', error.message);
+        }
+
+        const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta, pageContext);
 
         try {
             const response = await this.client.messages.create({
@@ -31,16 +119,7 @@ export class AIService {
                 temperature: this.temperature,
                 messages: [{
                     role: 'user',
-                    content: [
-                        {
-                            type: 'text',
-                            text: prompt
-                        },
-                        {
-                            type: 'url',
-                            url: url
-                        }
-                    ]
+                    content: prompt
                 }]
             });
 
@@ -109,17 +188,72 @@ export class AIService {
     }
 
     /**
+     * Extract concise page context from HTML (max ~500 chars to avoid token bloat)
+     */
+    extractPageContext(html) {
+        const $ = cheerio.load(html);
+
+        // Remove scripts, styles, and navigation
+        $('script, style, nav, header, footer').remove();
+
+        // Extract key elements
+        const h1 = $('h1').first().text().trim();
+        const h2s = $('h2').slice(0, 3).map((i, el) => $(el).text().trim()).get();
+        const firstParagraph = $('p').first().text().trim().substring(0, 200);
+
+        // Extract product info based on page type
+        // Category pages: InfoArea h3 elements contain product names
+        const categoryProducts = $('.InfoArea h3')
+            .map((i, el) => $(el).text().trim()).get()
+            .filter(text => text.length > 3 && text.length < 100 && /[a-zA-Z]/.test(text));
+
+        // Product detail pages: .description class contains product info
+        const productDescription = $('.description').first().text().trim().substring(0, 300);
+
+        let products = [];
+        if (categoryProducts.length > 0) {
+            products = categoryProducts;
+        }
+
+        // Count total products for context
+        const totalProducts = products.length;
+
+        let context = '';
+        if (h1) context += `Main Heading: ${h1}\n`;
+        if (h2s.length > 0) context += `Subheadings: ${h2s.join(', ')}\n`;
+        if (firstParagraph) context += `Content: ${firstParagraph}\n`;
+
+        // Category page: list ALL products (token cost is minimal compared to accuracy)
+        if (products.length > 0) {
+            context += `\nThis is a category/brand page with ${products.length} products:\n`;
+            context += products.join(', ');
+            context += '\n';
+        }
+
+        // Product detail page: include description
+        if (productDescription && products.length === 0) {
+            context += `Product Description: ${productDescription}\n`;
+        }
+
+        // Allow up to 2500 chars for full product lists (still reasonable token usage)
+        return context.substring(0, 2500);
+    }
+
+    /**
      * Build prompt for meta description generation
      */
-    buildMetaDescriptionPrompt(url, title, currentMeta) {
-        return `You are an expert SEO copywriter. I will provide you with a URL to analyze, and you need to fetch the page content and generate compelling meta descriptions.
+    buildMetaDescriptionPrompt(url, title, currentMeta, pageContext = '') {
+        return `You are an expert SEO copywriter. Generate compelling meta descriptions based on the page information below.
 
+URL: ${url}
 Page Title: ${title || 'Not provided'}
 Current Meta Description: ${currentMeta || 'None'}
 
+${pageContext ? `Page Content Summary:\n${pageContext}\n` : ''}
+
 Instructions:
-1. Fetch and analyze the webpage content from the URL I'm providing
-2. Identify the main products, services, or topics on the page
+1. Analyze the page information provided above
+2. Identify the main products, services, or topics
 3. Extract key features, benefits, and selling points
 
 Requirements for meta descriptions:

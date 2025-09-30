@@ -766,8 +766,49 @@
         </div>
     </div>
 
+    <!-- AI Prompt Preview Modal -->
+    <div class="modal fade" id="aiPromptPreviewModal" tabindex="-1" style="z-index: 1070;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-edit"></i> AI Prompt Preview & Edit
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="promptLoading" class="text-center py-5">
+                        <div class="loading-spinner" style="width: 50px; height: 50px; margin: 0 auto;"></div>
+                        <p class="mt-3">Fetching page content and building prompt...</p>
+                    </div>
+
+                    <div id="promptContent" class="hidden">
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-info-circle"></i> Review and edit the prompt before sending to AI. The page content has been automatically extracted.
+                        </p>
+
+                        <div class="mb-3">
+                            <label class="form-label"><strong>AI Prompt:</strong></label>
+                            <textarea class="form-control" id="aiPromptText" rows="15" style="font-family: monospace; font-size: 13px;"></textarea>
+                            <small class="text-muted">You can edit this prompt before sending to AI</small>
+                        </div>
+
+                        <div class="d-flex gap-2 justify-content-end">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                            <button class="btn btn-purple" onclick="app.sendPromptToAI()">
+                                <i class="fas fa-paper-plane"></i> Send to AI
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- AI Suggestions Modal -->
-    <div class="modal fade" id="aiSuggestionsModal" tabindex="-1" style="z-index: 1060;">
+    <div class="modal fade" id="aiSuggestionsModal" tabindex="-1" style="z-index: 1075;">
         <div class="modal-dialog modal-xl">
             <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
                 <div class="modal-header">

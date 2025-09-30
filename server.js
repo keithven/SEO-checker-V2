@@ -1296,8 +1296,8 @@ app.post('/api/detect-mbo', async (req, res) => {
   }
 });
 
-// Generate AI meta description suggestions for a single URL
-app.post('/api/ai/generate-meta', async (req, res) => {
+// Build AI prompt (preview before sending)
+app.post('/api/ai/build-prompt', async (req, res) => {
   const { url, title, currentMeta } = req.body;
 
   if (!url) {
@@ -1305,13 +1305,36 @@ app.post('/api/ai/generate-meta', async (req, res) => {
   }
 
   try {
-    console.log(`Generating AI suggestions for: ${url}`);
+    console.log(`Building AI prompt for: ${url}`);
 
-    const result = await aiService.generateMetaDescriptions({
+    const result = await aiService.buildPromptWithContext({
       url,
       title: title || '',
       currentMeta: currentMeta || ''
-    }, 5);
+    });
+
+    res.json(result);
+  } catch (error) {
+    console.error('Prompt Building Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to build prompt: ' + error.message
+    });
+  }
+});
+
+// Generate AI meta description suggestions with custom prompt
+app.post('/api/ai/generate-meta', async (req, res) => {
+  const { prompt, count } = req.body;
+
+  if (!prompt) {
+    return res.status(400).json({ error: 'Prompt is required' });
+  }
+
+  try {
+    console.log(`Generating AI suggestions with custom prompt`);
+
+    const result = await aiService.generateFromPrompt(prompt, count || 5);
 
     res.json(result);
   } catch (error) {

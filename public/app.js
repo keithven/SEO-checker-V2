@@ -318,17 +318,31 @@ class SEOCheckerV2 {
         this.showNotification('Analysis complete!', 'success');
     }
 
-    renderStats(summary) {
+    renderStats(summary = null) {
         const statsOverview = document.getElementById('statsOverview');
         if (!statsOverview) return;
 
-        // Calculate stats from current results for accuracy
-        const total = this.currentResults?.length || summary.total || 0;
-        const good = this.currentResults?.filter(r => r.status === 'good').length || summary.good || 0;
-        const warning = this.currentResults?.filter(r => r.status === 'warning' || r.status === 'needs_attention').length || summary.warning || 0;
-        const errors = this.currentResults?.filter(r => r.status === 'error').length || summary.error || summary.errors || 0;
-        const withMeta = this.currentResults?.filter(r => r.hasMetaDescription).length || summary.withMetaDescription || 0;
-        const percentageWithMeta = total > 0 ? Math.round((withMeta / total) * 100) : 0;
+        let total, good, warning, errors, withMeta, percentageWithMeta;
+
+        // Always calculate stats from current results for real-time accuracy
+        if (this.currentResults && this.currentResults.length > 0) {
+            total = this.currentResults.length;
+            good = this.currentResults.filter(r => r.status === 'good').length;
+            warning = this.currentResults.filter(r => r.status === 'warning' || r.status === 'needs_attention').length;
+            errors = this.currentResults.filter(r => r.status === 'error').length;
+            withMeta = this.currentResults.filter(r => r.hasMetaDescription).length;
+            percentageWithMeta = total > 0 ? Math.round((withMeta / total) * 100) : 0;
+        } else if (summary) {
+            // Fallback to summary if no currentResults yet
+            total = summary.total || 0;
+            good = summary.good || 0;
+            warning = summary.warning || 0;
+            errors = summary.error || summary.errors || 0;
+            withMeta = summary.withMetaDescription || 0;
+            percentageWithMeta = total > 0 ? Math.round((withMeta / total) * 100) : 0;
+        } else {
+            return; // No data to display
+        }
 
         statsOverview.innerHTML = `
             <div class="col-md-2">
@@ -575,6 +589,80 @@ class SEOCheckerV2 {
         }
     }
 
+    buildUrlTree(results) {
+        const tree = {
+            name: '/',
+            path: '/',
+            children: {},
+            urls: [],
+            stats: { good: 0, warning: 0, error: 0, total: 0 }
+        };
+
+        results.forEach(result => {
+            try {
+                const url = new URL(result.url);
+                const pathParts = url.pathname.split('/').filter(p => p);
+
+                let currentLevel = tree;
+                let currentPath = '';
+
+                pathParts.forEach((part, index) => {
+                    currentPath += '/' + part;
+
+                    if (!currentLevel.children[part]) {
+                        currentLevel.children[part] = {
+                            name: part,
+                            path: currentPath,
+                            children: {},
+                            urls: [],
+                            stats: { good: 0, warning: 0, error: 0, total: 0 }
+                        };
+                    }
+
+                    currentLevel = currentLevel.children[part];
+
+                    // Add URL to the deepest level only
+                    if (index === pathParts.length - 1) {
+                        currentLevel.urls.push(result);
+                    }
+                });
+            } catch (error) {
+                console.error('Error parsing URL:', result.url, error);
+            }
+        });
+
+        // Calculate stats recursively
+        const calculateStats = (node) => {
+            let stats = { good: 0, warning: 0, error: 0, total: 0 };
+
+            node.urls.forEach(url => {
+                const status = url.status;
+                if (status === 'needs_attention') {
+                    stats.warning++;
+                } else if (stats.hasOwnProperty(status)) {
+                    stats[status]++;
+                } else {
+                    stats.warning++;
+                }
+                stats.total++;
+            });
+
+            Object.values(node.children).forEach(child => {
+                const childStats = calculateStats(child);
+                stats.good += childStats.good;
+                stats.warning += childStats.warning;
+                stats.error += childStats.error;
+                stats.total += childStats.total;
+            });
+
+            node.stats = stats;
+            return stats;
+        };
+
+        calculateStats(tree);
+        return tree;
+    }
+
     renderTreeView() {
         const treeRoot = document.getElementById('treeRoot');
         if (!treeRoot || !this.currentTree) return;
@@ -654,6 +742,12 @@ class SEOCheckerV2 {
         const statusFilter = document.getElementById('statusFilter')?.value || '';
         const reviewFilter = document.getElementById('reviewStatusFilter')?.value || '';
 
+        // Rebuild tree structure from updated results
+        this.currentTree = this.buildUrlTree(this.currentResults);
+
+        const treeView = document.getElementById('treeViewContainer');
+        const isTreeViewActive = treeView && !treeView.classList.contains('hidden');
+
         let filtered = this.currentResults.filter(result => {
             // Search filter
             if (searchTerm && !result.url.toLowerCase().includes(searchTerm)) {
@@ -690,6 +784,11 @@ class SEOCheckerV2 {
         this.filteredResults = filtered;
         this.updateTabCounts();
         this.renderResults();
+
+        // If tree view is active, refresh it to show updated statuses
+        if (isTreeViewActive && this.currentTree) {
+            this.renderTreeView();
+        }
     }
 
     updateTabCounts() {
@@ -864,6 +963,32 @@ class SEOCheckerV2 {
         countSpan.textContent = `(${charCount} chars - Optimal: 120-160)`;
     }
 
+    updateTitleCharCount() {
+        const textarea = document.getElementById('modalTitle');
+        const countSpan = document.getElementById('titleCharCount');
+
+        if (!textarea || !countSpan) return;
+
+        const charCount = textarea.value.length;
+        const isOptimal = charCount >= 50 && charCount <= 60;
+        const hasContent = charCount > 0;
+
+        // Update count and color
+        let colorClass = 'text-muted';
+        if (isOptimal) {
+            colorClass = 'text-success';
+        } else if (!hasContent) {
+            colorClass = 'text-danger';
+        }
+
+        // Remove old color classes
+        countSpan.classList.remove('text-success', 'text-muted', 'text-danger');
+        countSpan.classList.add(colorClass);
+
+        // Update text
+        countSpan.textContent = `${charCount} characters ${isOptimal ? '✓' : '(Optimal: 50-60)'}`;
+    }
+
     showNotification(message, type = 'info') {
         // Simple toast notification
         const toast = document.createElement('div');
@@ -888,16 +1013,17 @@ class SEOCheckerV2 {
     // AI Methods
 
     async generateAISuggestions(url, title, currentMeta) {
-        const modal = new bootstrap.Modal(document.getElementById('aiSuggestionsModal'));
-        modal.show();
+        // First, show prompt preview modal
+        const promptModal = new bootstrap.Modal(document.getElementById('aiPromptPreviewModal'));
+        promptModal.show();
 
-        // Show loading state
-        document.getElementById('aiLoadingState').classList.remove('hidden');
-        document.getElementById('aiSuggestionsContent').classList.add('hidden');
-        document.getElementById('aiErrorState').classList.add('hidden');
+        // Show loading state while building prompt
+        document.getElementById('promptLoading').classList.remove('hidden');
+        document.getElementById('promptContent').classList.add('hidden');
 
         try {
-            const response = await fetch('/api/ai/generate-meta', {
+            // Build the prompt first
+            const response = await fetch('/api/ai/build-prompt', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -910,7 +1036,60 @@ class SEOCheckerV2 {
             const data = await response.json();
 
             if (data.success) {
-                this.displayAISuggestions(data, url, currentMeta);
+                // Hide loading, show prompt editor
+                document.getElementById('promptLoading').classList.add('hidden');
+                document.getElementById('promptContent').classList.remove('hidden');
+
+                // Fill in the prompt textarea
+                document.getElementById('aiPromptText').value = data.prompt;
+
+                // Store data for later use
+                window.currentAIPromptData = { url, currentMeta };
+            } else {
+                throw new Error(data.error || 'Failed to build prompt');
+            }
+        } catch (error) {
+            document.getElementById('promptLoading').classList.add('hidden');
+            alert('Error building prompt: ' + error.message);
+            promptModal.hide();
+        }
+    }
+
+    async sendPromptToAI() {
+        const prompt = document.getElementById('aiPromptText').value;
+
+        if (!prompt.trim()) {
+            alert('Please enter a prompt');
+            return;
+        }
+
+        // Close prompt modal
+        const promptModal = bootstrap.Modal.getInstance(document.getElementById('aiPromptPreviewModal'));
+        promptModal.hide();
+
+        // Open AI suggestions modal
+        const suggestionsModal = new bootstrap.Modal(document.getElementById('aiSuggestionsModal'));
+        suggestionsModal.show();
+
+        // Show loading state
+        document.getElementById('aiLoadingState').classList.remove('hidden');
+        document.getElementById('aiSuggestionsContent').classList.add('hidden');
+        document.getElementById('aiErrorState').classList.add('hidden');
+
+        try {
+            const response = await fetch('/api/ai/generate-meta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    prompt,
+                    count: 5
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                this.displayAISuggestions(data, window.currentAIPromptData.url, window.currentAIPromptData.currentMeta);
             } else {
                 throw new Error(data.error || 'Failed to generate suggestions');
             }
@@ -1130,6 +1309,7 @@ class SEOCheckerV2 {
 
             // Re-render current view to show updated status
             this.applyFilters();
+            this.renderStats(); // Update stats cards
 
             this.showNotification(`Marked as ${newStatus.replace('_', ' ')}`, 'success');
         } catch (error) {
@@ -1248,6 +1428,7 @@ class SEOCheckerV2 {
 
             // Re-render the current view
             this.applyFilters();
+            this.renderStats(); // Update stats cards after rescan
 
             // Reload modal content if modal is open
             if (isModalOpen) {
@@ -1613,8 +1794,8 @@ class SEOCheckerV2 {
 
                         <div class="mb-3">
                             <label class="form-label fw-bold">Page Title</label>
-                            <textarea class="form-control" rows="2" id="modalTitle">${result.title || ''}</textarea>
-                            <small class="text-muted">${(result.title || '').length} characters</small>
+                            <textarea class="form-control" rows="2" id="modalTitle" oninput="app.updateTitleCharCount()">${result.title || ''}</textarea>
+                            <small id="titleCharCount" class="text-muted">${(result.title || '').length} characters (Optimal: 50-60)</small>
                         </div>
 
                         <div class="mb-3">
@@ -1742,27 +1923,50 @@ class SEOCheckerV2 {
                 <!-- Left Column: Details -->
                 <div class="col-md-7">
                     <div class="mb-4">
-                        <h6 class="border-bottom pb-2"><i class="fas fa-heading"></i> Page Title</h6>
-                        <textarea class="form-control" rows="2" id="modalTitle">${result.title || ''}</textarea>
-                        <small class="text-muted">${(result.title || '').length} characters</small>
-                    </div>
-
-                    <div class="mb-4">
-                        <h6 class="border-bottom pb-2"><i class="fas fa-file-alt"></i> Meta Description</h6>
-                        <textarea class="form-control" rows="4" id="modalMetaDescription">${result.metaDescription || ''}</textarea>
-                        <small class="${charCountClass}">${charCount} characters ${charCount >= 120 && charCount <= 160 ? '✓' : '(Aim for 120-160)'}</small>
-                    </div>
-
-                    ${result.issues && result.issues.length > 0 ? `
-                        <div class="mb-4">
-                            <h6 class="border-bottom pb-2"><i class="fas fa-exclamation-triangle"></i> Issues</h6>
-                            <div class="alert alert-warning">
-                                <ul class="mb-0">
-                                    ${result.issues.map(issue => `<li>${issue}</li>`).join('')}
-                                </ul>
+                        <h6 class="border-bottom pb-2"><i class="fas fa-link"></i> URL Details</h6>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Page URL</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="${result.url}" readonly>
+                                <a href="${result.url}" target="_blank" class="btn btn-outline-secondary">
+                                    <i class="fas fa-external-link-alt"></i> Visit
+                                </a>
                             </div>
                         </div>
-                    ` : '<div class="alert alert-success"><i class="fas fa-check-circle"></i> No issues found</div>'}
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Page Title</label>
+                            <textarea class="form-control" rows="2" id="modalTitle" oninput="app.updateTitleCharCount()">${result.title || ''}</textarea>
+                            <small id="titleCharCount" class="text-muted">${(result.title || '').length} characters (Optimal: 50-60)</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                Meta Description
+                                <span id="metaCharCount" class="${charCountClass}">(${charCount} chars - Optimal: 120-160)</span>
+                            </label>
+                            <textarea class="form-control" rows="3" id="modalMetaDescription" oninput="app.updateMetaCharCount()">${result.metaDescription || ''}</textarea>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="app.copyToClipboard(document.getElementById('modalMetaDescription').value, this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="btn btn-sm btn-purple" onclick="app.generateAISuggestions('${result.url}', document.getElementById('modalTitle').value, document.getElementById('modalMetaDescription').value)">
+                                    <i class="fas fa-robot"></i> AI Suggestions
+                                </button>
+                            </div>
+                        </div>
+
+                        ${result.issues && result.issues.length > 0 ? `
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-danger">
+                                    <i class="fas fa-exclamation-triangle"></i> Issues Found (${result.issues.length})
+                                </label>
+                                <ul class="list-group">
+                                    ${result.issues.map(issue => `<li class="list-group-item list-group-item-danger">${issue}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : '<div class="alert alert-success"><i class="fas fa-check-circle"></i> No issues found</div>'}
+                    </div>
                 </div>
 
                 <!-- Right Column: Actions & SEO Tips -->
@@ -1976,6 +2180,7 @@ class SEOCheckerV2 {
 
             // Update the display
             this.applyFilters();
+            this.renderStats(); // Update stats cards
 
             // Show success
             button.innerHTML = '<i class="fas fa-check"></i> Saved!';
