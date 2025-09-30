@@ -327,11 +327,25 @@ export class WebCrawler {
 
       const html = await page.content();
 
+      // Extract visible body text for AI analysis
+      const bodyText = await page.evaluate(() => {
+        // Remove script, style, and other non-visible elements
+        const clone = document.body.cloneNode(true);
+        const scripts = clone.querySelectorAll('script, style, noscript, iframe');
+        scripts.forEach(el => el.remove());
+
+        // Get text content and clean it up
+        return clone.innerText
+          .replace(/\s+/g, ' ') // Replace multiple spaces with single space
+          .trim();
+      });
+
       await page.close();
 
       return {
         url,
         html,
+        bodyText,
         status: response ? response.status() : 200,
         contentType: response ? response.headers()['content-type'] : 'text/html',
         success: true,

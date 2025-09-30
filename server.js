@@ -110,7 +110,13 @@ async function saveScanResults(sitemapUrl, results) {
     const filename = `scan-results-${hash}.json`;
     const filePath = path.join(__dirname, 'data-v2', filename);
 
-    await fs.writeFile(filePath, JSON.stringify(results, null, 2));
+    // Add sitemapUrl to each result so we can identify which scan it belongs to
+    const resultsWithSitemap = results.map(r => ({
+      ...r,
+      sitemapUrl: sitemapUrl
+    }));
+
+    await fs.writeFile(filePath, JSON.stringify(resultsWithSitemap, null, 2));
     return true;
   } catch (error) {
     console.error('Error saving scan results:', error);
@@ -225,32 +231,50 @@ function buildUrlTree(results) {
 
         currentLevel = currentLevel.children[part];
 
-        // Add URL to the deepest level
+        // Add URL to the deepest level only
         if (index === pathParts.length - 1) {
           currentLevel.urls.push(result);
-          currentLevel.stats.total++;
-          currentLevel.stats[result.status]++;
         }
       });
 
-      // Update parent stats
-      currentPath = '';
-      currentLevel = tree;
-      pathParts.forEach(part => {
-        currentPath += '/' + part;
-        if (currentLevel.children[part]) {
-          currentLevel.children[part].stats.total++;
-          currentLevel.children[part].stats[result.status]++;
-          currentLevel = currentLevel.children[part];
-        }
-      });
-
-      tree.stats.total++;
-      tree.stats[result.status]++;
     } catch (error) {
       console.error('Error parsing URL:', result.url, error);
     }
   });
+
+  // Second pass: recursively calculate stats from bottom up
+  function calculateStats(node) {
+    let stats = { good: 0, warning: 0, error: 0, total: 0 };
+
+    // Add stats from direct URLs at this node
+    node.urls.forEach(url => {
+      const status = url.status;
+      // Map old 'needs_attention' status to 'warning' for consistency
+      if (status === 'needs_attention') {
+        stats.warning++;
+      } else if (stats.hasOwnProperty(status)) {
+        stats[status]++;
+      } else {
+        // Unknown status, treat as warning
+        stats.warning++;
+      }
+      stats.total++;
+    });
+
+    // Recursively add stats from child nodes
+    Object.values(node.children).forEach(child => {
+      const childStats = calculateStats(child);
+      stats.good += childStats.good;
+      stats.warning += childStats.warning;
+      stats.error += childStats.error;
+      stats.total += childStats.total;
+    });
+
+    node.stats = stats;
+    return stats;
+  }
+
+  calculateStats(tree);
 
   return tree;
 }
@@ -525,6 +549,133 @@ app.post('/api/analyze', async (req, res) => {
   }
 });
 
+// Selective scan endpoint - scan only selected URLs
+app.post('/api/selective-scan', async (req, res) => {
+  const { urls, sitemapUrl, options = {} } = req.body;
+
+  if (!urls || !Array.isArray(urls) || urls.length === 0) {
+    return res.status(400).json({ error: 'URLs array is required' });
+  }
+
+  if (!sitemapUrl) {
+    return res.status(400).json({ error: 'Sitemap URL is required for saving results' });
+  }
+
+  if (activeAnalysis) {
+    return res.status(429).json({ error: 'Analysis already in progress' });
+  }
+
+  const analysisId = Date.now().toString();
+  activeAnalysis = analysisId;
+
+  res.json({ analysisId, status: 'started' });
+
+  try {
+    const emit = (event, data) => io.emit(event, { analysisId, ...data });
+
+    emit('progress', {
+      step: 'starting',
+      message: `Starting selective scan of ${urls.length} URLs...`
+    });
+
+    const crawler = new WebCrawler({
+      delay: parseInt(options.delay) || 1000,
+      timeout: parseInt(options.timeout) || 10000,
+      usePuppeteer: options.enableMboDetection === 'true' || options.enableMboDetection === true
+    });
+
+    // Crawl the selected URLs
+    const crawlResults = await crawler.crawlUrls(urls, (progress) => {
+      emit('crawl-progress', {
+        current: progress.current,
+        total: urls.length,
+        percentage: Math.round((progress.current / urls.length) * 100),
+        url: progress.url
+      });
+    });
+
+    emit('progress', { step: 'analyzing', message: 'Analyzing meta descriptions...' });
+
+    const metaExtractor = new MetaExtractor();
+    const analysisResults = metaExtractor.processPages(crawlResults);
+
+    // Load existing scan results and reviews
+    const existingResults = await loadScanResults(sitemapUrl);
+    const reviews = await loadUrlReviews();
+
+    // Update reviews with new scan data
+    const updatedReviews = { ...reviews };
+    analysisResults.forEach(result => {
+      const existingReview = updatedReviews[result.url] || {};
+      updatedReviews[result.url] = {
+        ...existingReview,
+        seoStatus: result.status,
+        hasIssues: result.issues && result.issues.length > 0,
+        lastAnalyzed: new Date().toISOString()
+      };
+    });
+
+    await saveUrlReviews(updatedReviews);
+
+    // Merge with existing results
+    const existingUrlsMap = {};
+    existingResults.forEach(result => {
+      existingUrlsMap[result.url] = result;
+    });
+
+    // Add timestamp and merge
+    const crawlTimestamp = new Date().toISOString();
+    const timestampedResults = analysisResults.map(result => {
+      const oldResult = existingUrlsMap[result.url];
+      const review = updatedReviews[result.url];
+
+      return {
+        ...result,
+        lastCrawled: crawlTimestamp,
+        reviewStatus: review?.status || 'new',
+        assignee: review?.assignee || null,
+        notes: review?.notes || null,
+        lastReviewed: review?.lastReviewed || null,
+        hasChanged: oldResult && oldResult.metaDescription !== result.metaDescription,
+        changeType: oldResult ? (oldResult.metaDescription !== result.metaDescription ? 'modified' : null) : 'new'
+      };
+    });
+
+    // Update existing results with new scans
+    const finalResults = [...existingResults];
+    timestampedResults.forEach(newResult => {
+      const index = finalResults.findIndex(r => r.url === newResult.url);
+      if (index !== -1) {
+        finalResults[index] = newResult;
+      } else {
+        finalResults.push(newResult);
+      }
+    });
+
+    // Save updated results
+    await saveScanResults(sitemapUrl, finalResults);
+
+    emit('complete', {
+      results: {
+        results: finalResults,
+        scanType: 'selective',
+        scannedUrls: urls.length,
+        tree: buildUrlTree(finalResults)
+      },
+      summary: generateQuickSummary(finalResults)
+    });
+
+  } catch (error) {
+    io.emit('error', {
+      analysisId,
+      error: error.message,
+      details: error.stack
+    });
+  } finally {
+    activeAnalysis = null;
+  }
+});
+
 // NEW V2 ENDPOINT: Detect duplicate meta descriptions
 app.post('/api/detect-duplicates', async (req, res) => {
   const { sitemapUrl } = req.body;
@@ -712,6 +863,62 @@ app.get('/api/change-history', async (req, res) => {
   }
 });
 
+app.get('/api/saved-scans', async (req, res) => {
+  try {
+    const dataDir = path.join(__dirname, 'data-v2');
+
+    // Check if data directory exists
+    try {
+      await fs.access(dataDir);
+    } catch {
+      return res.json({ scans: [] });
+    }
+
+    // Read all files in data directory
+    const files = await fs.readdir(dataDir);
+    const scanFiles = files.filter(f => f.startsWith('scan-results-') && f.endsWith('.json'));
+
+    // Read metadata from each scan file
+    const scans = await Promise.all(scanFiles.map(async (file) => {
+      try {
+        const filePath = path.join(dataDir, file);
+        const data = await fs.readFile(filePath, 'utf8');
+        const results = JSON.parse(data);
+
+        // Extract sitemap URL from first result if available
+        const sitemapUrl = results.length > 0 && results[0].sitemapUrl ? results[0].sitemapUrl : null;
+
+        // Get file stats for timestamp
+        const stats = await fs.stat(filePath);
+
+        return {
+          id: file.replace('scan-results-', '').replace('.json', ''),
+          sitemapUrl,
+          filename: file,
+          totalUrls: results.length,
+          lastScanned: stats.mtime,
+          goodCount: results.filter(r => r.status === 'good').length,
+          warningCount: results.filter(r => r.status === 'warning').length,
+          errorCount: results.filter(r => r.status === 'error').length
+        };
+      } catch (error) {
+        console.error(`Error reading scan file ${file}:`, error);
+        return null;
+      }
+    }));
+
+    // Filter out nulls and sort by last scanned
+    const validScans = scans.filter(s => s !== null).sort((a, b) =>
+      new Date(b.lastScanned) - new Date(a.lastScanned)
+    );
+
+    res.json({ scans: validScans });
+  } catch (error) {
+    console.error('Error listing saved scans:', error);
+    res.status(500).json({ error: 'Failed to list saved scans' });
+  }
+});
+
 app.get('/api/scan-results', async (req, res) => {
   const { sitemapUrl } = req.query;
 
@@ -741,6 +948,119 @@ app.get('/api/scan-results', async (req, res) => {
   } catch (error) {
     console.error('Error loading scan results:', error);
     res.status(500).json({ error: 'Failed to load scan results' });
+  }
+});
+
+app.post('/api/scan-results/update', async (req, res) => {
+  const { sitemapUrl, url, title, metaDescription } = req.body;
+
+  if (!sitemapUrl || !url) {
+    return res.status(400).json({ error: 'Sitemap URL and URL are required' });
+  }
+
+  try {
+    // Load existing results
+    const results = await loadScanResults(sitemapUrl);
+
+    // Find and update the specific URL
+    const index = results.findIndex(r => r.url === url);
+    if (index === -1) {
+      return res.status(404).json({ error: 'URL not found in scan results' });
+    }
+
+    // Update the result
+    results[index].title = title;
+    results[index].metaDescription = metaDescription;
+    results[index].characterCount = metaDescription ? metaDescription.length : 0;
+
+    // Recalculate status
+    const charCount = results[index].characterCount;
+    if (!metaDescription || charCount === 0) {
+      results[index].status = 'error';
+      results[index].issues = ['Missing meta description'];
+    } else if (charCount >= 120 && charCount <= 160) {
+      results[index].status = 'good';
+      results[index].issues = [];
+    } else if (charCount < 120) {
+      results[index].status = 'warning';
+      results[index].issues = ['Meta description too short (aim for 120-160 characters)'];
+    } else {
+      results[index].status = 'warning';
+      results[index].issues = ['Meta description too long (aim for 120-160 characters)'];
+    }
+
+    results[index].lastModified = new Date().toISOString();
+
+    // Save back to file
+    await saveScanResults(sitemapUrl, results);
+
+    res.json({
+      success: true,
+      message: 'URL updated successfully',
+      result: results[index]
+    });
+  } catch (error) {
+    console.error('Error updating scan results:', error);
+    res.status(500).json({ error: 'Failed to update scan results' });
+  }
+});
+
+app.post('/api/sitemap/all-urls', async (req, res) => {
+  const { sitemapUrl } = req.body;
+
+  if (!sitemapUrl) {
+    return res.status(400).json({ error: 'Sitemap URL is required' });
+  }
+
+  try {
+    const sitemapParser = new SitemapParser();
+    const allUrls = await sitemapParser.getAllUrls(sitemapUrl);
+    const reviews = await loadUrlReviews();
+
+    // Load scan results to determine which URLs have been scanned
+    let scanResults = [];
+    try {
+      scanResults = await loadScanResults(sitemapUrl);
+    } catch (error) {
+      // No scan results available yet - that's okay
+    }
+
+    // Create a lookup map for scan results
+    const scanResultsMap = {};
+    scanResults.forEach(result => {
+      scanResultsMap[result.url] = result;
+    });
+
+    // Map all URLs with their scan status
+    const urlsWithStatus = allUrls.map(url => {
+      const scanResult = scanResultsMap[url];
+      const review = reviews[url];
+
+      return {
+        url,
+        isScanned: !!scanResult,
+        scanData: scanResult || null,
+        reviewStatus: review?.status || 'new',
+        assignee: review?.assignee || null,
+        notes: review?.notes || null,
+        lastScanned: scanResult?.lastAnalyzed || null,
+        lastReviewed: review?.lastReviewed || null,
+        seoStatus: scanResult?.status || null
+      };
+    });
+
+    const scannedCount = urlsWithStatus.filter(u => u.isScanned).length;
+    const unscannedCount = urlsWithStatus.length - scannedCount;
+
+    res.json({
+      urls: urlsWithStatus,
+      total: urlsWithStatus.length,
+      scanned: scannedCount,
+      unscanned: unscannedCount
+    });
+  } catch (error) {
+    console.error('Error fetching sitemap URLs:', error);
+    res.status(500).json({ error: 'Failed to fetch sitemap URLs' });
   }
 });
 
@@ -978,18 +1298,19 @@ app.post('/api/detect-mbo', async (req, res) => {
 
 // Generate AI meta description suggestions for a single URL
 app.post('/api/ai/generate-meta', async (req, res) => {
-  const { url, title, currentMeta, content } = req.body;
+  const { url, title, currentMeta } = req.body;
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
   }
 
   try {
+    console.log(`Generating AI suggestions for: ${url}`);
+
     const result = await aiService.generateMetaDescriptions({
       url,
       title: title || '',
-      currentMeta: currentMeta || '',
-      content: content || ''
+      currentMeta: currentMeta || ''
     }, 5);
 
     res.json(result);

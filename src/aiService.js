@@ -20,9 +20,9 @@ export class AIService {
      * @returns {Promise<Array>} Array of suggested meta descriptions
      */
     async generateMetaDescriptions(pageData, count = 5) {
-        const { url, title, currentMeta, content } = pageData;
+        const { url, title, currentMeta } = pageData;
 
-        const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta, content);
+        const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta);
 
         try {
             const response = await this.client.messages.create({
@@ -31,7 +31,16 @@ export class AIService {
                 temperature: this.temperature,
                 messages: [{
                     role: 'user',
-                    content: prompt
+                    content: [
+                        {
+                            type: 'text',
+                            text: prompt
+                        },
+                        {
+                            type: 'url',
+                            url: url
+                        }
+                    ]
                 }]
             });
 
@@ -102,21 +111,30 @@ export class AIService {
     /**
      * Build prompt for meta description generation
      */
-    buildMetaDescriptionPrompt(url, title, currentMeta, content) {
-        return `You are an expert SEO copywriter. Generate compelling meta descriptions for a webpage.
+    buildMetaDescriptionPrompt(url, title, currentMeta) {
+        return `You are an expert SEO copywriter. I will provide you with a URL to analyze, and you need to fetch the page content and generate compelling meta descriptions.
 
-URL: ${url}
 Page Title: ${title || 'Not provided'}
 Current Meta Description: ${currentMeta || 'None'}
 
-Requirements:
+Instructions:
+1. Fetch and analyze the webpage content from the URL I'm providing
+2. Identify the main products, services, or topics on the page
+3. Extract key features, benefits, and selling points
+
+Requirements for meta descriptions:
 - Length: 120-160 characters (optimal for Google search results)
-- Include relevant keywords naturally
+- Target keyword: "vape" - include this naturally where relevant
+- Include other relevant keywords based on the actual page content you fetched
 - Create urgency or curiosity to increase click-through rate
-- Be specific and accurate to page content
+- Be specific and accurate to the page content
 - Include a call-to-action when appropriate
 - Avoid duplicate content from the title
 - Write in an engaging, human tone
+- DO NOT repeat words unnecessarily - keep language clean and concise
+- Each description must be unique with varied vocabulary
+- Avoid redundant phrases or filler words
+- Use British English spelling (e.g., "flavour" not "flavor", "vapour" not "vapor", "customise" not "customize")
 
 Generate 5 different meta description options with different approaches:
 1. Benefit-focused (emphasize user value)

@@ -8,6 +8,12 @@ class SEOCheckerV2 {
         this.hideDone = false;
         this.theme = localStorage.getItem('theme') || 'light';
         this.mboSession = null;
+        this.selectiveUrls = [];
+        this.filteredSelectiveUrls = [];
+        this.selectedSelectiveUrls = new Set();
+
+        // AI Cost Tracking
+        this.loadAICostTracking();
 
         this.initializeTheme();
         this.loadMboSession();
@@ -75,6 +81,20 @@ class SEOCheckerV2 {
         document.getElementById('saveMboTokenBtn')?.addEventListener('click', this.saveManualMboToken.bind(this));
         document.getElementById('clearMboBtn')?.addEventListener('click', this.clearMboSession.bind(this));
 
+        // Saved scan selector
+        document.getElementById('savedScanSelector')?.addEventListener('change', this.handleSavedScanSelection.bind(this));
+
+        // Load saved scans on init
+        this.loadSavedScans();
+
+        // Selective scan
+        document.getElementById('selectiveScanBtn')?.addEventListener('click', this.showSelectiveScanModal.bind(this));
+        document.getElementById('selectAllUnscannedBtn')?.addEventListener('click', this.selectAllUnscanned.bind(this));
+        document.getElementById('selectNoneSelectiveBtn')?.addEventListener('click', this.selectNoneSelective.bind(this));
+        document.getElementById('scanSelectedBtn')?.addEventListener('click', this.scanSelectedUrls.bind(this));
+        document.getElementById('selectiveSearchFilter')?.addEventListener('input', this.filterSelectiveUrls.bind(this));
+        document.getElementById('selectiveScanFilter')?.addEventListener('change', this.filterSelectiveUrls.bind(this));
+
         // Filters
         document.getElementById('searchFilter')?.addEventListener('input', this.applyFilters.bind(this));
         document.getElementById('statusFilter')?.addEventListener('change', this.applyFilters.bind(this));
@@ -103,19 +123,52 @@ class SEOCheckerV2 {
                 document.body.classList.remove('modal-open');
             });
         }
+
+        // Save URL changes button
+        document.getElementById('saveUrlChanges')?.addEventListener('click', this.saveUrlChanges.bind(this));
+
+        // Review status button delegation
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.review-status-btn');
+            if (btn) {
+                const buttonGroup = btn.closest('.review-status-buttons');
+                const url = buttonGroup.dataset.url;
+                const status = btn.dataset.status;
+                this.handleReviewStatusClick(url, status, buttonGroup);
+            }
+        });
     }
 
     setupSocketListeners() {
         this.socket.on('progress', (data) => {
-            this.updateProgress(data);
+            // Check if selective scan modal is open
+            const selectiveModal = document.getElementById('selectiveScanModal');
+            if (selectiveModal && selectiveModal.classList.contains('show')) {
+                // Update selective scan progress
+                this.updateSelectiveProgress(data);
+            } else {
+                this.updateProgress(data);
+            }
         });
 
         this.socket.on('crawl-progress', (data) => {
-            this.updateCrawlProgress(data);
+            // Check if selective scan modal is open
+            const selectiveModal = document.getElementById('selectiveScanModal');
+            if (selectiveModal && selectiveModal.classList.contains('show')) {
+                // Update selective scan crawl progress
+                this.updateSelectiveCrawlProgress(data);
+            } else {
+                this.updateCrawlProgress(data);
+            }
         });
 
         this.socket.on('complete', (data) => {
-            this.displayResults(data);
+            // Check if this is a selective scan completion
+            if (data.results && data.results.scanType === 'selective') {
+                this.handleSelectiveScanComplete(data);
+            } else {
+                this.displayResults(data);
+            }
         });
 
         this.socket.on('error', (data) => {
@@ -269,51 +322,95 @@ class SEOCheckerV2 {
         const statsOverview = document.getElementById('statsOverview');
         if (!statsOverview) return;
 
-        const total = summary.total || 0;
-        const good = summary.good || 0;
-        const warning = summary.warning || 0;
-        const errors = summary.error || summary.errors || 0;
-        const withMeta = summary.withMetaDescription || 0;
-        const percentageWithMeta = summary.percentageWithMeta || 0;
+        // Calculate stats from current results for accuracy
+        const total = this.currentResults?.length || summary.total || 0;
+        const good = this.currentResults?.filter(r => r.status === 'good').length || summary.good || 0;
+        const warning = this.currentResults?.filter(r => r.status === 'warning' || r.status === 'needs_attention').length || summary.warning || 0;
+        const errors = this.currentResults?.filter(r => r.status === 'error').length || summary.error || summary.errors || 0;
+        const withMeta = this.currentResults?.filter(r => r.hasMetaDescription).length || summary.withMetaDescription || 0;
+        const percentageWithMeta = total > 0 ? Math.round((withMeta / total) * 100) : 0;
 
         statsOverview.innerHTML = `
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" onclick="app.filterByStatCard('all')" style="cursor: pointer;">
                     <span class="stat-number">${total}</span>
                     <span class="stat-label">Total URLs</span>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" onclick="app.filterByStatCard('good')" style="cursor: pointer;">
                     <span class="stat-number status-good">${good}</span>
                     <span class="stat-label">Good</span>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" onclick="app.filterByStatCard('warning')" style="cursor: pointer;">
                     <span class="stat-number status-warning">${warning}</span>
                     <span class="stat-label">Warnings</span>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" onclick="app.filterByStatCard('error')" style="cursor: pointer;">
                     <span class="stat-number status-error">${errors}</span>
                     <span class="stat-label">Errors</span>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" onclick="app.filterByStatCard('withMeta')" style="cursor: pointer;">
                     <span class="stat-number">${withMeta}</span>
                     <span class="stat-label">With Meta</span>
                 </div>
             </div>
             <div class="col-md-2">
-                <div class="stat-card-v2">
+                <div class="stat-card-v2" style="cursor: default;">
                     <span class="stat-number">${percentageWithMeta}%</span>
                     <span class="stat-label">Coverage</span>
                 </div>
             </div>
         `;
+    }
+
+    filterByStatCard(filterType) {
+        if (!this.currentResults) return;
+
+        // Switch to "All Items" view
+        this.currentView = 'all';
+        document.querySelectorAll('.view-mode-tab').forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.dataset.view === 'all') {
+                tab.classList.add('active');
+            }
+        });
+
+        // Apply the filter
+        if (filterType === 'all') {
+            this.filteredResults = this.currentResults;
+        } else if (filterType === 'good') {
+            this.filteredResults = this.currentResults.filter(r => r.status === 'good');
+        } else if (filterType === 'warning') {
+            this.filteredResults = this.currentResults.filter(r => r.status === 'warning' || r.status === 'needs_attention');
+        } else if (filterType === 'error') {
+            this.filteredResults = this.currentResults.filter(r => r.status === 'error');
+        } else if (filterType === 'withMeta') {
+            this.filteredResults = this.currentResults.filter(r => r.hasMetaDescription);
+        }
+
+        // Show list view
+        document.getElementById('treeViewContainer')?.classList.add('hidden');
+        document.getElementById('resultsList')?.classList.remove('hidden');
+
+        // Render filtered results
+        this.renderResults(this.filteredResults);
+
+        // Show notification
+        const labels = {
+            all: 'all URLs',
+            good: 'URLs with good status',
+            warning: 'URLs with warnings',
+            error: 'URLs with errors',
+            withMeta: 'URLs with meta descriptions'
+        };
+        this.showNotification(`Showing ${labels[filterType]} (${this.filteredResults.length})`, 'info');
     }
 
     renderCharacterHistogram() {
@@ -473,6 +570,7 @@ class SEOCheckerV2 {
         } else {
             treeView?.classList.add('hidden');
             resultsList?.classList.remove('hidden');
+            // Always re-apply filters when switching to a list view
             this.applyFilters();
         }
     }
@@ -509,6 +607,7 @@ class SEOCheckerV2 {
         let html = '';
 
         if (level > 0) {
+            const total = node.stats.good + node.stats.warning + node.stats.error;
             html += `
                 <div class="tree-node">
                     <div class="tree-node-header">
@@ -517,9 +616,12 @@ class SEOCheckerV2 {
                         </span>
                         <span class="tree-node-name">${node.name}</span>
                         <div class="tree-node-stats">
-                            <span class="tree-node-stat bg-good">${node.stats.good}</span>
-                            <span class="tree-node-stat bg-warning">${node.stats.warning}</span>
-                            <span class="tree-node-stat bg-error">${node.stats.error}</span>
+                            <span class="badge bg-secondary" style="font-size: 0.75rem;">
+                                ${total} URL${total !== 1 ? 's' : ''}
+                            </span>
+                            ${node.stats.good > 0 ? `<span class="badge bg-success" style="font-size: 0.75rem;" title="${node.stats.good} good"><i class="fas fa-check"></i> ${node.stats.good}</span>` : ''}
+                            ${node.stats.warning > 0 ? `<span class="badge bg-warning" style="font-size: 0.75rem;" title="${node.stats.warning} warnings"><i class="fas fa-exclamation-triangle"></i> ${node.stats.warning}</span>` : ''}
+                            ${node.stats.error > 0 ? `<span class="badge bg-danger" style="font-size: 0.75rem;" title="${node.stats.error} errors"><i class="fas fa-times"></i> ${node.stats.error}</span>` : ''}
                         </div>
                     </div>
                     <div class="tree-children">
@@ -586,7 +688,34 @@ class SEOCheckerV2 {
         });
 
         this.filteredResults = filtered;
+        this.updateTabCounts();
         this.renderResults();
+    }
+
+    updateTabCounts() {
+        if (!this.currentResults) return;
+
+        // Count items for "All Items" view (respects filters including hide done)
+        const allItemsCount = this.filteredResults.length;
+
+        // Count items needing attention (warning or error, regardless of review status)
+        const needsAttentionCount = this.currentResults.filter(r =>
+            r.status === 'warning' || r.status === 'error' || r.status === 'needs_attention'
+        ).length;
+
+        // Count items marked as in progress
+        const inProgressCount = this.currentResults.filter(r =>
+            r.reviewStatus === 'in_progress'
+        ).length;
+
+        // Update badges
+        const allBadge = document.getElementById('allItemsCount');
+        const needsAttentionBadge = document.getElementById('needsAttentionCount');
+        const inProgressBadge = document.getElementById('inProgressCount');
+
+        if (allBadge) allBadge.textContent = allItemsCount;
+        if (needsAttentionBadge) needsAttentionBadge.textContent = needsAttentionCount;
+        if (inProgressBadge) inProgressBadge.textContent = inProgressCount;
     }
 
     toggleHideDone() {
@@ -633,7 +762,7 @@ class SEOCheckerV2 {
                     </div>
                     <div class="d-flex flex-column gap-1 align-items-end" style="flex-shrink: 0; margin-left: 10px;">
                         <span class="badge bg-${statusClass}">${result.status}</span>
-                        <span class="badge bg-secondary">${result.reviewStatus || 'new'}</span>
+                        <span class="badge bg-${(result.reviewStatus || 'new') === 'reviewed' ? 'success' : 'secondary'}">${(result.reviewStatus || 'new') === 'reviewed' ? '<i class="fas fa-check"></i> ' : ''}${result.reviewStatus || 'new'}</span>
                         ${result.hasChanged ? `<span class="badge bg-info"><i class="fas fa-history"></i> Changed</span>` : ''}
                         ${result.changeType === 'new' ? `<span class="badge bg-success"><i class="fas fa-plus"></i> New</span>` : ''}
                         ${result.issues && result.issues.length > 0 ? `<span class="badge bg-danger">${result.issues.length} issue${result.issues.length > 1 ? 's' : ''}</span>` : ''}
@@ -707,6 +836,32 @@ class SEOCheckerV2 {
         }).catch(err => {
             this.showError('Failed to copy: ' + err.message);
         });
+    }
+
+    updateMetaCharCount() {
+        const textarea = document.getElementById('modalMetaDescription');
+        const countSpan = document.getElementById('metaCharCount');
+
+        if (!textarea || !countSpan) return;
+
+        const charCount = textarea.value.length;
+        const isOptimal = charCount >= 120 && charCount <= 160;
+        const hasContent = charCount > 0;
+
+        // Update count and color
+        let colorClass = 'text-danger';
+        if (isOptimal) {
+            colorClass = 'text-success';
+        } else if (hasContent) {
+            colorClass = 'text-warning';
+        }
+
+        // Remove old color classes
+        countSpan.classList.remove('text-success', 'text-warning', 'text-danger');
+        countSpan.classList.add(colorClass);
+
+        // Update text
+        countSpan.textContent = `(${charCount} chars - Optimal: 120-160)`;
     }
 
     showNotification(message, type = 'info') {
@@ -811,26 +966,156 @@ class SEOCheckerV2 {
         const tokens = data.usage.inputTokens + data.usage.outputTokens;
         document.getElementById('aiCost').textContent = cost;
         document.getElementById('aiTokens').textContent = tokens;
+
+        // Update session tracking
+        this.updateSessionAICost(data.usage.estimatedCost);
+    }
+
+    loadAICostTracking() {
+        try {
+            const saved = localStorage.getItem('aiCostTracking');
+            if (saved) {
+                const data = JSON.parse(saved);
+                this.sessionAICost = data.cost || 0;
+                this.sessionAIRequests = data.requests || 0;
+
+                // Update display if there's existing data
+                if (this.sessionAICost > 0) {
+                    document.getElementById('sessionAICost').textContent = this.sessionAICost.toFixed(4);
+                    document.getElementById('sessionAIRequests').textContent = this.sessionAIRequests;
+                    const tracker = document.getElementById('aiCostTracker');
+                    if (tracker) tracker.style.display = 'block';
+                }
+            } else {
+                this.sessionAICost = 0;
+                this.sessionAIRequests = 0;
+            }
+        } catch (e) {
+            console.error('Error loading AI cost tracking:', e);
+            this.sessionAICost = 0;
+            this.sessionAIRequests = 0;
+        }
+    }
+
+    saveAICostTracking() {
+        try {
+            localStorage.setItem('aiCostTracking', JSON.stringify({
+                cost: this.sessionAICost,
+                requests: this.sessionAIRequests,
+                lastUpdated: new Date().toISOString()
+            }));
+        } catch (e) {
+            console.error('Error saving AI cost tracking:', e);
+        }
+    }
+
+    updateSessionAICost(cost) {
+        this.sessionAICost += cost;
+        this.sessionAIRequests += 1;
+
+        // Update display
+        document.getElementById('sessionAICost').textContent = this.sessionAICost.toFixed(4);
+        document.getElementById('sessionAIRequests').textContent = this.sessionAIRequests;
+
+        // Show the tracker if hidden
+        const tracker = document.getElementById('aiCostTracker');
+        if (tracker) {
+            tracker.style.display = 'block';
+        }
+
+        // Save to localStorage
+        this.saveAICostTracking();
+    }
+
+    resetAICostTracking() {
+        if (!confirm('Reset AI cost tracking? This will clear your session total.')) {
+            return;
+        }
+
+        this.sessionAICost = 0;
+        this.sessionAIRequests = 0;
+
+        // Update display
+        document.getElementById('sessionAICost').textContent = '0.00';
+        document.getElementById('sessionAIRequests').textContent = '0';
+
+        // Hide the tracker
+        const tracker = document.getElementById('aiCostTracker');
+        if (tracker) {
+            tracker.style.display = 'none';
+        }
+
+        // Clear from localStorage
+        localStorage.removeItem('aiCostTracking');
+
+        this.showNotification('AI cost tracking reset', 'info');
     }
 
     useSuggestion(url, suggestion) {
-        // Copy to clipboard
+        // Populate the meta description field in the details modal
+        const metaField = document.getElementById('modalMetaDescription');
+        if (metaField) {
+            metaField.value = suggestion;
+            // Trigger the character count update
+            this.updateMetaCharCount();
+        }
+
+        // Copy to clipboard as well
         navigator.clipboard.writeText(suggestion);
 
         // Show notification
-        this.showNotification(`Suggestion copied! You can now paste it into your CMS for: ${url}`, 'success');
+        this.showNotification(`Suggestion applied to meta description field!`, 'success');
 
-        // Close modal
+        // Close AI modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('aiSuggestionsModal'));
         if (modal) modal.hide();
     }
 
-    async updateReviewStatus(url, status) {
+    handleReviewStatusClick(url, clickedStatus, buttonGroup) {
+        // Get current status from data
+        const result = this.currentResults.find(r => r.url === url);
+        if (!result) return;
+
+        // Toggle: if clicking same status, reset to 'new'
+        const newStatus = result.reviewStatus === clickedStatus ? 'new' : clickedStatus;
+
+        // Update button states immediately
+        this.updateReviewStatusButtons(buttonGroup, newStatus);
+
+        // Update on server
+        this.updateReviewStatus(url, newStatus);
+    }
+
+    updateReviewStatusButtons(buttonGroup, activeStatus) {
+        const buttons = buttonGroup.querySelectorAll('.review-status-btn');
+        buttons.forEach(btn => {
+            const status = btn.dataset.status;
+            const isActive = status === activeStatus;
+
+            // Remove all active classes
+            btn.classList.remove('btn-secondary', 'btn-warning', 'btn-success', 'active');
+            btn.classList.remove('btn-outline-secondary', 'btn-outline-warning', 'btn-outline-success');
+
+            // Add appropriate classes
+            if (isActive) {
+                btn.classList.add('active');
+                if (status === 'new') btn.classList.add('btn-secondary');
+                else if (status === 'in_progress') btn.classList.add('btn-warning');
+                else if (status === 'reviewed') btn.classList.add('btn-success');
+            } else {
+                if (status === 'new') btn.classList.add('btn-outline-secondary');
+                else if (status === 'in_progress') btn.classList.add('btn-outline-warning');
+                else if (status === 'reviewed') btn.classList.add('btn-outline-success');
+            }
+        });
+    }
+
+    async updateReviewStatus(url, newStatus) {
         try {
             const response = await fetch('/api/reviews/update', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ url, status })
+                body: JSON.stringify({ url, status: newStatus })
             });
 
             if (!response.ok) {
@@ -840,13 +1125,13 @@ class SEOCheckerV2 {
             // Update local data
             const result = this.currentResults.find(r => r.url === url);
             if (result) {
-                result.reviewStatus = status;
+                result.reviewStatus = newStatus;
             }
 
             // Re-render current view to show updated status
             this.applyFilters();
 
-            this.showNotification(`Marked as ${status}`, 'success');
+            this.showNotification(`Marked as ${newStatus.replace('_', ' ')}`, 'success');
         } catch (error) {
             this.showError('Failed to update review status: ' + error.message);
         }
@@ -1262,10 +1547,12 @@ class SEOCheckerV2 {
     generateMboButton(result) {
         // Check if we have an object ID for this page
         if (!result.dataLayer?.objectId) {
+            console.log('No MBO button - missing objectId:', result.url, result.dataLayer);
             return ''; // No object ID, no button
         }
 
         const objectId = result.dataLayer.objectId;
+        console.log('Generating MBO button for:', result.url, 'ObjectID:', objectId);
 
         // If we have an MBO token, generate the URL
         if (this.mboSession && this.mboSession.token) {
@@ -1333,9 +1620,9 @@ class SEOCheckerV2 {
                         <div class="mb-3">
                             <label class="form-label fw-bold">
                                 Meta Description
-                                <span class="${charCountClass}">(${charCount} chars - Optimal: 120-160)</span>
+                                <span id="metaCharCount" class="${charCountClass}">(${charCount} chars - Optimal: 120-160)</span>
                             </label>
-                            <textarea class="form-control" rows="3" id="modalMetaDescription">${result.metaDescription || ''}</textarea>
+                            <textarea class="form-control" rows="3" id="modalMetaDescription" oninput="app.updateMetaCharCount()">${result.metaDescription || ''}</textarea>
                             <div class="d-flex gap-2 mt-2">
                                 <button class="btn btn-sm btn-outline-primary" onclick="app.copyToClipboard(document.getElementById('modalMetaDescription').value, this)">
                                     <i class="fas fa-copy"></i> Copy
@@ -1378,17 +1665,14 @@ class SEOCheckerV2 {
 
                     <div class="mb-4">
                         <h6 class="border-bottom pb-2"><i class="fas fa-flag"></i> Review Status</h6>
-                        <div class="btn-group d-flex" role="group">
-                            <button class="btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary' : 'btn-outline-secondary'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'new'); this.closest('.btn-group').querySelector('.btn-secondary').classList.replace('btn-secondary', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-secondary');">
+                        <div class="btn-group d-flex review-status-buttons" role="group" data-url="${result.url}">
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary active' : 'btn-outline-secondary'}" data-status="new">
                                 New
                             </button>
-                            <button class="btn ${(result.reviewStatus || 'new') === 'in-progress' ? 'btn-warning' : 'btn-outline-warning'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'in-progress'); this.closest('.btn-group').querySelectorAll('.btn').forEach(b => b.className = b.className.replace(/btn-(warning|success|secondary)/, 'btn-outline-$1')); this.classList.replace('btn-outline-warning', 'btn-warning');">
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'in_progress' ? 'btn-warning active' : 'btn-outline-warning'}" data-status="in_progress">
                                 In Progress
                             </button>
-                            <button class="btn ${(result.reviewStatus || 'new') === 'reviewed' ? 'btn-success' : 'btn-outline-success'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'reviewed'); this.closest('.btn-group').querySelectorAll('.btn').forEach(b => b.className = b.className.replace(/btn-(warning|success|secondary)/, 'btn-outline-$1')); this.classList.replace('btn-outline-success', 'btn-success');">
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'reviewed' ? 'btn-success active' : 'btn-outline-success'}" data-status="reviewed">
                                 Reviewed
                             </button>
                         </div>
@@ -1500,18 +1784,15 @@ class SEOCheckerV2 {
 
                     <div class="mb-4">
                         <h6 class="border-bottom pb-2"><i class="fas fa-flag"></i> Review Status</h6>
-                        <div class="btn-group d-flex" role="group">
-                            <button class="btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary' : 'btn-outline-secondary'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'new'); this.closest('.btn-group').querySelector('.btn-secondary').classList.replace('btn-secondary', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-secondary');">
+                        <div class="btn-group d-flex review-status-buttons" role="group" data-url="${result.url}">
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary active' : 'btn-outline-secondary'}" data-status="new">
                                 New
                             </button>
-                            <button class="btn ${result.reviewStatus === 'in_progress' ? 'btn-info' : 'btn-outline-secondary'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'in_progress'); this.closest('.btn-group').querySelector('.btn-secondary, .btn-info').classList.replace('btn-secondary', 'btn-outline-secondary').replace('btn-info', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-info');">
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'in_progress' ? 'btn-warning active' : 'btn-outline-warning'}" data-status="in_progress">
                                 In Progress
                             </button>
-                            <button class="btn ${result.reviewStatus === 'done' ? 'btn-success' : 'btn-outline-secondary'}"
-                                    onclick="app.updateReviewStatus('${result.url}', 'done'); this.closest('.btn-group').querySelector('.btn-secondary, .btn-info, .btn-success').classList.replace('btn-secondary', 'btn-outline-secondary').replace('btn-info', 'btn-outline-secondary').replace('btn-success', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-success');">
-                                Done
+                            <button class="btn review-status-btn ${(result.reviewStatus || 'new') === 'reviewed' ? 'btn-success active' : 'btn-outline-success'}" data-status="reviewed">
+                                Reviewed
                             </button>
                         </div>
                     </div>
@@ -1576,6 +1857,366 @@ class SEOCheckerV2 {
         }
 
         return '<ul class="mb-0">' + suggestions.map(s => `<li>${s}</li>`).join('') + '</ul>';
+    }
+
+    async loadSavedScans() {
+        try {
+            const response = await fetch('/api/saved-scans');
+            const data = await response.json();
+
+            if (response.ok && data.scans && data.scans.length > 0) {
+                const selector = document.getElementById('savedScanSelector');
+                if (!selector) return;
+
+                // Clear existing options except the first one
+                selector.innerHTML = '<option value="">-- Select a saved scan --</option>';
+
+                // Add options for each saved scan
+                data.scans.forEach(scan => {
+                    const option = document.createElement('option');
+                    option.value = scan.sitemapUrl || '';
+
+                    // Create a readable label
+                    const domain = scan.sitemapUrl ? new URL(scan.sitemapUrl).hostname : 'Unknown';
+                    const date = new Date(scan.lastScanned).toLocaleDateString();
+                    const time = new Date(scan.lastScanned).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    option.textContent = `${domain} - ${scan.totalUrls} URLs (${date} ${time})`;
+                    option.dataset.scanInfo = JSON.stringify(scan);
+
+                    selector.appendChild(option);
+                });
+
+                console.log(`Loaded ${data.scans.length} saved scans`);
+            }
+        } catch (error) {
+            console.error('Failed to load saved scans:', error);
+        }
+    }
+
+    handleSavedScanSelection(event) {
+        const selector = event.target;
+        const selectedValue = selector.value;
+
+        if (!selectedValue) {
+            return;
+        }
+
+        // Get the scan info from the selected option
+        const selectedOption = selector.options[selector.selectedIndex];
+        const scanInfo = JSON.parse(selectedOption.dataset.scanInfo);
+
+        // Set the sitemap URL input
+        document.getElementById('sitemapUrl').value = selectedValue;
+
+        // Show a notification with scan info
+        this.showNotification(
+            `Selected scan: ${scanInfo.totalUrls} URLs (${scanInfo.goodCount} good, ${scanInfo.warningCount} warnings, ${scanInfo.errorCount} errors)`,
+            'info'
+        );
+
+        // Automatically load the saved results
+        this.loadSavedResults();
+    }
+
+    async saveUrlChanges() {
+        if (!this.currentModalUrl) {
+            this.showError('No URL is currently being edited');
+            return;
+        }
+
+        const button = document.getElementById('saveUrlChanges');
+        const originalHTML = button.innerHTML;
+
+        // Get the edited values from the modal
+        const newTitle = document.getElementById('modalTitle')?.value;
+        const newMetaDescription = document.getElementById('modalMetaDescription')?.value;
+
+        // Show loading state
+        button.disabled = true;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+        try {
+            // Update the local results
+            const result = this.currentResults.find(r => r.url === this.currentModalUrl);
+            if (result) {
+                result.title = newTitle;
+                result.metaDescription = newMetaDescription;
+                result.characterCount = newMetaDescription ? newMetaDescription.length : 0;
+
+                // Recalculate status based on new character count
+                const charCount = result.characterCount;
+                if (!newMetaDescription || charCount === 0) {
+                    result.status = 'error';
+                } else if (charCount >= 120 && charCount <= 160) {
+                    result.status = 'good';
+                } else {
+                    result.status = 'warning';
+                }
+            }
+
+            // Save to server
+            const sitemapUrl = document.getElementById('sitemapUrl').value;
+            if (sitemapUrl) {
+                const response = await fetch('/api/scan-results/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sitemapUrl,
+                        url: this.currentModalUrl,
+                        title: newTitle,
+                        metaDescription: newMetaDescription
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to save changes');
+                }
+            }
+
+            // Update the display
+            this.applyFilters();
+
+            // Show success
+            button.innerHTML = '<i class="fas fa-check"></i> Saved!';
+            button.classList.remove('btn-primary');
+            button.classList.add('btn-success');
+
+            this.showNotification('Changes saved successfully!', 'success');
+
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                button.disabled = false;
+                button.innerHTML = originalHTML;
+                button.classList.remove('btn-success');
+                button.classList.add('btn-primary');
+            }, 2000);
+
+        } catch (error) {
+            button.disabled = false;
+            button.innerHTML = originalHTML;
+            this.showError('Failed to save changes: ' + error.message);
+        }
+    }
+
+    // Selective Scan Methods
+    async showSelectiveScanModal() {
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+        if (!sitemapUrl) {
+            this.showError('Please enter a sitemap URL first');
+            return;
+        }
+
+        const modal = new bootstrap.Modal(document.getElementById('selectiveScanModal'));
+        modal.show();
+        await this.loadSelectiveUrls(sitemapUrl);
+    }
+
+    async loadSelectiveUrls(sitemapUrl) {
+        try {
+            document.getElementById('selectiveUrlsList').innerHTML = `
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-spinner fa-spin fa-2x mb-3"></i>
+                    <p>Loading sitemap URLs...</p>
+                </div>
+            `;
+
+            const response = await fetch('/api/sitemap/all-urls', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ sitemapUrl })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                this.selectiveUrls = data.urls;
+                this.filteredSelectiveUrls = [...this.selectiveUrls];
+
+                document.getElementById('selectiveScanStats').textContent =
+                    `Total: ${data.total} | Scanned: ${data.scanned} | Unscanned: ${data.unscanned}`;
+
+                this.renderSelectiveUrlsList();
+            } else {
+                throw new Error('Failed to load sitemap URLs');
+            }
+        } catch (error) {
+            document.getElementById('selectiveUrlsList').innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Error loading URLs: ${error.message}
+                </div>
+            `;
+        }
+    }
+
+    renderSelectiveUrlsList() {
+        const container = document.getElementById('selectiveUrlsList');
+
+        if (this.filteredSelectiveUrls.length === 0) {
+            container.innerHTML = `
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-search fa-2x mb-3"></i>
+                    <p>No URLs match the current filter</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = this.filteredSelectiveUrls.map(urlData => {
+            const isSelected = this.selectedSelectiveUrls.has(urlData.url);
+            const statusBadge = urlData.isScanned ?
+                `<span class="badge bg-${urlData.seoStatus || 'secondary'}">${urlData.seoStatus || 'Scanned'}</span>` :
+                `<span class="badge bg-warning">Unscanned</span>`;
+
+            return `
+                <div class="form-check d-flex align-items-center mb-2 p-2" style="border: 1px solid var(--border-color); border-radius: 5px;">
+                    <input class="form-check-input me-2" type="checkbox" value="${urlData.url}"
+                           id="url-${btoa(urlData.url)}" ${isSelected ? 'checked' : ''}
+                           onchange="app.toggleSelectiveUrl('${urlData.url}')">
+                    <label class="form-check-label flex-grow-1" for="url-${btoa(urlData.url)}" style="cursor: pointer; min-width: 0;">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-truncate" style="max-width: 70%;" title="${urlData.url}">${urlData.url}</span>
+                            ${statusBadge}
+                        </div>
+                    </label>
+                </div>
+            `;
+        }).join('');
+    }
+
+    toggleSelectiveUrl(url) {
+        if (this.selectedSelectiveUrls.has(url)) {
+            this.selectedSelectiveUrls.delete(url);
+        } else {
+            this.selectedSelectiveUrls.add(url);
+        }
+
+        document.getElementById('selectiveSelectedCount').textContent = this.selectedSelectiveUrls.size;
+        document.getElementById('scanSelectedBtn').disabled = this.selectedSelectiveUrls.size === 0;
+    }
+
+    selectAllUnscanned() {
+        this.filteredSelectiveUrls.forEach(urlData => {
+            if (!urlData.isScanned) {
+                this.selectedSelectiveUrls.add(urlData.url);
+            }
+        });
+        this.renderSelectiveUrlsList();
+        document.getElementById('selectiveSelectedCount').textContent = this.selectedSelectiveUrls.size;
+        document.getElementById('scanSelectedBtn').disabled = this.selectedSelectiveUrls.size === 0;
+    }
+
+    selectNoneSelective() {
+        this.selectedSelectiveUrls.clear();
+        this.renderSelectiveUrlsList();
+        document.getElementById('selectiveSelectedCount').textContent = 0;
+        document.getElementById('scanSelectedBtn').disabled = true;
+    }
+
+    filterSelectiveUrls() {
+        const searchTerm = document.getElementById('selectiveSearchFilter').value.toLowerCase();
+        const scanFilter = document.getElementById('selectiveScanFilter').value;
+
+        this.filteredSelectiveUrls = this.selectiveUrls.filter(urlData => {
+            const matchesSearch = !searchTerm || urlData.url.toLowerCase().includes(searchTerm);
+
+            let matchesScanFilter = true;
+            if (scanFilter === 'scanned') {
+                matchesScanFilter = urlData.isScanned;
+            } else if (scanFilter === 'unscanned') {
+                matchesScanFilter = !urlData.isScanned;
+            }
+
+            return matchesSearch && matchesScanFilter;
+        });
+
+        this.renderSelectiveUrlsList();
+    }
+
+    async scanSelectedUrls() {
+        const selectedUrls = Array.from(this.selectedSelectiveUrls);
+        if (selectedUrls.length === 0) {
+            this.showError('Please select URLs to scan');
+            return;
+        }
+
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+
+        // Get scan options from the main form
+        const options = {
+            delay: parseInt(document.getElementById('delay').value) || 1000,
+            timeout: parseInt(document.getElementById('timeout').value) || 10000,
+            enableMboDetection: true
+        };
+
+        try {
+            document.getElementById('selectiveScanProgress').style.display = 'block';
+            document.getElementById('scanSelectedBtn').disabled = true;
+
+            const response = await fetch('/api/selective-scan', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ urls: selectedUrls, sitemapUrl, options })
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+                throw new Error(result.error);
+            }
+
+            // The socket listeners will handle the progress updates and completion
+        } catch (error) {
+            this.showError(error.message);
+            document.getElementById('selectiveScanProgress').style.display = 'none';
+            document.getElementById('scanSelectedBtn').disabled = false;
+        }
+    }
+
+    updateSelectiveProgress(data) {
+        const progressText = document.getElementById('selectiveProgressText');
+        if (progressText) {
+            progressText.textContent = data.message || 'Processing...';
+        }
+    }
+
+    updateSelectiveCrawlProgress(data) {
+        const progressBar = document.getElementById('selectiveProgressBar');
+        const progressPercent = document.getElementById('selectiveProgressPercent');
+        const progressText = document.getElementById('selectiveProgressText');
+
+        if (progressBar && data.percentage !== undefined) {
+            progressBar.style.width = `${data.percentage}%`;
+        }
+
+        if (progressPercent) {
+            progressPercent.textContent = `${data.percentage}%`;
+        }
+
+        if (progressText) {
+            progressText.textContent = `Scanning ${data.current} of ${data.total}: ${data.url || ''}`;
+        }
+    }
+
+    handleSelectiveScanComplete(data) {
+        // Hide progress
+        document.getElementById('selectiveScanProgress').style.display = 'none';
+        document.getElementById('scanSelectedBtn').disabled = false;
+
+        // Clear selections
+        this.selectedSelectiveUrls.clear();
+        document.getElementById('selectiveSelectedCount').textContent = 0;
+
+        // Reload the URL list to show updated scan status
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+        this.loadSelectiveUrls(sitemapUrl);
+
+        // Show success message
+        this.showNotification(`Successfully scanned ${data.results.scannedUrls} URLs!`, 'success');
+
+        // Also refresh the main results if they exist
+        if (this.currentResults) {
+            this.loadSavedResults();
+        }
     }
 }
 
