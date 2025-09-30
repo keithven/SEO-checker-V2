@@ -1,0 +1,8 @@
+node_modules/
+data-v2/
+logs/
+*.log
+.DS_Store
+saved-sitemaps.json
+url-reviews.json
+.env

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Checker V2 - Enhanced UX</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --gradient-1: #667eea;
+            --gradient-2: #764ba2;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-card: #252525;
+            --text-primary: #e9ecef;
+            --text-secondary: #adb5bd;
+            --border-color: #495057;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--gradient-1) 0%, var(--gradient-2) 100%);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .header-v2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .header-v2 h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .header-v2 .badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            margin-left: 10px;
+        }
+
+        /* Dark mode toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Enhanced stats cards */
+        .stat-card-v2 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card-v2:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .stat-card-v2 .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .stat-card-v2 .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Progress bar */
+        .progress-enhanced {
+            height: 30px;
+            border-radius: 15px;
+            background: var(--bg-secondary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-enhanced .progress-bar {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: width 0.3s ease;
+        }
+
+        /* Tree structure */
+        .tree-view {
+            margin: 20px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .tree-node {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
+
+        .tree-node-header {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: var(--bg-secondary);
+            margin-bottom: 5px;
+        }
+
+        .tree-node-header:hover {
+            background: var(--border-color);
+        }
+
+        .tree-node-icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .tree-node-name {
+            flex: 1;
+            font-weight: 600;
+        }
+
+        .tree-node-stats {
+            display: flex;
+            gap: 10px;
+            font-size: 0.85rem;
+        }
+
+        .tree-node-stat {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .tree-children {
+            display: none;
+            margin-left: 10px;
+        }
+
+        .tree-children.expanded {
+            display: block;
+        }
+
+        /* Enhanced URL items */
+        .url-item-v2 {
+            border: 2px solid var(--border-color);
+            border-left: 4px solid var(--border-color);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            background: var(--bg-card);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .url-item-v2:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            transform: translateX(5px);
+        }
+
+        .url-item-v2.good { border-left-color: #28a745; }
+        .url-item-v2.warning { border-left-color: #ffc107; }
+        .url-item-v2.error { border-left-color: #dc3545; }
+
+        /* Filters section */
+        .filters-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            margin-bottom: 15px;
+        }
+
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .filter-pill {
+            padding: 6px 15px;
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-pill:hover {
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--gradient-1);
+        }
+
+        .filter-pill.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: var(--gradient-1);
+        }
+
+        /* Hide done toggle */
+        .hide-done-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .hide-done-toggle input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        /* Quick copy button */
+        .copy-btn {
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--gradient-2);
+            transform: scale(1.05);
+        }
+
+        .copy-btn.copied {
+            background: #28a745;
+        }
+
+        /* Duplicate detection */
+        .duplicate-alert {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        [data-theme="dark"] .duplicate-alert {
+            background: #4a3c1a;
+            border-color: #ffc107;
+        }
+
+        /* Character count histogram */
+        .histogram {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .histogram-bar {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .histogram-label {
+            width: 120px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .histogram-track {
+            flex: 1;
+            height: 30px;
+            background: var(--bg-secondary);
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .histogram-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* View mode tabs */
+        .view-mode-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: var(--bg-secondary);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .view-mode-tab {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 600;
+        }
+
+        .view-mode-tab:hover {
+            background: var(--bg-card);
+        }
+
+        .view-mode-tab.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        /* Keyboard shortcuts overlay */
+        .shortcuts-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            z-index: 9999;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            display: none;
+        }
+
+        .shortcuts-overlay.show {
+            display: block;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .shortcut-key {
+            background: var(--bg-secondary);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-v2 h1 {
+                font-size: 1.5rem;
+            }
+
+            .stat-card-v2 .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .view-mode-tabs {
+                flex-direction: column;
+            }
+
+            .tree-view {
+                max-height: 400px;
+            }
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Status colors */
+        .status-good { color: #28a745; }
+        .status-warning { color: #ffc107; }
+        .status-error { color: #dc3545; }
+
+        .bg-good { background-color: #28a745; }
+        .bg-warning { background-color: #ffc107; }
+        .bg-error { background-color: #dc3545; }
+
+        /* Hide elements */
+        .hidden {
+            display: none !important;
+        }
+
+        .progress-container {
+            display: none;
+        }
+
+        .results-container {
+            display: none;
+        }
+
+        /* Collapsible sections */
+        .collapsible-header {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .collapsible-content.expanded {
+            max-height: 5000px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" id="themeToggle" title="Toggle Dark Mode (Ctrl+D)">
+        <i class="fas fa-moon" id="themeIcon"></i>
+    </div>
+
+    <!-- Header -->
+    <div class="header-v2">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h1>
+                        <i class="fas fa-search"></i> SEO Checker
+                        <span class="badge bg-success">V2</span>
+                    </h1>
+                    <p class="mb-0 mt-2">Enhanced UX with Tree View & Advanced Features</p>
+                </div>
+                <div>
+                    <button class="btn btn-light" id="shortcutsBtn">
+                        <i class="fas fa-keyboard"></i> Shortcuts (?)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Shortcuts Overlay -->
+    <div class="shortcuts-overlay" id="shortcutsOverlay">
+        <h3 class="mb-4"><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+        <div class="shortcut-item">
+            <span>Toggle Dark Mode</span>
+            <span class="shortcut-key">Ctrl + D</span>
+        </div>
+        <div class="shortcut-item">
+            <span>Show Shortcuts</span>
+            <span class="shortcut-key">?</span>
+        </div>
+        <div class="shortcut-item">
+            <span>Hide Done Items</span>
+            <span class="shortcut-key">Ctrl + H</span>
+        </div>
+        <div class="shortcut-item">
+            <span>Focus Search</span>
+            <span class="shortcut-key">Ctrl + F</span>
+        </div>
+        <div class="shortcut-item">
+            <span>Select All</span>
+            <span class="shortcut-key">Ctrl + A</span>
+        </div>
+        <div class="shortcut-item">
+            <span>Export Data</span>
+            <span class="shortcut-key">Ctrl + E</span>
+        </div>
+        <div class="mt-3 text-center">
+            <button class="btn btn-primary" onclick="document.getElementById('shortcutsOverlay').classList.remove('show')">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <!-- Scan Configuration -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3><i class="fas fa-cog"></i> Scan Configuration</h3>
+                <form id="analysisForm">
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <label class="form-label">Sitemap URL</label>
+                            <input type="url" class="form-control" id="sitemapUrl" placeholder="https://example.com/sitemap.xml" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Scan Mode</label>
+                            <select class="form-select" id="scanMode">
+                                <option value="full">Full Scan</option>
+                                <option value="incremental">Incremental</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Max Pages</label>
+                            <input type="number" class="form-control" id="maxPages" value="100" min="1">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Delay (ms)</label>
+                            <input type="number" class="form-control" id="delay" value="1000" min="100">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Chunk Size</label>
+                            <input type="number" class="form-control" id="chunkSize" value="10" min="1" max="50">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Timeout (ms)</label>
+                            <input type="number" class="form-control" id="timeout" value="10000" min="1000">
+                        </div>
+                    </div>
+                    <div class="mt-3 d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-play"></i> Start Analysis
+                        </button>
+                        <button type="button" class="btn btn-success" id="loadSavedBtn">
+                            <i class="fas fa-folder-open"></i> Load Saved Results
+                        </button>
+                        <button type="button" class="btn btn-warning" id="detectDuplicatesBtn">
+                            <i class="fas fa-clone"></i> Detect Duplicates
+                        </button>
+                        <button type="button" class="btn btn-info" id="showHistogramBtn">
+                            <i class="fas fa-chart-bar"></i> Character Histogram
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="progress-container" id="progressContainer">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 id="progressTitle">Processing...</h4>
+                    <div class="progress-enhanced">
+                        <div class="progress-bar bg-primary" id="progressBar" style="width: 0%">
+                            0%
+                        </div>
+                    </div>
+                    <p class="mt-2 text-muted" id="progressMessage">Starting...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container" id="resultsContainer">
+            <!-- Stats Overview -->
+            <div class="row mb-4" id="statsOverview">
+                <!-- Stats will be inserted here -->
+            </div>
+
+            <!-- Character Count Histogram -->
+            <div class="histogram hidden" id="characterHistogram">
+                <h4><i class="fas fa-chart-bar"></i> Meta Description Length Distribution</h4>
+                <div id="histogramBars">
+                    <!-- Histogram bars will be inserted here -->
+                </div>
+            </div>
+
+            <!-- Duplicate Detection Results -->
+            <div id="duplicatesContainer"></div>
+
+            <!-- Hide Done Toggle -->
+            <div class="hide-done-toggle">
+                <input type="checkbox" id="hideDoneCheckbox">
+                <label for="hideDoneCheckbox" class="mb-0">
+                    <strong>Hide Reviewed/Done Items</strong>
+                    <span class="text-muted">(Ctrl+H)</span>
+                </label>
+            </div>
+
+            <!-- View Mode Tabs -->
+            <div class="view-mode-tabs">
+                <button class="view-mode-tab active" data-view="all">
+                    <i class="fas fa-list"></i> All Items
+                </button>
+                <button class="view-mode-tab" data-view="tree">
+                    <i class="fas fa-sitemap"></i> Tree View
+                </button>
+                <button class="view-mode-tab" data-view="needs-attention">
+                    <i class="fas fa-exclamation-triangle"></i> Needs Attention
+                </button>
+                <button class="view-mode-tab" data-view="in-progress">
+                    <i class="fas fa-spinner"></i> In Progress
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <h5><i class="fas fa-filter"></i> Filters</h5>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="searchFilter" placeholder="Search URLs...">
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="statusFilter">
+                            <option value="">All Statuses</option>
+                            <option value="good">Good</option>
+                            <option value="warning">Warning</option>
+                            <option value="error">Error</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select" id="reviewStatusFilter">
+                            <option value="">All Review Statuses</option>
+                            <option value="new">New</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="needs_attention">Needs Attention</option>
+                            <option value="reviewed">Reviewed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree View Container -->
+            <div class="tree-view hidden" id="treeViewContainer">
+                <h4><i class="fas fa-sitemap"></i> Site Structure</h4>
+                <div id="treeRoot"></div>
+            </div>
+
+            <!-- Results List -->
+            <div id="resultsList">
+                <!-- Results will be inserted here -->
+            </div>
+
+            <!-- Export Options -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5><i class="fas fa-download"></i> Export Results</h5>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-primary" id="exportJsonBtn">
+                            <i class="fas fa-file-code"></i> Export JSON
+                        </button>
+                        <button class="btn btn-outline-success" id="exportCsvBtn">
+                            <i class="fas fa-file-csv"></i> Export CSV
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
