@@ -5,10 +5,14 @@ import cors from 'cors';
 import path from 'path';
 import fs from 'fs/promises';
 import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
 import { SitemapParser } from './src/sitemapParser.js';
 import { WebCrawler } from './src/webCrawler.js';
 import { MetaExtractor } from './src/metaExtractor.js';
 import { Reporter } from './src/reporter.js';
+import { AIService } from './src/aiService.js';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,6 +115,57 @@ async function saveScanResults(sitemapUrl, results) {
   } catch (error) {
     console.error('Error saving scan results:', error);
     return false;
+  }
+}
+
+async function saveChangeHistory(sitemapUrl, changes) {
+  try {
+    const dataDir = path.join(__dirname, 'data-v2');
+    try {
+      await fs.access(dataDir);
+    } catch {
+      await fs.mkdir(dataDir, { recursive: true });
+    }
+
+    const hash = Buffer.from(sitemapUrl).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+    const filename = `change-history-${hash}.json`;
+    const filePath = path.join(__dirname, 'data-v2', filename);
+
+    // Load existing history
+    let history = [];
+    try {
+      const data = await fs.readFile(filePath, 'utf8');
+      history = JSON.parse(data);
+    } catch {
+      // File doesn't exist yet, start with empty array
+    }
+
+    // Append new changes
+    history.push(...changes);
+
+    // Keep only last 1000 changes to prevent file from growing too large
+    if (history.length > 1000) {
+      history = history.slice(-1000);
+    }
+
+    await fs.writeFile(filePath, JSON.stringify(history, null, 2));
+    return true;
+  } catch (error) {
+    console.error('Error saving change history:', error);
+    return false;
+  }
+}
+
+async function loadChangeHistory(sitemapUrl) {
+  try {
+    const hash = Buffer.from(sitemapUrl).toString('base64').replace(/[^a-zA-Z0-9]/g, '').substring(0, 20);
+    const filename = `change-history-${hash}.json`;
+    const filePath = path.join(__dirname, 'data-v2', filename);
+
+    const data = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
   }
 }
 
@@ -391,10 +446,62 @@ app.post('/api/analyze', async (req, res) => {
     const jsonReport = reporter.generateJsonReport();
 
     const crawlTimestamp = new Date().toISOString();
-    const timestampedResults = finalResults.map(result => ({
-      ...result,
-      lastCrawled: crawlTimestamp
-    }));
+
+    // Detect changes from previous scan
+    const changesDetected = [];
+    const timestampedResults = finalResults.map(result => {
+      const oldResult = existingResults.find(r => r.url === result.url);
+      let hasChanged = false;
+      let changeType = null;
+
+      if (oldResult) {
+        // Check if meta description changed
+        if (oldResult.metaDescription !== result.metaDescription) {
+          hasChanged = true;
+          changeType = 'modified';
+          changesDetected.push({
+            url: result.url,
+            changeType: 'meta_description',
+            oldValue: oldResult.metaDescription,
+            newValue: result.metaDescription,
+            timestamp: crawlTimestamp
+          });
+        }
+        // Check if title changed
+        if (oldResult.title !== result.title) {
+          hasChanged = true;
+          changesDetected.push({
+            url: result.url,
+            changeType: 'title',
+            oldValue: oldResult.title,
+            newValue: result.title,
+            timestamp: crawlTimestamp
+          });
+        }
+      } else {
+        // New URL detected
+        hasChanged = true;
+        changeType = 'new';
+        changesDetected.push({
+          url: result.url,
+          changeType: 'new_url',
+          newValue: result.metaDescription,
+          timestamp: crawlTimestamp
+        });
+      }
+
+      return {
+        ...result,
+        lastCrawled: crawlTimestamp,
+        hasChanged,
+        changeType
+      };
+    });
+
+    // Save change history if there are changes
+    if (changesDetected.length > 0) {
+      await saveChangeHistory(sitemapUrl, changesDetected);
+    }
 
     await saveScanResults(sitemapUrl, timestampedResults);
 
@@ -584,6 +691,27 @@ app.get('/api/reviews', async (req, res) => {
   }
 });
 
+app.get('/api/change-history', async (req, res) => {
+  const { sitemapUrl, url } = req.query;
+
+  if (!sitemapUrl) {
+    return res.status(400).json({ error: 'Sitemap URL is required' });
+  }
+
+  try {
+    let history = await loadChangeHistory(sitemapUrl);
+
+    // Filter by specific URL if provided
+    if (url) {
+      history = history.filter(change => change.url === url);
+    }
+
+    res.json(history);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to load change history' });
+  }
+});
+
 app.get('/api/scan-results', async (req, res) => {
   const { sitemapUrl } = req.query;
 
@@ -680,7 +808,7 @@ app.post('/api/reviews/bulk-update', async (req, res) => {
 });
 
 app.post('/api/rescan-url', async (req, res) => {
-  const { url, sitemapUrl, mboSession } = req.body;
+  const { url, sitemapUrl } = req.body;
 
   if (!url) {
     return res.status(400).json({ error: 'URL is required' });
@@ -688,10 +816,6 @@ app.post('/api/rescan-url', async (req, res) => {
 
   try {
     const webCrawler = new WebCrawler({ usePuppeteer: true });
-
-    if (mboSession && mboSession.token) {
-      webCrawler.mboSessionToken = mboSession.token;
-    }
 
     const crawlResult = await webCrawler.fetchPageWithPuppeteer(url);
 
@@ -719,9 +843,35 @@ app.post('/api/rescan-url', async (req, res) => {
 
     await saveUrlReviews(reviews);
 
+    const changes = [];
+    let oldResult = null;
+
     if (sitemapUrl) {
       try {
         const existingScanResults = await loadScanResults(sitemapUrl);
+        oldResult = existingScanResults.find(result => result.url === url);
+
+        // Detect changes
+        if (oldResult) {
+          if (oldResult.metaDescription !== analysisResult.metaDescription) {
+            changes.push({
+              url: url,
+              changeType: 'meta_description',
+              oldValue: oldResult.metaDescription,
+              newValue: analysisResult.metaDescription,
+              timestamp: new Date().toISOString()
+            });
+          }
+          if (oldResult.title !== analysisResult.title) {
+            changes.push({
+              url: url,
+              changeType: 'title',
+              oldValue: oldResult.title,
+              newValue: analysisResult.title,
+              timestamp: new Date().toISOString()
+            });
+          }
+        }
 
         const updatedScanResults = existingScanResults.map(result => {
           if (result.url === url) {
@@ -731,7 +881,9 @@ app.post('/api/rescan-url', async (req, res) => {
               assignee: existingReview.assignee || null,
               notes: existingReview.notes || null,
               lastReviewed: existingReview.lastReviewed || null,
-              lastCrawled: new Date().toISOString()
+              lastCrawled: new Date().toISOString(),
+              hasChanged: changes.length > 0,
+              changeType: changes.length > 0 ? 'modified' : undefined
             };
           }
           return result;
@@ -748,6 +900,11 @@ app.post('/api/rescan-url', async (req, res) => {
           });
         }
 
+        // Save changes if any
+        if (changes.length > 0) {
+          await saveChangeHistory(sitemapUrl, changes);
+        }
+
         await saveScanResults(sitemapUrl, updatedScanResults);
       } catch (error) {
         console.error('Error updating scan results database:', error);
@@ -760,19 +917,152 @@ app.post('/api/rescan-url', async (req, res) => {
       assignee: existingReview.assignee || null,
       notes: existingReview.notes || null,
       lastReviewed: existingReview.lastReviewed || null,
-      lastAnalyzed: new Date().toISOString()
+      lastAnalyzed: new Date().toISOString(),
+      hasChanged: changes.length > 0,
+      changeType: changes.length > 0 ? 'modified' : undefined
     };
 
-    if (result.dataLayer?.objectId && webCrawler.mboSessionToken) {
-      const urlObj = new URL(url);
-      const baseUrl = `${urlObj.protocol}//${urlObj.hostname}`;
-      result.mboUrl = webCrawler.generateMboUrl(result.dataLayer.objectId, baseUrl);
-    }
-
-    res.json(result);
+    res.json({
+      success: true,
+      result: result,
+      hasChanges: changes.length > 0
+    });
   } catch (error) {
     console.error('Error rescanning URL:', error);
     res.status(500).json({ error: 'Failed to rescan URL' });
+  }
+});
+
+// Initialize AI Service
+const aiService = new AIService();
+
+// AI Endpoints
+
+// Test AI connection
+app.get('/api/ai/test', async (req, res) => {
+  try {
+    const result = await aiService.testConnection();
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Detect MBO session
+app.post('/api/detect-mbo', async (req, res) => {
+  const { baseUrl } = req.body;
+
+  if (!baseUrl) {
+    return res.status(400).json({ error: 'Base URL is required' });
+  }
+
+  try {
+    console.log('🔍 Attempting to detect MBO session for:', baseUrl);
+
+    const webCrawler = new WebCrawler({ usePuppeteer: true });
+    const mboSession = await webCrawler.detectMboSession(baseUrl);
+
+    console.log('MBO detection result:', mboSession);
+
+    res.json(mboSession);
+  } catch (error) {
+    console.error('❌ Error detecting MBO session:', error);
+    res.status(500).json({
+      hasSession: false,
+      sessionType: null,
+      token: null,
+      error: error.message
+    });
+  }
+});
+
+// Generate AI meta description suggestions for a single URL
+app.post('/api/ai/generate-meta', async (req, res) => {
+  const { url, title, currentMeta, content } = req.body;
+
+  if (!url) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+
+  try {
+    const result = await aiService.generateMetaDescriptions({
+      url,
+      title: title || '',
+      currentMeta: currentMeta || '',
+      content: content || ''
+    }, 5);
+
+    res.json(result);
+  } catch (error) {
+    console.error('AI Generation Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to generate suggestions: ' + error.message
+    });
+  }
+});
+
+// Bulk generate AI meta descriptions
+app.post('/api/ai/bulk-generate', async (req, res) => {
+  const { pages, suggestionsPerPage } = req.body;
+
+  if (!pages || !Array.isArray(pages) || pages.length === 0) {
+    return res.status(400).json({ error: 'Pages array is required' });
+  }
+
+  try {
+    const result = await aiService.generateBulkMetaDescriptions(
+      pages,
+      suggestionsPerPage || 3
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error('Bulk AI Generation Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to generate bulk suggestions: ' + error.message
+    });
+  }
+});
+
+// Analyze meta description quality
+app.post('/api/ai/analyze-meta', async (req, res) => {
+  const { metaDescription } = req.body;
+
+  if (!metaDescription) {
+    return res.status(400).json({ error: 'Meta description is required' });
+  }
+
+  try {
+    const result = await aiService.analyzeMetaDescription(metaDescription);
+    res.json(result);
+  } catch (error) {
+    console.error('AI Analysis Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to analyze meta description: ' + error.message
+    });
+  }
+});
+
+// Extract keywords from meta description
+app.post('/api/ai/extract-keywords', async (req, res) => {
+  const { metaDescription } = req.body;
+
+  if (!metaDescription) {
+    return res.status(400).json({ error: 'Meta description is required' });
+  }
+
+  try {
+    const result = await aiService.extractKeywords(metaDescription);
+    res.json(result);
+  } catch (error) {
+    console.error('Keyword Extraction Error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to extract keywords: ' + error.message
+    });
   }
 });
 
@@ -785,4 +1075,5 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`   Local: http://localhost:${PORT}`);
   console.log(`   Network: http://0.0.0.0:${PORT}`);
   console.log(`\n📱 Access from any device on your local network!`);
+  console.log(`\n🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? 'Enabled ✅' : 'Disabled ❌'}`);
 });

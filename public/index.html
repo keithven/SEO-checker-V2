@@ -165,6 +165,10 @@
             text-align: center;
         }
 
+        .tree-node-icon .fa-folder {
+            color: #ffc107;
+        }
+
         .tree-node-name {
             flex: 1;
             font-weight: 600;
@@ -414,6 +418,28 @@
             font-weight: bold;
         }
 
+        /* Modal z-index fixes */
+        .modal-backdrop.show {
+            z-index: 1040 !important;
+        }
+
+        #urlDetailsModal.show {
+            z-index: 1055 !important;
+        }
+
+        #changeHistoryModal.show {
+            z-index: 1065 !important;
+        }
+
+        /* Ensure modal dialog is always above backdrop */
+        .modal.show .modal-dialog {
+            z-index: 1056 !important;
+        }
+
+        #changeHistoryModal.show .modal-dialog {
+            z-index: 1066 !important;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-v2 h1 {
@@ -562,7 +588,7 @@
                             <label class="form-label">Scan Mode</label>
                             <select class="form-select" id="scanMode">
                                 <option value="full">Full Scan</option>
-                                <option value="incremental">Incremental</option>
+                                <option value="incremental" selected>Incremental</option>
                             </select>
                         </div>
                         <div class="col-md-3">
@@ -582,7 +608,7 @@
                             <input type="number" class="form-control" id="timeout" value="10000" min="1000">
                         </div>
                     </div>
-                    <div class="mt-3 d-flex gap-2">
+                    <div class="mt-3 d-flex gap-2 flex-wrap">
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-play"></i> Start Analysis
                         </button>
@@ -595,6 +621,34 @@
                         <button type="button" class="btn btn-info" id="showHistogramBtn">
                             <i class="fas fa-chart-bar"></i> Character Histogram
                         </button>
+                        <button type="button" class="btn btn-purple" id="bulkAIBtn" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                            <i class="fas fa-magic"></i> Bulk AI Rewrite
+                        </button>
+                        <button type="button" class="btn btn-outline-info" id="manualMboBtn" title="Enter MBO token for Edit in MBO buttons">
+                            <i class="fas fa-key"></i> <span id="mboButtonText">Set MBO Token</span>
+                        </button>
+                    </div>
+                    <div id="mboManualEntry" class="mt-2" style="display: none;">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-8">
+                                <label class="form-label small">MBO Security Token (from your MBO URL)</label>
+                                <input type="text" class="form-control form-control-sm" id="mboTokenInput" placeholder="e.g., c63bccd555">
+                                <small class="text-muted">Copy the token from your MBO URL: /admin/sec<strong>[TOKEN]</strong>/</small>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-success btn-sm w-100" id="saveMboTokenBtn">
+                                    <i class="fas fa-save"></i> Save Token
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mboStatusIndicator" class="mt-2" style="display: none;">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle"></i> MBO Status: <span id="mboStatus">Not detected</span>
+                            <button type="button" class="btn btn-sm btn-outline-danger ms-2" id="clearMboBtn" title="Clear saved MBO token">
+                                <i class="fas fa-trash"></i> Clear Token
+                            </button>
+                        </small>
                     </div>
                 </form>
             </div>
@@ -708,6 +762,159 @@
                             <i class="fas fa-file-csv"></i> Export CSV
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Suggestions Modal -->
+    <div class="modal fade" id="aiSuggestionsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-robot"></i> AI Meta Description Suggestions
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="aiLoadingState" class="text-center py-5">
+                        <div class="loading-spinner" style="width: 50px; height: 50px; margin: 0 auto;"></div>
+                        <p class="mt-3">Generating AI suggestions...</p>
+                        <p class="text-muted">This may take 2-3 seconds</p>
+                    </div>
+
+                    <div id="aiSuggestionsContent" class="hidden">
+                        <!-- Current Meta -->
+                        <div class="mb-4 p-3" style="background: var(--bg-secondary); border-radius: 8px;">
+                            <h6><strong>Current Meta Description:</strong></h6>
+                            <p id="aiCurrentMeta" class="mb-1"></p>
+                            <small class="text-muted">
+                                <span id="aiCurrentLength"></span> characters
+                            </small>
+                        </div>
+
+                        <!-- AI Suggestions -->
+                        <h6 class="mb-3"><strong>AI-Generated Suggestions:</strong></h6>
+                        <div id="aiSuggestionsList">
+                            <!-- Suggestions will be inserted here -->
+                        </div>
+
+                        <!-- Cost Info -->
+                        <div class="mt-4 p-3" style="background: var(--bg-secondary); border-radius: 8px;">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Cost:</strong> $<span id="aiCost">0.00</span> |
+                                <strong>Tokens:</strong> <span id="aiTokens">0</span> |
+                                <strong>Model:</strong> <span id="aiModel">Claude 3 Haiku</span>
+                            </small>
+                        </div>
+                    </div>
+
+                    <div id="aiErrorState" class="hidden">
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Error:</strong> <span id="aiErrorMessage"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk AI Modal -->
+    <div class="modal fade" id="bulkAIModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-magic"></i> Bulk AI Rewrite
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Generate AI suggestions for <strong id="bulkAICount">0</strong> URLs with issues.</p>
+
+                    <div class="mb-3">
+                        <label class="form-label">Suggestions per URL:</label>
+                        <select class="form-select" id="bulkAISuggestionsCount">
+                            <option value="3" selected>3 suggestions (recommended)</option>
+                            <option value="5">5 suggestions</option>
+                            <option value="1">1 suggestion (fastest)</option>
+                        </select>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-calculator"></i>
+                        <strong>Estimated Cost:</strong> $<span id="bulkAIEstimatedCost">0.00</span>
+                        <br>
+                        <small>Based on ~$0.003-0.005 per URL</small>
+                    </div>
+
+                    <div id="bulkAIProgress" class="hidden">
+                        <div class="progress-enhanced">
+                            <div class="progress-bar bg-primary" id="bulkAIProgressBar" style="width: 0%">
+                                0%
+                            </div>
+                        </div>
+                        <p class="mt-2 text-muted" id="bulkAIProgressText">Processing...</p>
+                    </div>
+
+                    <div id="bulkAIResults" class="hidden mt-3">
+                        <h6>Results:</h6>
+                        <div id="bulkAIResultsList"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="startBulkAIBtn">
+                        <i class="fas fa-magic"></i> Generate Suggestions
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change History Modal -->
+    <div class="modal fade" id="changeHistoryModal" tabindex="-1" style="z-index: 1060;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-history"></i> Change History
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="changeHistoryContent"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- URL Details Modal -->
+    <div class="modal fade" id="urlDetailsModal" tabindex="-1" style="z-index: 1050;">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="background: var(--bg-card); color: var(--text-primary);">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-file-alt"></i> <span id="modalPageTitle">Page Details</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="urlDetailsContent">
+                        <!-- Content will be dynamically loaded -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveUrlChanges">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
                 </div>
             </div>
         </div>

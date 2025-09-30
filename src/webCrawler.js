@@ -119,13 +119,23 @@ export class WebCrawler {
           // Try multiple methods to find the security token
           let token = null;
 
-          // Method 1: Extract from URL parameters
-          const secMatch = sessionInfo.currentUrl.match(/[?&]sec=([^&]+)/);
-          if (secMatch) {
-            token = secMatch[1];
+          // Method 1: Extract from URL path (e.g., /admin/sec[TOKEN]/)
+          const pathSecMatch = sessionInfo.currentUrl.match(/\.admin\/sec([a-z0-9]+)\//i);
+          if (pathSecMatch) {
+            token = pathSecMatch[1];
+            console.log('✓ Found MBO token in URL path:', token);
           }
 
-          // Method 2: Look for token in page content or localStorage
+          // Method 2: Extract from URL parameters
+          if (!token) {
+            const secMatch = sessionInfo.currentUrl.match(/[?&]sec=([^&]+)/);
+            if (secMatch) {
+              token = secMatch[1];
+              console.log('✓ Found MBO token in URL params:', token);
+            }
+          }
+
+          // Method 3: Look for token in page content or localStorage
           if (!token) {
             token = await page.evaluate(() => {
               // Check localStorage
@@ -149,20 +159,43 @@ export class WebCrawler {
                 if (secInput && secInput.value) return secInput.value;
               } catch (e) {}
 
+              // Check for token in any links on the page
+              try {
+                const links = Array.from(document.querySelectorAll('a[href*="/sec"]'));
+                for (const link of links) {
+                  const match = link.href.match(/\/sec([a-z0-9]+)\//i);
+                  if (match) return match[1];
+                }
+              } catch (e) {}
+
               return null;
             });
+            if (token) {
+              console.log('✓ Found MBO token in page content:', token);
+            }
           }
 
-          // Method 3: Navigate to a typical MBO page to get the token
+          // Method 4: Navigate to a typical MBO page to get the token
           if (!token) {
             try {
               await page.goto(`${baseUrl}/epages/${this.mboShopId}.admin/`, { waitUntil: 'networkidle2', timeout: 5000 });
               const dashboardUrl = page.url();
-              const dashboardSecMatch = dashboardUrl.match(/[?&]sec=([^&]+)/);
-              if (dashboardSecMatch) {
-                token = dashboardSecMatch[1];
+
+              // Check URL path first
+              const pathMatch = dashboardUrl.match(/\.admin\/sec([a-z0-9]+)\//i);
+              if (pathMatch) {
+                token = pathMatch[1];
+                console.log('✓ Found MBO token in dashboard URL path:', token);
+              } else {
+                // Check query params
+                const dashboardSecMatch = dashboardUrl.match(/[?&]sec=([^&]+)/);
+                if (dashboardSecMatch) {
+                  token = dashboardSecMatch[1];
+                  console.log('✓ Found MBO token in dashboard URL params:', token);
+                }
               }
             } catch (e) {
+              console.log('✗ Could not navigate to dashboard:', e.message);
             }
           }
 

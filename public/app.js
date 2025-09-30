@@ -7,8 +7,10 @@ class SEOCheckerV2 {
         this.currentView = 'all';
         this.hideDone = false;
         this.theme = localStorage.getItem('theme') || 'light';
+        this.mboSession = null;
 
         this.initializeTheme();
+        this.loadMboSession();
         this.initializeEventListeners();
         this.setupSocketListeners();
         this.setupKeyboardShortcuts();
@@ -28,6 +30,33 @@ class SEOCheckerV2 {
         this.initializeTheme();
     }
 
+    loadMboSession() {
+        try {
+            const savedSession = localStorage.getItem('mboSession');
+            if (savedSession) {
+                this.mboSession = JSON.parse(savedSession);
+
+                // Update UI to show saved session
+                const statusIndicator = document.getElementById('mboStatusIndicator');
+                const statusText = document.getElementById('mboStatus');
+                const mboButton = document.getElementById('manualMboBtn');
+                const buttonText = document.getElementById('mboButtonText');
+
+                if (statusIndicator && statusText && mboButton && buttonText) {
+                    statusIndicator.style.display = 'block';
+                    statusText.innerHTML = `<span class="text-success"><i class="fas fa-check-circle"></i> Token active (${this.mboSession.token.substring(0, 8)}...)</span>`;
+                    buttonText.textContent = 'MBO Token Active';
+                    mboButton.classList.remove('btn-outline-info');
+                    mboButton.classList.add('btn-success');
+                }
+
+                console.log('✓ MBO session loaded from localStorage');
+            }
+        } catch (e) {
+            console.error('Error loading MBO session:', e);
+        }
+    }
+
     initializeEventListeners() {
         // Form submission
         document.getElementById('analysisForm')?.addEventListener('submit', this.startAnalysis.bind(this));
@@ -40,6 +69,11 @@ class SEOCheckerV2 {
         document.getElementById('shortcutsBtn')?.addEventListener('click', this.showShortcuts.bind(this));
         document.getElementById('exportJsonBtn')?.addEventListener('click', () => this.exportResults('json'));
         document.getElementById('exportCsvBtn')?.addEventListener('click', () => this.exportResults('csv'));
+        document.getElementById('bulkAIBtn')?.addEventListener('click', this.showBulkAIModal.bind(this));
+        document.getElementById('detectMboBtn')?.addEventListener('click', this.detectMboSession.bind(this));
+        document.getElementById('manualMboBtn')?.addEventListener('click', this.toggleManualMboEntry.bind(this));
+        document.getElementById('saveMboTokenBtn')?.addEventListener('click', this.saveManualMboToken.bind(this));
+        document.getElementById('clearMboBtn')?.addEventListener('click', this.clearMboSession.bind(this));
 
         // Filters
         document.getElementById('searchFilter')?.addEventListener('input', this.applyFilters.bind(this));
@@ -54,6 +88,21 @@ class SEOCheckerV2 {
                 this.switchView(view);
             });
         });
+
+        // Modal event listeners to restore UI after close
+        const urlDetailsModal = document.getElementById('urlDetailsModal');
+        if (urlDetailsModal) {
+            urlDetailsModal.addEventListener('hidden.bs.modal', () => {
+                // Re-render results to restore interactivity
+                if (this.currentResults) {
+                    this.applyFilters();
+                }
+                // Ensure body is scrollable
+                document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
+                document.body.classList.remove('modal-open');
+            });
+        }
     }
 
     setupSocketListeners() {
@@ -145,7 +194,8 @@ class SEOCheckerV2 {
             maxPages: parseInt(maxPages),
             delay: parseInt(delay),
             timeout: parseInt(timeout),
-            chunkSize: parseInt(chunkSize)
+            chunkSize: parseInt(chunkSize),
+            enableMboDetection: true  // Always use Puppeteer to get object IDs
         };
 
         try {
@@ -565,49 +615,30 @@ class SEOCheckerV2 {
     renderUrlItemHTML(result, inTree = false) {
         const statusClass = result.status || 'warning';
         const charCount = result.characterCount || 0;
-        const charCountClass = charCount >= 120 && charCount <= 160 ? 'good' :
-                               charCount > 0 ? 'warning' : 'error';
 
         return `
-            <div class="url-item-v2 ${statusClass}" data-url="${result.url}">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div class="flex-grow-1">
-                        <a href="${result.url}" target="_blank" class="text-decoration-none">
-                            <strong>${result.url}</strong>
-                        </a>
+            <div class="url-item-v2 ${statusClass}" data-url="${result.url}" onclick="app.openUrlDetails('${result.url}')" style="cursor: pointer;">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div class="flex-grow-1" style="min-width: 0; overflow-wrap: break-word;">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <strong style="overflow-wrap: break-word; word-break: break-word;">${result.title || result.url}</strong>
+                        </div>
+                        <div class="text-muted small mb-1" style="overflow-wrap: break-word; word-break: break-word;">
+                            ${result.url}
+                        </div>
+                        <div class="meta-description-preview" style="overflow-wrap: break-word; word-break: break-word; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            ${result.metaDescription || '<em>No meta description</em>'}
+                            <span class="text-muted">(${charCount} chars)</span>
+                        </div>
                     </div>
-                    <div class="d-flex gap-2">
+                    <div class="d-flex flex-column gap-1 align-items-end" style="flex-shrink: 0; margin-left: 10px;">
                         <span class="badge bg-${statusClass}">${result.status}</span>
                         <span class="badge bg-secondary">${result.reviewStatus || 'new'}</span>
+                        ${result.hasChanged ? `<span class="badge bg-info"><i class="fas fa-history"></i> Changed</span>` : ''}
+                        ${result.changeType === 'new' ? `<span class="badge bg-success"><i class="fas fa-plus"></i> New</span>` : ''}
+                        ${result.issues && result.issues.length > 0 ? `<span class="badge bg-danger">${result.issues.length} issue${result.issues.length > 1 ? 's' : ''}</span>` : ''}
                     </div>
                 </div>
-
-                ${result.title ? `
-                    <div class="mb-2">
-                        <strong>Title:</strong> ${result.title}
-                    </div>
-                ` : ''}
-
-                <div class="mb-2">
-                    <strong>Meta Description
-                        <span class="char-count ${charCountClass}">(${charCount} chars)</span>
-                    </strong>
-                    <button class="copy-btn ms-2" onclick="app.copyToClipboard('${(result.metaDescription || '').replace(/'/g, "\\'")}', this)">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                </div>
-                <div class="meta-description">
-                    ${result.metaDescription || '<em>No meta description</em>'}
-                </div>
-
-                ${result.issues && result.issues.length > 0 ? `
-                    <div class="mt-2">
-                        <strong>Issues:</strong>
-                        <ul class="issue-list">
-                            ${result.issues.map(issue => `<li>${issue}</li>`).join('')}
-                        </ul>
-                    </div>
-                ` : ''}
             </div>
         `;
     }
@@ -697,6 +728,854 @@ class SEOCheckerV2 {
     showError(message) {
         this.showNotification(message, 'danger');
         console.error(message);
+    }
+
+    // AI Methods
+
+    async generateAISuggestions(url, title, currentMeta) {
+        const modal = new bootstrap.Modal(document.getElementById('aiSuggestionsModal'));
+        modal.show();
+
+        // Show loading state
+        document.getElementById('aiLoadingState').classList.remove('hidden');
+        document.getElementById('aiSuggestionsContent').classList.add('hidden');
+        document.getElementById('aiErrorState').classList.add('hidden');
+
+        try {
+            const response = await fetch('/api/ai/generate-meta', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url,
+                    title: title || '',
+                    currentMeta: currentMeta || ''
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                this.displayAISuggestions(data, url, currentMeta);
+            } else {
+                throw new Error(data.error || 'Failed to generate suggestions');
+            }
+        } catch (error) {
+            document.getElementById('aiLoadingState').classList.add('hidden');
+            document.getElementById('aiErrorState').classList.remove('hidden');
+            document.getElementById('aiErrorMessage').textContent = error.message;
+        }
+    }
+
+    displayAISuggestions(data, url, currentMeta) {
+        // Hide loading, show content
+        document.getElementById('aiLoadingState').classList.add('hidden');
+        document.getElementById('aiSuggestionsContent').classList.remove('hidden');
+
+        // Show current meta
+        document.getElementById('aiCurrentMeta').textContent = currentMeta || 'No meta description';
+        document.getElementById('aiCurrentLength').textContent = (currentMeta || '').length;
+
+        // Show suggestions
+        const suggestionsList = document.getElementById('aiSuggestionsList');
+        suggestionsList.innerHTML = '';
+
+        data.suggestions.forEach((suggestion, index) => {
+            const optimalBadge = suggestion.isOptimal ?
+                '<span class="badge bg-success ms-2">Optimal Length</span>' : '';
+
+            const suggestionHTML = `
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6>
+                            Suggestion #${index + 1}
+                            ${optimalBadge}
+                            <span class="badge bg-secondary ms-2">${suggestion.length} chars</span>
+                        </h6>
+                        <p class="mb-3">${suggestion.text}</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-primary" onclick="app.copyToClipboard('${suggestion.text.replace(/'/g, "\\'")}', this)">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <button class="btn btn-sm btn-success" onclick="app.useSuggestion('${url}', '${suggestion.text.replace(/'/g, "\\'")}')">
+                                <i class="fas fa-check"></i> Use This
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            suggestionsList.innerHTML += suggestionHTML;
+        });
+
+        // Show cost info
+        const cost = data.usage.estimatedCost.toFixed(6);
+        const tokens = data.usage.inputTokens + data.usage.outputTokens;
+        document.getElementById('aiCost').textContent = cost;
+        document.getElementById('aiTokens').textContent = tokens;
+    }
+
+    useSuggestion(url, suggestion) {
+        // Copy to clipboard
+        navigator.clipboard.writeText(suggestion);
+
+        // Show notification
+        this.showNotification(`Suggestion copied! You can now paste it into your CMS for: ${url}`, 'success');
+
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('aiSuggestionsModal'));
+        if (modal) modal.hide();
+    }
+
+    async updateReviewStatus(url, status) {
+        try {
+            const response = await fetch('/api/reviews/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, status })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update review status');
+            }
+
+            // Update local data
+            const result = this.currentResults.find(r => r.url === url);
+            if (result) {
+                result.reviewStatus = status;
+            }
+
+            // Re-render current view to show updated status
+            this.applyFilters();
+
+            this.showNotification(`Marked as ${status}`, 'success');
+        } catch (error) {
+            this.showError('Failed to update review status: ' + error.message);
+        }
+    }
+
+    async viewChangeHistory(url) {
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+        if (!sitemapUrl) {
+            this.showError('Sitemap URL not found');
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/change-history?sitemapUrl=${encodeURIComponent(sitemapUrl)}&url=${encodeURIComponent(url)}`);
+            const history = await response.json();
+
+            const content = document.getElementById('changeHistoryContent');
+
+            if (history.length === 0) {
+                content.innerHTML = '<p class="text-muted">No change history found for this URL.</p>';
+            } else {
+                content.innerHTML = `
+                    <div class="mb-3">
+                        <strong>URL:</strong> <a href="${url}" target="_blank">${url}</a>
+                    </div>
+                    <div class="timeline">
+                        ${history.reverse().map(change => {
+                            const date = new Date(change.timestamp).toLocaleString();
+                            const changeIcon = change.changeType === 'new_url' ? 'plus' :
+                                              change.changeType === 'meta_description' ? 'edit' : 'heading';
+                            return `
+                                <div class="timeline-item mb-4 p-3" style="border-left: 4px solid #667eea; background: var(--bg-primary); border-radius: 5px;">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-${changeIcon}"></i> ${change.changeType.replace('_', ' ')}
+                                        </span>
+                                        <small class="text-muted">${date}</small>
+                                    </div>
+                                    ${change.oldValue ? `
+                                        <div class="mb-2">
+                                            <strong class="text-danger">Old:</strong><br/>
+                                            <span style="background: rgba(220, 53, 69, 0.1); padding: 5px; border-radius: 3px;">${change.oldValue}</span>
+                                        </div>
+                                    ` : ''}
+                                    ${change.newValue ? `
+                                        <div>
+                                            <strong class="text-success">New:</strong><br/>
+                                            <span style="background: rgba(40, 167, 69, 0.1); padding: 5px; border-radius: 3px;">${change.newValue}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            const modal = new bootstrap.Modal(document.getElementById('changeHistoryModal'));
+            modal.show();
+        } catch (error) {
+            this.showError('Failed to load change history: ' + error.message);
+        }
+    }
+
+    async rescanUrl(url, keepModalOpen = false) {
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+        if (!sitemapUrl) {
+            this.showError('Sitemap URL not found');
+            return;
+        }
+
+        // Find all rescan buttons including the modal one
+        const modalBtn = document.getElementById('modalRescanBtn');
+        const buttons = document.querySelectorAll(`[onclick*="rescanUrl('${url}')"]`);
+        const allButtons = modalBtn ? [modalBtn, ...Array.from(buttons)] : Array.from(buttons);
+        const originalButtonHTML = allButtons.length > 0 ? allButtons[0].innerHTML : '<i class="fas fa-sync"></i> Rescan Page';
+
+        allButtons.forEach(btn => {
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rescanning...';
+        });
+
+        // Check if modal is open
+        const modalElement = document.getElementById('urlDetailsModal');
+        const isModalOpen = modalElement && modalElement.classList.contains('show');
+
+        try {
+            const response = await fetch('/api/rescan-url', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url, sitemapUrl })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+                throw new Error(errorData.error || 'Failed to rescan URL');
+            }
+
+            const data = await response.json();
+
+            // Update the local results - preserve existing properties like reviewStatus
+            const index = this.currentResults.findIndex(r => r.url === url);
+            if (index !== -1) {
+                const oldResult = this.currentResults[index];
+                this.currentResults[index] = {
+                    ...oldResult,
+                    ...data.result,
+                    // Preserve review status and other local-only properties
+                    reviewStatus: oldResult.reviewStatus,
+                    assignee: oldResult.assignee,
+                    notes: oldResult.notes
+                };
+            }
+
+            // Re-render the current view
+            this.applyFilters();
+
+            // Reload modal content if modal is open
+            if (isModalOpen) {
+                const updatedResult = this.currentResults.find(r => r.url === url);
+                if (updatedResult) {
+                    // Update modal content directly without creating new modal instance
+                    this.updateModalContent(url);
+                }
+            }
+
+            // Restore button state
+            allButtons.forEach(btn => {
+                btn.disabled = false;
+                btn.innerHTML = originalButtonHTML;
+            });
+
+            if (data.hasChanges) {
+                this.showNotification('URL rescanned - Changes detected!', 'info');
+            } else {
+                this.showNotification('URL rescanned - No changes detected', 'success');
+            }
+        } catch (error) {
+            console.error('Rescan error:', error);
+            this.showError('Failed to rescan URL: ' + error.message);
+
+            // Restore button state on error
+            allButtons.forEach(btn => {
+                btn.disabled = false;
+                btn.innerHTML = originalButtonHTML;
+            });
+        }
+    }
+
+    async showBulkAIModal() {
+        if (!this.currentResults) {
+            this.showError('Please run a scan first');
+            return;
+        }
+
+        // Count URLs with issues
+        const urlsWithIssues = this.currentResults.filter(r =>
+            r.status === 'error' || r.status === 'warning'
+        );
+
+        if (urlsWithIssues.length === 0) {
+            this.showNotification('No URLs with issues found!', 'info');
+            return;
+        }
+
+        document.getElementById('bulkAICount').textContent = urlsWithIssues.length;
+
+        // Calculate estimated cost
+        const avgCost = 0.004; // $0.004 per URL
+        const estimatedCost = (urlsWithIssues.length * avgCost).toFixed(2);
+        document.getElementById('bulkAIEstimatedCost').textContent = estimatedCost;
+
+        // Show modal
+        const modal = new bootstrap.Modal(document.getElementById('bulkAIModal'));
+        modal.show();
+
+        // Set up start button
+        document.getElementById('startBulkAIBtn').onclick = () => this.startBulkAI(urlsWithIssues);
+    }
+
+    async startBulkAI(urls) {
+        const suggestionsCount = parseInt(document.getElementById('bulkAISuggestionsCount').value);
+
+        // Hide start button, show progress
+        document.getElementById('startBulkAIBtn').disabled = true;
+        document.getElementById('bulkAIProgress').classList.remove('hidden');
+        document.getElementById('bulkAIResults').classList.add('hidden');
+
+        const pages = urls.map(url => ({
+            url: url.url,
+            title: url.title || '',
+            currentMeta: url.metaDescription || ''
+        }));
+
+        try {
+            const response = await fetch('/api/ai/bulk-generate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    pages,
+                    suggestionsPerPage: suggestionsCount
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                this.displayBulkAIResults(data);
+            } else {
+                throw new Error(data.error || 'Failed to generate bulk suggestions');
+            }
+        } catch (error) {
+            this.showError('Bulk AI failed: ' + error.message);
+        } finally {
+            document.getElementById('startBulkAIBtn').disabled = false;
+            document.getElementById('bulkAIProgress').classList.add('hidden');
+        }
+    }
+
+    displayBulkAIResults(data) {
+        document.getElementById('bulkAIResults').classList.remove('hidden');
+
+        const resultsList = document.getElementById('bulkAIResultsList');
+        resultsList.innerHTML = `
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Success!</strong> Generated suggestions for ${data.totalProcessed} URLs.
+                <br>
+                <strong>Total Cost:</strong> $${data.totalCost.toFixed(4)}
+            </div>
+            <p>The AI has generated suggestions. Review the URLs in the main results list to see individual suggestions.</p>
+        `;
+
+        this.showNotification(`Bulk AI complete! Generated suggestions for ${data.totalProcessed} URLs`, 'success');
+    }
+
+    async detectMboSession() {
+        const button = document.getElementById('detectMboBtn');
+        const statusIndicator = document.getElementById('mboStatusIndicator');
+        const statusText = document.getElementById('mboStatus');
+        const buttonText = document.getElementById('mboStatusText');
+        const sitemapUrl = document.getElementById('sitemapUrl').value;
+
+        if (!sitemapUrl) {
+            this.showError('Please enter a sitemap URL first');
+            return;
+        }
+
+        // Extract base URL from sitemap
+        let baseUrl;
+        try {
+            const urlObj = new URL(sitemapUrl);
+            baseUrl = `${urlObj.protocol}//${urlObj.hostname}`;
+        } catch (e) {
+            this.showError('Invalid sitemap URL');
+            return;
+        }
+
+        button.disabled = true;
+        buttonText.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Detecting...';
+
+        try {
+            const response = await fetch('/api/detect-mbo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ baseUrl })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.hasSession) {
+                statusIndicator.style.display = 'block';
+                statusText.innerHTML = `<span class="text-success"><i class="fas fa-check-circle"></i> Detected (Token: ${data.token.substring(0, 8)}...)</span>`;
+                buttonText.textContent = 'MBO Session Active';
+                button.classList.remove('btn-outline-info');
+                button.classList.add('btn-success');
+                this.showNotification('MBO session detected successfully!', 'success');
+
+                // Store session info for use during scans
+                this.mboSession = {
+                    token: data.token,
+                    sessionType: data.sessionType,
+                    detectedAt: data.detectedAt
+                };
+
+                // Save to localStorage
+                try {
+                    localStorage.setItem('mboSession', JSON.stringify(this.mboSession));
+                    console.log('✓ MBO session saved to localStorage');
+                } catch (e) {
+                    console.error('Error saving MBO session:', e);
+                }
+            } else {
+                statusIndicator.style.display = 'block';
+                statusText.innerHTML = '<span class="text-warning"><i class="fas fa-exclamation-triangle"></i> Not detected - Make sure you\'re logged into ePages MBO</span>';
+                buttonText.textContent = 'Retry Detection';
+                this.showNotification('MBO session not detected. Make sure you have an active ePages MBO session.', 'warning');
+            }
+        } catch (error) {
+            console.error('MBO detection error:', error);
+            statusIndicator.style.display = 'block';
+            statusText.innerHTML = `<span class="text-danger"><i class="fas fa-times-circle"></i> Error: ${error.message}</span>`;
+            buttonText.textContent = 'Retry Detection';
+            this.showError('Failed to detect MBO session: ' + error.message);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    toggleManualMboEntry() {
+        const manualEntry = document.getElementById('mboManualEntry');
+        if (manualEntry.style.display === 'none') {
+            manualEntry.style.display = 'block';
+        } else {
+            manualEntry.style.display = 'none';
+        }
+    }
+
+    saveManualMboToken() {
+        const tokenInput = document.getElementById('mboTokenInput');
+        const token = tokenInput.value.trim();
+
+        if (!token) {
+            this.showError('Please enter a token');
+            return;
+        }
+
+        // Validate token format (alphanumeric)
+        if (!/^[a-z0-9]+$/i.test(token)) {
+            this.showError('Invalid token format. Token should only contain letters and numbers.');
+            return;
+        }
+
+        const statusIndicator = document.getElementById('mboStatusIndicator');
+        const statusText = document.getElementById('mboStatus');
+        const mboButton = document.getElementById('manualMboBtn');
+        const buttonText = document.getElementById('mboButtonText');
+
+        // Store the token
+        this.mboSession = {
+            token: token,
+            sessionType: 'manual',
+            detectedAt: new Date().toISOString()
+        };
+
+        // Save to localStorage
+        try {
+            localStorage.setItem('mboSession', JSON.stringify(this.mboSession));
+            console.log('✓ MBO session saved to localStorage');
+        } catch (e) {
+            console.error('Error saving MBO session:', e);
+        }
+
+        // Update UI
+        statusIndicator.style.display = 'block';
+        statusText.innerHTML = `<span class="text-success"><i class="fas fa-check-circle"></i> Token set manually (${token.substring(0, 8)}...)</span>`;
+        buttonText.textContent = 'MBO Token Active';
+        mboButton.classList.remove('btn-outline-info');
+        mboButton.classList.add('btn-success');
+
+        // Hide manual entry
+        document.getElementById('mboManualEntry').style.display = 'none';
+
+        this.showNotification('MBO token saved! It will persist across page refreshes.', 'success');
+
+        // Refresh the results display to update MBO buttons
+        if (this.currentResults) {
+            this.renderResults(this.filteredResults || this.currentResults);
+        }
+    }
+
+    clearMboSession() {
+        if (!confirm('Are you sure you want to clear the saved MBO token? You will need to enter it again.')) {
+            return;
+        }
+
+        // Clear from memory
+        this.mboSession = null;
+
+        // Clear from localStorage
+        try {
+            localStorage.removeItem('mboSession');
+            console.log('✓ MBO session cleared from localStorage');
+        } catch (e) {
+            console.error('Error clearing MBO session:', e);
+        }
+
+        // Reset UI
+        const statusIndicator = document.getElementById('mboStatusIndicator');
+        const statusText = document.getElementById('mboStatus');
+        const mboButton = document.getElementById('manualMboBtn');
+        const buttonText = document.getElementById('mboButtonText');
+        const tokenInput = document.getElementById('mboTokenInput');
+
+        statusIndicator.style.display = 'none';
+        statusText.innerHTML = 'Not detected';
+        buttonText.textContent = 'Set MBO Token';
+        mboButton.classList.remove('btn-success');
+        mboButton.classList.add('btn-outline-info');
+
+        if (tokenInput) {
+            tokenInput.value = '';
+        }
+
+        this.showNotification('MBO token cleared. Enter a new token when your session changes.', 'info');
+
+        // Refresh the results display to update MBO buttons
+        if (this.currentResults) {
+            this.renderResults(this.filteredResults || this.currentResults);
+        }
+    }
+
+    generateMboButton(result) {
+        // Check if we have an object ID for this page
+        if (!result.dataLayer?.objectId) {
+            return ''; // No object ID, no button
+        }
+
+        const objectId = result.dataLayer.objectId;
+
+        // If we have an MBO token, generate the URL
+        if (this.mboSession && this.mboSession.token) {
+            const urlObj = new URL(result.url);
+            const baseUrl = `${urlObj.protocol}//${urlObj.hostname}`;
+            const shopId = 'yxve46fvrnud'; // This should match the shop ID in webCrawler.js
+            const mboUrl = `${baseUrl}/epages/${shopId}.admin/sec${this.mboSession.token}/?ObjectID=${objectId}`;
+
+            return `
+                <a href="${mboUrl}" target="_blank" class="btn btn-sm" style="color: #fff; background-color: #d41118; border-color: #d41118;" title="Edit in MBO">
+                    <i class="fas fa-external-link-alt"></i> Edit in MBO
+                </a>
+            `;
+        }
+
+        // No token set - show a hint to set one
+        return `
+            <button class="btn btn-sm btn-outline-secondary" disabled title="Set MBO token to enable">
+                <i class="fas fa-lock"></i> Set Token First
+            </button>
+        `;
+    }
+
+    openUrlDetails(url) {
+        // Find the result data
+        const result = this.currentResults.find(r => r.url === url);
+        if (!result) {
+            this.showError('URL data not found');
+            return;
+        }
+
+        // Update modal title
+        document.getElementById('modalPageTitle').textContent = result.title || url;
+
+        // Generate SEO recommendations
+        const seoSuggestions = this.generateSeoSuggestions(result);
+
+        // Build modal content
+        const charCount = result.characterCount || 0;
+        const charCountClass = charCount >= 120 && charCount <= 160 ? 'text-success' :
+                               charCount > 0 ? 'text-warning' : 'text-danger';
+
+        const modalContent = `
+            <div class="row">
+                <!-- Left Column: Details -->
+                <div class="col-md-7">
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-link"></i> URL Details</h6>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Page URL</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" value="${result.url}" readonly>
+                                <a href="${result.url}" target="_blank" class="btn btn-outline-secondary">
+                                    <i class="fas fa-external-link-alt"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Page Title</label>
+                            <textarea class="form-control" rows="2" id="modalTitle">${result.title || ''}</textarea>
+                            <small class="text-muted">${(result.title || '').length} characters</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                Meta Description
+                                <span class="${charCountClass}">(${charCount} chars - Optimal: 120-160)</span>
+                            </label>
+                            <textarea class="form-control" rows="3" id="modalMetaDescription">${result.metaDescription || ''}</textarea>
+                            <div class="d-flex gap-2 mt-2">
+                                <button class="btn btn-sm btn-outline-primary" onclick="app.copyToClipboard(document.getElementById('modalMetaDescription').value, this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="btn btn-sm btn-purple" onclick="app.generateAISuggestions('${result.url}', document.getElementById('modalTitle').value, document.getElementById('modalMetaDescription').value)">
+                                    <i class="fas fa-robot"></i> AI Suggestions
+                                </button>
+                            </div>
+                        </div>
+
+                        ${result.issues && result.issues.length > 0 ? `
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-danger">
+                                    <i class="fas fa-exclamation-triangle"></i> Issues Found (${result.issues.length})
+                                </label>
+                                <ul class="list-group">
+                                    ${result.issues.map(issue => `<li class="list-group-item list-group-item-danger">${issue}</li>`).join('')}
+                                </ul>
+                            </div>
+                        ` : '<div class="alert alert-success"><i class="fas fa-check-circle"></i> No issues found</div>'}
+                    </div>
+                </div>
+
+                <!-- Right Column: Actions & SEO Tips -->
+                <div class="col-md-5">
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-tasks"></i> Quick Actions</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" id="modalRescanBtn" onclick="app.rescanUrl('${result.url}', true);">
+                                <i class="fas fa-sync"></i> Rescan Page
+                            </button>
+                            ${this.generateMboButton(result)}
+                            ${result.hasChanged ? `
+                                <button class="btn btn-outline-info" onclick="app.viewChangeHistory('${result.url}')">
+                                    <i class="fas fa-history"></i> View Change History
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-flag"></i> Review Status</h6>
+                        <div class="btn-group d-flex" role="group">
+                            <button class="btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary' : 'btn-outline-secondary'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'new'); this.closest('.btn-group').querySelector('.btn-secondary').classList.replace('btn-secondary', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-secondary');">
+                                New
+                            </button>
+                            <button class="btn ${(result.reviewStatus || 'new') === 'in-progress' ? 'btn-warning' : 'btn-outline-warning'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'in-progress'); this.closest('.btn-group').querySelectorAll('.btn').forEach(b => b.className = b.className.replace(/btn-(warning|success|secondary)/, 'btn-outline-$1')); this.classList.replace('btn-outline-warning', 'btn-warning');">
+                                In Progress
+                            </button>
+                            <button class="btn ${(result.reviewStatus || 'new') === 'reviewed' ? 'btn-success' : 'btn-outline-success'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'reviewed'); this.closest('.btn-group').querySelectorAll('.btn').forEach(b => b.className = b.className.replace(/btn-(warning|success|secondary)/, 'btn-outline-$1')); this.classList.replace('btn-outline-success', 'btn-success');">
+                                Reviewed
+                            </button>
+                        </div>
+                    </div>
+
+                    ${seoSuggestions ? `
+                        <div class="mb-4">
+                            <h6 class="border-bottom pb-2"><i class="fas fa-lightbulb"></i> SEO Suggestions</h6>
+                            <div class="alert alert-info">
+                                ${seoSuggestions}
+                            </div>
+                        </div>
+                    ` : ''}
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-info-circle"></i> Page Stats</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Status:</span>
+                                <span class="badge bg-${result.status || 'warning'}">${result.status || 'warning'}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Last Analyzed:</span>
+                                <span class="text-muted small">${result.lastAnalyzed ? new Date(result.lastAnalyzed).toLocaleString() : 'N/A'}</span>
+                            </li>
+                            ${result.hasChanged ? `
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Status:</span>
+                                    <span class="badge bg-info"><i class="fas fa-history"></i> Changed</span>
+                                </li>
+                            ` : ''}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('urlDetailsContent').innerHTML = modalContent;
+
+        // Show the modal without backdrop
+        const modal = new bootstrap.Modal(document.getElementById('urlDetailsModal'), {
+            backdrop: false,
+            keyboard: true
+        });
+        modal.show();
+
+        // Store current URL for saving changes
+        this.currentModalUrl = url;
+    }
+
+    updateModalContent(url) {
+        // Update only the modal content without creating a new modal instance
+        const result = this.currentResults.find(r => r.url === url);
+        if (!result) return;
+
+        // Update modal title
+        document.getElementById('modalPageTitle').textContent = result.title || url;
+
+        // Generate and update content
+        const seoSuggestions = this.generateSeoSuggestions(result);
+        const charCount = result.characterCount || 0;
+        const charCountClass = charCount >= 120 && charCount <= 160 ? 'text-success' :
+                               charCount > 0 ? 'text-warning' : 'text-danger';
+
+        const modalContent = `
+            <div class="row">
+                <!-- Left Column: Details -->
+                <div class="col-md-7">
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-heading"></i> Page Title</h6>
+                        <textarea class="form-control" rows="2" id="modalTitle">${result.title || ''}</textarea>
+                        <small class="text-muted">${(result.title || '').length} characters</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-file-alt"></i> Meta Description</h6>
+                        <textarea class="form-control" rows="4" id="modalMetaDescription">${result.metaDescription || ''}</textarea>
+                        <small class="${charCountClass}">${charCount} characters ${charCount >= 120 && charCount <= 160 ? '✓' : '(Aim for 120-160)'}</small>
+                    </div>
+
+                    ${result.issues && result.issues.length > 0 ? `
+                        <div class="mb-4">
+                            <h6 class="border-bottom pb-2"><i class="fas fa-exclamation-triangle"></i> Issues</h6>
+                            <div class="alert alert-warning">
+                                <ul class="mb-0">
+                                    ${result.issues.map(issue => `<li>${issue}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    ` : '<div class="alert alert-success"><i class="fas fa-check-circle"></i> No issues found</div>'}
+                </div>
+
+                <!-- Right Column: Actions & SEO Tips -->
+                <div class="col-md-5">
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-tasks"></i> Quick Actions</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" id="modalRescanBtn" onclick="app.rescanUrl('${result.url}', true);">
+                                <i class="fas fa-sync"></i> Rescan Page
+                            </button>
+                            ${this.generateMboButton(result)}
+                            ${result.hasChanged ? `
+                                <button class="btn btn-outline-info" onclick="app.viewChangeHistory('${result.url}')">
+                                    <i class="fas fa-history"></i> View Change History
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-flag"></i> Review Status</h6>
+                        <div class="btn-group d-flex" role="group">
+                            <button class="btn ${(result.reviewStatus || 'new') === 'new' ? 'btn-secondary' : 'btn-outline-secondary'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'new'); this.closest('.btn-group').querySelector('.btn-secondary').classList.replace('btn-secondary', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-secondary');">
+                                New
+                            </button>
+                            <button class="btn ${result.reviewStatus === 'in_progress' ? 'btn-info' : 'btn-outline-secondary'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'in_progress'); this.closest('.btn-group').querySelector('.btn-secondary, .btn-info').classList.replace('btn-secondary', 'btn-outline-secondary').replace('btn-info', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-info');">
+                                In Progress
+                            </button>
+                            <button class="btn ${result.reviewStatus === 'done' ? 'btn-success' : 'btn-outline-secondary'}"
+                                    onclick="app.updateReviewStatus('${result.url}', 'done'); this.closest('.btn-group').querySelector('.btn-secondary, .btn-info, .btn-success').classList.replace('btn-secondary', 'btn-outline-secondary').replace('btn-info', 'btn-outline-secondary').replace('btn-success', 'btn-outline-secondary'); this.classList.replace('btn-outline-secondary', 'btn-success');">
+                                Done
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-lightbulb"></i> SEO Suggestions</h6>
+                        <div class="alert alert-info small">
+                            ${seoSuggestions}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6 class="border-bottom pb-2"><i class="fas fa-chart-bar"></i> Page Stats</h6>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Status:</span>
+                                <span class="badge bg-${result.status}">${result.status}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Last Analyzed:</span>
+                                <span class="text-muted small">${result.lastAnalyzed ? new Date(result.lastAnalyzed).toLocaleString() : 'N/A'}</span>
+                            </li>
+                            ${result.hasChanged ? `
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>Status:</span>
+                                    <span class="badge bg-info"><i class="fas fa-history"></i> Changed</span>
+                                </li>
+                            ` : ''}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('urlDetailsContent').innerHTML = modalContent;
+    }
+
+    generateSeoSuggestions(result) {
+        const suggestions = [];
+        const charCount = result.characterCount || 0;
+
+        if (!result.metaDescription) {
+            suggestions.push('Add a meta description to improve click-through rates from search results.');
+        } else if (charCount < 120) {
+            suggestions.push('Your meta description is too short. Aim for 120-160 characters for optimal display.');
+        } else if (charCount > 160) {
+            suggestions.push('Your meta description may be cut off in search results. Consider shortening to 120-160 characters.');
+        }
+
+        if (!result.title || result.title.length < 30) {
+            suggestions.push('Your page title is too short. Aim for 50-60 characters with relevant keywords.');
+        } else if (result.title.length > 60) {
+            suggestions.push('Your page title may be truncated in search results. Keep it under 60 characters.');
+        }
+
+        if (result.issues && result.issues.length > 0) {
+            suggestions.push(`Fix the ${result.issues.length} issue${result.issues.length > 1 ? 's' : ''} detected to improve SEO performance.`);
+        }
+
+        if (suggestions.length === 0) {
+            return '<i class="fas fa-check-circle text-success"></i> Everything looks good! Keep up the great work.';
+        }
+
+        return '<ul class="mb-0">' + suggestions.map(s => `<li>${s}</li>`).join('') + '</ul>';
     }
 }
 
