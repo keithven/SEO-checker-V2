@@ -19042,13 +19042,11 @@
   {
     "url": "https://www.cremedevape.com/SvoeMesto/Kayfun-Five",
     "title": "SvoeMesto Kayfun Five Series RTAs | Creme de Vape",
-    "metaDescription": "High-end German-made SvoeMesto Kayfun 5 Squared Rebuildable Atomiser (RTA) for Direct Lung (DL) style sub-ohm vaping. Enlarged build deck for big coils",
+    "metaDescription": "High-end German-made SvoeMesto Kayfun 5 Squared Rebuildable Atomiser (RTA) for Direct Lung (DL) style sub-ohm vaping. Enlarged build deck for big coils.",
     "hasMetaDescription": true,
-    "characterCount": 151,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 152,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -19337,21 +19335,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T08:30:59.499Z",
-    "hasChanged": false,
+    "lastCrawled": "2025-10-01T08:32:38.148Z",
+    "hasChanged": true,
+    "changeType": "modified",
     "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/e-liquid/Cloudelier-E-liquid",
     "title": "Cloudelier - Quality UK-Made e-liquid - Creme de Vape",
-    "metaDescription": "Cloudelier eliquid",
+    "metaDescription": "Looking for a vaping experience that stands out? Try Cloudelier's expertly crafted e-liquids and discover your new favourite flavour.",
     "hasMetaDescription": true,
-    "characterCount": 18,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (18 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 133,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -19491,7 +19487,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5038816",
       "hasDataLayer": true,
@@ -19584,22 +19579,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T08:33:41.957Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Eden-Mod",
     "title": "Eden Mods - Creme de Vape",
-    "metaDescription": "Eden Mods made in England",
+    "metaDescription": "Eden Mods' premium English-made devices with their innovative Salix RDA, Trillium Sub-tank, and Rose 3 TPD Edition. (No longer in production).",
     "hasMetaDescription": true,
-    "characterCount": 25,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (25 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 142,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -19703,7 +19695,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5046415",
       "hasDataLayer": true,
@@ -19796,10 +19787,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T11:09:54.277Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Modders",
@@ -20049,14 +20040,11 @@
   {
     "url": "https://www.cremedevape.com/Brands/Cotton-Bacon",
     "title": "Cotton Bacon - Creme de Vape",
-    "metaDescription": "Cotton Bacon - The first cotton wick designed by vapers for vapers.",
+    "metaDescription": "Discover the premium vape wick designed by vapers for vapers. Cotton Bacon offers unparalleled wicking performance and flavor.",
     "hasMetaDescription": true,
-    "characterCount": 67,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (67 chars) - recommended 120-160 characters",
-      "Contains repeated words: cotton"
-    ],
+    "characterCount": 126,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -20154,7 +20142,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5311762",
       "hasDataLayer": true,
@@ -20247,22 +20234,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:22:18.419Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Double-Dripe-E-liquid",
     "title": "Double Drip Coil Sauce - Creme de Vape",
-    "metaDescription": "Double Drip E-liquid",
+    "metaDescription": "Double Drip's Coil Sauce offers a variety of Nic Salt e-liquids, including Cherry Bakewell, and Super Berry Sherbet. Discover the perfect vape flavour for you.",
     "hasMetaDescription": true,
-    "characterCount": 20,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (20 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 159,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -20378,7 +20362,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5317197",
       "hasDataLayer": true,
@@ -20471,22 +20454,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:26:02.790Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/e-liquid/Double-Drip-E-liquid",
     "title": "Double Drip Coil Sauce- Creme de Vape",
-    "metaDescription": "Double Drip eliquid",
+    "metaDescription": "Discover the ultimate vape flavour experience with Double Drip Coil Sauce. Indulge in delectable nicotine salts like Cherry Bakewell, Lemon Sherbet, and more.",
     "hasMetaDescription": true,
-    "characterCount": 19,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (19 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 158,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -20602,7 +20582,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5317806",
       "hasDataLayer": true,
@@ -20695,10 +20674,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:27:20.129Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Dinner-Lady-e-liquid",
@@ -21493,14 +21472,11 @@
   {
     "url": "https://www.cremedevape.com/Brands/Bigs-Tips",
     "title": "Big's Tips - Creme de Vape",
-    "metaDescription": "Drip tips by Big",
+    "metaDescription": "Enhance your vape with Big's Tips drip tips. Choose from standard or wide bore options in rich turquoise, copper stone chip, and more.",
     "hasMetaDescription": true,
-    "characterCount": 16,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (16 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 134,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -21610,7 +21586,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5408729",
       "hasDataLayer": true,
@@ -21703,21 +21678,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:29:15.876Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Chubby-Gorilla",
     "title": "Chubby Gorilla - Creme de Vape",
-    "metaDescription": "Chubby Gorilla bottles and boxes - Engineered for a purpose, designed for a purpose.",
+    "metaDescription": "Chubby Gorilla - Engineered for a purpose, designed for a purpose. Explore our diverse range of signature bottles built to enhance your vaping experience.",
     "hasMetaDescription": true,
-    "characterCount": 84,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (84 chars) - recommended 120-160 characters"
-    ],
+    "characterCount": 154,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -21857,7 +21830,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5471421",
       "hasDataLayer": true,
@@ -21950,10 +21922,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:30:25.916Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Mixology/bottles",
@@ -22189,15 +22161,12 @@
   },
   {
     "url": "https://www.cremedevape.com/SvoeMesto/Kayfun-Prime",
-    "title": "SvoeMesto Kayfun Prime Atomiser - Crème de Vape",
-    "metaDescription": "SvoeMesto Kayfun Prime rebuildable atomiser (RTA)",
+    "title": "Svoemesto Kayfun Prime RTA | Creme de Vape",
+    "metaDescription": "German-made SvoeMesto Kayfun Prime Rebuildable Atomiser (RTA). High-end mouth-to-lung (MTL) style vaping for concentrated flavour.",
     "hasMetaDescription": true,
-    "characterCount": 49,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (49 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 130,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -22209,11 +22178,11 @@
       "jsonLdData": [
         {
           "type": "ItemList",
-          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Kayfun Prime\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-213\",\"name\":\"Svoemesto Kayfun Prime RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-214\",\"name\":\"Kayfun Prime spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-215\",\"name\":\"Kayfun Prime Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-216\",\"name\":\"Kayfun Prime Extension kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-232\",\"name\":\"Kayfun Prime SE Nite DLC Drip Tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-227\",\"name\":\"Kayfun Prime Nozzle Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-226\",\"name\":\"Kayfun Prime Insulator Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-104\",\"name\":\"Kayfun 5/5s Drip Tip base only by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-POMTIP\",\"name\":\"Kayfun 5/5s/Prime POM threaded tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":11,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-217\",\"name\":\"Kayfun Prime Ultem kit by Svoemesto\"}]}",
+          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Svoemesto Kayfun Prime Rebuildable Tank Atomiser (RTA)\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-213\",\"name\":\"Svoemesto Kayfun Prime RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-214\",\"name\":\"Kayfun Prime spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-215\",\"name\":\"Kayfun Prime Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-216\",\"name\":\"Kayfun Prime Extension kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-232\",\"name\":\"Kayfun Prime SE Nite DLC Drip Tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-227\",\"name\":\"Kayfun Prime Nozzle Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-226\",\"name\":\"Kayfun Prime Insulator Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-104\",\"name\":\"Kayfun 5/5s Drip Tip base only by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-POMTIP\",\"name\":\"Kayfun 5/5s/Prime POM threaded tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":11,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-217\",\"name\":\"Kayfun Prime Ultem kit by Svoemesto\"}]}",
           "parsed": {
             "@context": "http://schema.org",
             "@type": "ItemList",
-            "name": "Kayfun Prime",
+            "name": "Svoemesto Kayfun Prime Rebuildable Tank Atomiser (RTA)",
             "itemListElement": [
               {
                 "@type": "ListItem",
@@ -22294,7 +22263,7 @@
           "properties": {
             "itemListElement": "Kayfun Prime",
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto",
-            "name": "Kayfun Prime",
+            "name": "Svoemesto Kayfun Prime Rebuildable Tank Atomiser (RTA)",
             "position": "4",
             "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto/Brands_SM_Kayfun_Prime"
           },
@@ -22358,7 +22327,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5621232",
       "hasDataLayer": true,
@@ -22451,22 +22419,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:32:27.836Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/eLeaf",
     "title": "Eleaf - Creme de Vape",
-    "metaDescription": "Vaping kits, tanks and devices from Eleaf",
+    "metaDescription": "Discover Eleaf's iStick T80 vape devices in 6 vibrant colours, offering a powerful 3000mAh battery for a superior vaping experience. Shop now at Creme de Vape.",
     "hasMetaDescription": true,
-    "characterCount": 41,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (41 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 159,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -22594,7 +22559,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5634487",
       "hasDataLayer": true,
@@ -22687,21 +22651,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:33:58.324Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Joyetech",
     "title": "Joyetech - Creme de Vape",
-    "metaDescription": "Advanced vaping products from Joyetech. A selection of refillable pod and tank-based vape kits from one of the oldest players in the vape industry.",
+    "metaDescription": "Advanced vaping products by Joyetech. A selection of refillable pod and tank-based vape kits from one of the oldest players in the industry.",
     "hasMetaDescription": true,
-    "characterCount": 147,
-    "status": "needs_attention",
-    "issues": [
-      "Contains repeated words: from, vape"
-    ],
+    "characterCount": 140,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -22835,7 +22797,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5634488",
       "hasDataLayer": true,
@@ -22928,22 +22889,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:36:31.395Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Veho",
     "title": "Veho - Creme de Vape",
-    "metaDescription": "Veho power supplies",
+    "metaDescription": "Power your vape devices on the go with Veho's reliable travel adapters and fast chargers. Experience seamless charging and global compatibility.",
     "hasMetaDescription": true,
-    "characterCount": 19,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (19 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 144,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -23041,7 +22999,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5694923",
       "hasDataLayer": true,
@@ -23134,10 +23091,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:37:37.477Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Vandy-Vape",
@@ -23392,13 +23349,11 @@
   {
     "url": "https://www.cremedevape.com/Brands/Psycho-Bunny-e-liquid",
     "title": "Psycho Bunny - Quality UK-Made E-liquid - Creme de Vape",
-    "metaDescription": "Psycho Bunny e-liquid from Eco-vape.",
+    "metaDescription": "Ever tried a Psycho Bunny e-liquid? Experience the delectable taste of Well Baked, a 50ml shortfill that's perfect for your vape. Try it now!",
     "hasMetaDescription": true,
-    "characterCount": 36,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (36 chars) - recommended 120-160 characters"
-    ],
+    "characterCount": 141,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -23490,7 +23445,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5736759",
       "hasDataLayer": true,
@@ -23583,21 +23537,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:38:57.266Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/e-liquid/Psycho-Bunny-e-liquid",
     "title": "Psycho Bunny - Quality UK-Made E-liquid - Creme de Vape",
-    "metaDescription": "Psycho Bunny e-liquid from Eco-vape.",
+    "metaDescription": "Discover the rich, indulgent flavour of Well Baked by Psycho Bunny e-liquid, crafted in the UK for a premium vaping experience.",
     "hasMetaDescription": true,
-    "characterCount": 36,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (36 chars) - recommended 120-160 characters"
-    ],
+    "characterCount": 127,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -23689,7 +23641,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5737711",
       "hasDataLayer": true,
@@ -23782,10 +23733,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:39:58.979Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Kits",
@@ -24206,13 +24157,11 @@
   {
     "url": "https://www.cremedevape.com/Big-Battery-Mods/Squonk-/-BF-Mod",
     "title": "Bottom-feeding squonk mods | Creme de Vape",
-    "metaDescription": "Explore our range of high-end, bottom feeding (BF) &quot;squonk&quot; mods from vape pioneer, Limelight Mechanics.",
+    "metaDescription": "Explore our range of high-end, bottom feeding (BF) &quot;squonk&quot; mods from vape pioneer and master of unique designs, Limelight Mechanics.",
     "hasMetaDescription": true,
-    "characterCount": 114,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (114 chars) - recommended 120-160 characters"
-    ],
+    "characterCount": 143,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -24313,7 +24262,7 @@
             "position": "3",
             "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Big_Battery_Mods/Squonk_Mods"
           },
-          "outerHTML": "<body class=\"epages message-bar-parent\" lang=\"en\" itemscope=\"\" itemtype=\"http://schema.org/CollectionPage\" data-esf-rdy=\"1\">\n<span style=\"display: none;\" id=\"GBaseContextHelper\" class=\"GBaseContext ObjectID_5841016 ClassID_3439 PageType_SF-Category \"></span>\n<span style=\"display: none;\" id=\"VilkasDesignContextHelper\" class=\"VilkasDesignContext ObjectID_5841016 ClassID_3439 PageType_SF-Category \"></span>\n<div class=\"Layout1 GeneralLayout Div Category\">\n<div class=\"NavBarRoof HorizontalNavBar\">\n<d..."
+          "outerHTML": "<body class=\"epages\" lang=\"en\" itemscope=\"\" itemtype=\"http://schema.org/CollectionPage\">\n<span style=\"display: none;\" id=\"GBaseContextHelper\" class=\"GBaseContext ObjectID_5841016 ClassID_3439 PageType_SF-Category \"></span>\n<span style=\"display: none;\" id=\"VilkasDesignContextHelper\" class=\"VilkasDesignContext ObjectID_5841016 ClassID_3439 PageType_SF-Category \"></span>\n<div class=\"Layout1 GeneralLayout Div Category\">\n<div class=\"NavBarRoof HorizontalNavBar\">\n<div class=\"PropertyContainer\">\n<div c..."
         },
         {
           "itemType": "http://schema.org/BreadcrumbList",
@@ -24364,7 +24313,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5841016",
       "hasDataLayer": true,
@@ -24457,22 +24405,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T12:41:00.101Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/LostVape",
     "title": "Lost Vape - Creme de Vape",
-    "metaDescription": "Lost Vape Mods including the Orion DNA Go and the Orion Q pod kits.",
+    "metaDescription": "Curious about the perfect vape mod? Explore Lost Vape's innovative range at Creme de Vape, from the Orion DNA Go to the Centaurus N200—find your ideal setup.",
     "hasMetaDescription": true,
-    "characterCount": 67,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (67 chars) - recommended 120-160 characters",
-      "Contains repeated words: orion"
-    ],
+    "characterCount": 157,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -24742,16 +24687,16 @@
         }
       ],
       "hasMicrodata": true,
-      "microdataCount": 15,
+      "microdataCount": 13,
       "microdataItems": [
         {
           "itemType": "http://schema.org/CollectionPage",
           "properties": {
             "itemListElement": "Lost Vape",
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands",
-            "name": "Lost Vape",
             "position": "3",
-            "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_LostVape"
+            "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_LostVape",
+            "name": "Lost Vape"
           },
           "outerHTML": "<body class=\"epages message-bar-parent\" lang=\"en\" itemscope=\"\" itemtype=\"http://schema.org/CollectionPage\" data-esf-rdy=\"1\">\n<span style=\"display: none;\" id=\"GBaseContextHelper\" class=\"GBaseContext ObjectID_5885320 ClassID_3439 PageType_SF-Category \"></span>\n<span style=\"display: none;\" id=\"VilkasDesignContextHelper\" class=\"VilkasDesignContext ObjectID_5885320 ClassID_3439 PageType_SF-Category \"></span>\n<div class=\"Layout1 GeneralLayout Div Category\">\n<div class=\"NavBarRoof HorizontalNavBar\">\n<d..."
         },
@@ -24760,29 +24705,27 @@
           "properties": {
             "itemListElement": "Lost Vape",
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands",
-            "name": "Lost Vape",
             "position": "3",
-            "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_LostVape"
+            "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_LostVape",
+            "name": "Lost Vape"
           },
-          "outerHTML": "<h3 class=\"BottomMargin BreadCrumbs\" itemscope=\"\" itemtype=\"http://schema.org/BreadcrumbList\">\n<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories\"><span itemprop=\"name\">\nHome\n</span></a>\n<meta itemprop=\"position\" content=\"1\">\n</span>\n<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectP..."
+          "outerHTML": "<h3 class=\"BottomMargin BreadCrumbs\" itemscope=\"\" itemtype=\"http://schema.org/BreadcrumbList\">\n<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories\">\nHome\n</a>\n<meta itemprop=\"position\" content=\"1\">\n</span>\n<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categ..."
         },
         {
           "itemType": "http://schema.org/ListItem",
           "properties": {
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories",
-            "name": "Home",
             "position": "1"
           },
-          "outerHTML": "<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories\"><span itemprop=\"name\">\nHome\n</span></a>\n<meta itemprop=\"position\" content=\"1\">\n</span>..."
+          "outerHTML": "<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories\">\nHome\n</a>\n<meta itemprop=\"position\" content=\"1\">\n</span>..."
         },
         {
           "itemType": "http://schema.org/ListItem",
           "properties": {
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands",
-            "name": "Brands",
             "position": "2"
           },
-          "outerHTML": "<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands\"><span itemprop=\"name\">\nBrands\n</span></a>\n<meta itemprop=\"position\" content=\"2\">\n</span>..."
+          "outerHTML": "<span itemscope=\"\" itemprop=\"itemListElement\" itemtype=\"http://schema.org/ListItem\">\n<a itemprop=\"item\" class=\"BreadcrumbItem\" href=\"?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands\">\nBrands\n</a>\n<meta itemprop=\"position\" content=\"2\">\n</span>..."
         },
         {
           "itemType": "http://schema.org/ListItem",
@@ -24804,7 +24747,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "5885320",
       "hasDataLayer": true,
@@ -24897,10 +24839,11 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
+    "lastCrawled": "2025-10-01T12:42:19.793Z",
+    "hasChanged": true,
+    "changeType": "modified",
     "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastModified": "2025-10-01T12:42:24.181Z"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Creme-de-Vape-E-liquid",

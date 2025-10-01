@@ -1267,9 +1267,9 @@ class SEOCheckerV2 {
             <div class="mb-3">
                 <label class="form-label">
                     Original
-                    <span class="${originalCharClass}">(${originalMeta.length} chars)</span>
+                    <span id="originalCharCount" class="${originalCharClass}">(${originalMeta.length} chars)</span>
                 </label>
-                <textarea class="form-control" rows="3" readonly id="originalMetaField">${originalMeta}</textarea>
+                <textarea class="form-control" rows="3" id="originalMetaField" oninput="app.updateComparisonCharCount('original')">${originalMeta}</textarea>
                 <button class="btn btn-sm btn-outline-primary mt-2" onclick="app.copyToClipboard(document.getElementById('originalMetaField').value, this)">
                     <i class="fas fa-copy"></i> Copy Original
                 </button>
@@ -1279,9 +1279,9 @@ class SEOCheckerV2 {
             <div>
                 <label class="form-label">
                     AI Suggestion
-                    <span class="${suggestionCharClass}">(${suggestion.length} chars)</span>
+                    <span id="suggestionCharCount" class="${suggestionCharClass}">(${suggestion.length} chars)</span>
                 </label>
-                <textarea class="form-control" rows="3" readonly id="suggestionMetaField">${suggestion}</textarea>
+                <textarea class="form-control" rows="3" id="suggestionMetaField" oninput="app.updateComparisonCharCount('suggestion')">${suggestion}</textarea>
                 <div class="d-flex gap-2 mt-2">
                     <button class="btn btn-sm btn-success" onclick="app.copyToClipboard(document.getElementById('suggestionMetaField').value, this)">
                         <i class="fas fa-copy"></i> Copy AI Suggestion
@@ -1314,6 +1314,22 @@ class SEOCheckerV2 {
             const metaContainer = metaField.parentElement;
             metaContainer.style.display = '';
         }
+    }
+
+    updateComparisonCharCount(type) {
+        const fieldId = type === 'original' ? 'originalMetaField' : 'suggestionMetaField';
+        const countId = type === 'original' ? 'originalCharCount' : 'suggestionCharCount';
+
+        const field = document.getElementById(fieldId);
+        const countSpan = document.getElementById(countId);
+
+        if (!field || !countSpan) return;
+
+        const length = field.value.length;
+        const isOptimal = length >= 120 && length <= 160;
+
+        countSpan.textContent = `(${length} chars)`;
+        countSpan.className = isOptimal ? 'text-success' : 'text-warning';
     }
 
     handleReviewStatusClick(url, clickedStatus, buttonGroup) {

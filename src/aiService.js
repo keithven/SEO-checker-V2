@@ -295,8 +295,11 @@ Instructions:
 
 Requirements for meta descriptions:
 - Length: 120-160 characters (optimal for Google search results)
+- Include the main product name, brand, or category (from the page title) ONCE in a natural, compelling way
+- Google highlights matching keywords in search results, so strategic placement of the product/brand name matters
 - Target keyword: "vape" - include this naturally where relevant
 - Include other relevant keywords based on the actual page content you fetched
+- Avoid keyword stuffing - DO NOT repeat the same keywords or product names multiple times
 - Create curiosity to increase click-through rate
 - Be specific and accurate to the page content
 - Include a call-to-action when appropriate
