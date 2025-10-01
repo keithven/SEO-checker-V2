@@ -310,6 +310,13 @@ app.post('/api/analyze', async (req, res) => {
     // Load existing data
     const reviews = await loadUrlReviews();
     const existingResults = await loadScanResults(sitemapUrl);
+
+    // Clear change flags from previously saved results (they're the baseline now)
+    existingResults.forEach(result => {
+      delete result.hasChanged;
+      delete result.changeType;
+    });
+
     const scanMode = options.scanMode || 'full';
 
     // Create a Set of URLs that already exist in our database
@@ -929,15 +936,29 @@ app.get('/api/scan-results', async (req, res) => {
   try {
     const results = await loadScanResults(sitemapUrl);
     const reviews = await loadUrlReviews();
+    const changeHistory = await loadChangeHistory(sitemapUrl);
+
+    // Build a map of URLs that have actual MODIFICATION changes (not just "new_url")
+    const urlsWithChanges = new Set();
+    changeHistory.forEach(change => {
+      // Only mark as changed if it's a real modification, not a new URL
+      if (change.changeType !== 'new_url') {
+        urlsWithChanges.add(change.url);
+      }
+    });
 
     const mergedResults = results.map(result => {
       const review = reviews[result.url];
+      const hasActualChanges = urlsWithChanges.has(result.url);
+
       return {
         ...result,
         reviewStatus: review?.status || 'new',
         assignee: review?.assignee || null,
         notes: review?.notes || null,
-        lastReviewed: review?.lastReviewed || null
+        lastReviewed: review?.lastReviewed || null,
+        hasChanged: hasActualChanges,
+        changeType: hasActualChanges ? 'modified' : undefined
       };
     });
 
