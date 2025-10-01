@@ -1346,16 +1346,27 @@ app.post('/api/ai/build-prompt', async (req, res) => {
 
 // Generate AI meta description suggestions with custom prompt
 app.post('/api/ai/generate-meta', async (req, res) => {
-  const { prompt, count } = req.body;
+  const { prompt, count, provider } = req.body;
 
   if (!prompt) {
     return res.status(400).json({ error: 'Prompt is required' });
   }
 
   try {
-    console.log(`Generating AI suggestions with custom prompt`);
+    console.log(`Generating AI suggestions with custom prompt using ${provider || 'default'} provider`);
+
+    // Temporarily switch provider if requested
+    const originalProvider = aiService.provider;
+    if (provider && provider !== aiService.provider) {
+      aiService.switchProvider(provider);
+    }
 
     const result = await aiService.generateFromPrompt(prompt, count || 5);
+
+    // Switch back to original provider
+    if (provider && provider !== originalProvider) {
+      aiService.switchProvider(originalProvider);
+    }
 
     res.json(result);
   } catch (error) {
@@ -1440,5 +1451,8 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`   Local: http://localhost:${PORT}`);
   console.log(`   Network: http://0.0.0.0:${PORT}`);
   console.log(`\n📱 Access from any device on your local network!`);
-  console.log(`\n🤖 Claude AI: ${process.env.ANTHROPIC_API_KEY ? 'Enabled ✅' : 'Disabled ❌'}`);
+
+  const aiProvider = process.env.AI_PROVIDER || 'claude';
+  const aiEnabled = aiProvider === 'grok' ? process.env.GROK_API_KEY : process.env.ANTHROPIC_API_KEY;
+  console.log(`\n🤖 AI Provider: ${aiProvider.toUpperCase()} ${aiEnabled ? '✅' : '❌'}`);
 });

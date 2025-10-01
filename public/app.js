@@ -1057,6 +1057,7 @@ class SEOCheckerV2 {
 
     async sendPromptToAI() {
         const prompt = document.getElementById('aiPromptText').value;
+        const provider = document.getElementById('aiProviderSelect').value;
 
         if (!prompt.trim()) {
             alert('Please enter a prompt');
@@ -1082,7 +1083,8 @@ class SEOCheckerV2 {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     prompt,
-                    count: 5
+                    count: 4,
+                    provider
                 })
             });
 
@@ -1130,7 +1132,7 @@ class SEOCheckerV2 {
                             <button class="btn btn-sm btn-primary" onclick="app.copyToClipboard('${suggestion.text.replace(/'/g, "\\'")}', this)">
                                 <i class="fas fa-copy"></i> Copy
                             </button>
-                            <button class="btn btn-sm btn-success" onclick="app.useSuggestion('${url}', '${suggestion.text.replace(/'/g, "\\'")}')">
+                            <button class="btn btn-sm btn-success" onclick="app.useSuggestion('${url}', '${suggestion.text.replace(/'/g, "\\'")}', '${(currentMeta || '').replace(/'/g, "\\'")}')">
                                 <i class="fas fa-check"></i> Use This
                             </button>
                         </div>
@@ -1230,24 +1232,88 @@ class SEOCheckerV2 {
         this.showNotification('AI cost tracking reset', 'info');
     }
 
-    useSuggestion(url, suggestion) {
-        // Populate the meta description field in the details modal
+    useSuggestion(url, suggestion, originalMeta = '') {
         const metaField = document.getElementById('modalMetaDescription');
-        if (metaField) {
-            metaField.value = suggestion;
-            // Trigger the character count update
-            this.updateMetaCharCount();
+        const metaContainer = metaField.parentElement;
+
+        // Hide the original meta description field
+        metaContainer.style.display = 'none';
+
+        // Create a comparison section if it doesn't exist
+        let comparisonSection = document.getElementById('metaComparisonSection');
+        if (!comparisonSection) {
+            // Create new comparison section
+            comparisonSection = document.createElement('div');
+            comparisonSection.id = 'metaComparisonSection';
+            comparisonSection.className = 'mb-3';
+
+            // Insert after the meta description field container
+            metaContainer.parentNode.insertBefore(comparisonSection, metaContainer.nextSibling);
         }
 
-        // Copy to clipboard as well
+        // Build comparison HTML
+        const originalCharClass = originalMeta.length >= 120 && originalMeta.length <= 160 ? 'text-success' : 'text-warning';
+        const suggestionCharClass = suggestion.length >= 120 && suggestion.length <= 160 ? 'text-success' : 'text-warning';
+
+        comparisonSection.innerHTML = `
+            <h6 class="mb-3">
+                <i class="fas fa-exchange-alt"></i> Meta Description Comparison
+                <button class="btn btn-sm btn-outline-secondary ms-2" onclick="app.clearComparison()">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </h6>
+
+            ${originalMeta && originalMeta.trim() ? `
+            <div class="mb-3">
+                <label class="form-label">
+                    Original
+                    <span class="${originalCharClass}">(${originalMeta.length} chars)</span>
+                </label>
+                <textarea class="form-control" rows="3" readonly id="originalMetaField">${originalMeta}</textarea>
+                <button class="btn btn-sm btn-outline-primary mt-2" onclick="app.copyToClipboard(document.getElementById('originalMetaField').value, this)">
+                    <i class="fas fa-copy"></i> Copy Original
+                </button>
+            </div>
+            ` : ''}
+
+            <div>
+                <label class="form-label">
+                    AI Suggestion
+                    <span class="${suggestionCharClass}">(${suggestion.length} chars)</span>
+                </label>
+                <textarea class="form-control" rows="3" readonly id="suggestionMetaField">${suggestion}</textarea>
+                <div class="d-flex gap-2 mt-2">
+                    <button class="btn btn-sm btn-success" onclick="app.copyToClipboard(document.getElementById('suggestionMetaField').value, this)">
+                        <i class="fas fa-copy"></i> Copy AI Suggestion
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Copy suggestion to clipboard
         navigator.clipboard.writeText(suggestion);
 
         // Show notification
-        this.showNotification(`Suggestion applied to meta description field!`, 'success');
+        this.showNotification(`AI suggestion applied! Original and suggestion shown for comparison.`, 'success');
 
         // Close AI modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('aiSuggestionsModal'));
         if (modal) modal.hide();
+    }
+
+    clearComparison() {
+        // Remove comparison section
+        const comparisonSection = document.getElementById('metaComparisonSection');
+        if (comparisonSection) {
+            comparisonSection.remove();
+        }
+
+        // Show the original meta description field again
+        const metaField = document.getElementById('modalMetaDescription');
+        if (metaField) {
+            const metaContainer = metaField.parentElement;
+            metaContainer.style.display = '';
+        }
     }
 
     handleReviewStatusClick(url, clickedStatus, buttonGroup) {

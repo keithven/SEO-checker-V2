@@ -17169,14 +17169,11 @@
   {
     "url": "https://www.cremedevape.com/e-liquid/Valley-Liquids",
     "title": "Valley Liquids - Welsh e-liquid",
-    "metaDescription": "Valley Liquids e-liquid - made in Wales",
+    "metaDescription": "Enjoy the taste of Wales with Valley Liquids' premium e-liquids. From refreshing menthol to decadent custard, their Welsh-made vape flavours are excellent.",
     "hasMetaDescription": true,
-    "characterCount": 39,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (39 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 155,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -17382,7 +17379,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4557836",
       "hasDataLayer": true,
@@ -17475,22 +17471,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T07:49:29.576Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Efest",
     "title": "Efest - Creme de Vape",
-    "metaDescription": "Efest batteries for vaping devices",
+    "metaDescription": "Upgrade your vape gear with Efest's premium batteries. Shop now and enjoy value in performance, safety, and reliability.",
     "hasMetaDescription": true,
-    "characterCount": 34,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (34 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 120,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -17594,7 +17587,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4572133",
       "hasDataLayer": true,
@@ -17687,22 +17679,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T07:51:45.247Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/SvoeMesto/Kayfun-Mini-V3",
-    "title": "SvoeMesto Kayfun Mini V3 Atomiser - Crème de Vape",
-    "metaDescription": "SvoeMesto Kayfun Mini V3 rebuildable atomiser (RTA)",
+    "title": "SvoeMesto Kayfun Mini V3 RTA | Creme de Vape",
+    "metaDescription": "German-made SvoeMesto Kayfun Mini V3 Rebuildable Atomiser (RTA). High-end mouth-to-lung (MTL) style vaping for concentrated flavour.",
     "hasMetaDescription": true,
-    "characterCount": 51,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (51 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 132,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -17714,11 +17703,11 @@
       "jsonLdData": [
         {
           "type": "ItemList",
-          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Kayfun Mini V3\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-090\",\"name\":\"Svoemesto Kayfun Mini V3 RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-092\",\"name\":\"Kayfun Mini V3 Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-091\",\"name\":\"Kayfun Mini V3 spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-094\",\"name\":\"Kayfun Mini V3 Steel tank II by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-096\",\"name\":\"Kayfun Mini V3 Insulator Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-093\",\"name\":\"Kayfun Mini V3 Steel tank I by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-095\",\"name\":\"Kayfun Mini V3 Steel tank III\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-097\",\"name\":\"Kayfun Mini V3 Drip Tip\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-098\",\"name\":\"Kayfun Mini V3 Centre Pin by Svoemesto\"}]}",
+          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Svoemesto Kayfun Mini V3 RTA\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-090\",\"name\":\"Svoemesto Kayfun Mini V3 RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-092\",\"name\":\"Kayfun Mini V3 Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-091\",\"name\":\"Kayfun Mini V3 spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-094\",\"name\":\"Kayfun Mini V3 Steel tank II by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-096\",\"name\":\"Kayfun Mini V3 Insulator Kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-093\",\"name\":\"Kayfun Mini V3 Steel tank I by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-095\",\"name\":\"Kayfun Mini V3 Steel tank III\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-097\",\"name\":\"Kayfun Mini V3 Drip Tip\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-098\",\"name\":\"Kayfun Mini V3 Centre Pin by Svoemesto\"}]}",
           "parsed": {
             "@context": "http://schema.org",
             "@type": "ItemList",
-            "name": "Kayfun Mini V3",
+            "name": "Svoemesto Kayfun Mini V3 RTA",
             "itemListElement": [
               {
                 "@type": "ListItem",
@@ -17793,11 +17782,11 @@
           "properties": {
             "itemListElement": "Kayfun Mini V3",
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto",
-            "name": "Kayfun Mini V3",
+            "name": "Svoemesto Kayfun Mini V3 RTA",
             "position": "4",
             "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto/Brands_SM_Kayfun_MiniV3"
           },
-          "outerHTML": "<body class=\"epages message-bar-parent\" lang=\"en\" itemscope=\"\" itemtype=\"http://schema.org/CollectionPage\" data-esf-rdy=\"1\">\n<span style=\"display: none;\" id=\"GBaseContextHelper\" class=\"GBaseContext ObjectID_4597185 ClassID_3439 PageType_SF-Category \"></span>\n<span style=\"display: none;\" id=\"VilkasDesignContextHelper\" class=\"VilkasDesignContext ObjectID_4597185 ClassID_3439 PageType_SF-Category \"></span>\n<div class=\"Layout1 GeneralLayout Div Category\">\n<div class=\"NavBarRoof HorizontalNavBar\">\n<d..."
+          "outerHTML": "<body class=\"epages message-bar-parent\" lang=\"en\" itemscope=\"\" itemtype=\"http://schema.org/CollectionPage\">\n<span style=\"display: none;\" id=\"GBaseContextHelper\" class=\"GBaseContext ObjectID_4597185 ClassID_3439 PageType_SF-Category \"></span>\n<span style=\"display: none;\" id=\"VilkasDesignContextHelper\" class=\"VilkasDesignContext ObjectID_4597185 ClassID_3439 PageType_SF-Category \"></span>\n<div class=\"Layout1 GeneralLayout Div Category\">\n<div class=\"NavBarRoof HorizontalNavBar\">\n<div class=\"Propert..."
         },
         {
           "itemType": "http://schema.org/BreadcrumbList",
@@ -17857,7 +17846,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4597185",
       "hasDataLayer": true,
@@ -17950,22 +17938,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T07:54:05.454Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Kendo-Vape-Cotton",
     "title": "Kendo Vape Cotton - Creme de Vape",
-    "metaDescription": "Kendo vape cotton atomiser wicking material",
+    "metaDescription": "Kendo vape cotton delivers superior wicking capabilities and long-lasting performance. Elevate your setup with these premium materials.",
     "hasMetaDescription": true,
-    "characterCount": 43,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (43 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 135,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -18063,7 +18048,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4650724",
       "hasDataLayer": true,
@@ -18156,22 +18140,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T08:01:49.741Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Steam-Tuners",
     "title": "Steam Tuners - Creme de Vape",
-    "metaDescription": "Steam Tuners vaping accessories and upgrades for the Kayfun and Taifun",
+    "metaDescription": "Upgrade your vape today with Steam Tuners' innovative accessories. Explore their range of Kayfun and Taifun enhancements and take that setup to new heights.",
     "hasMetaDescription": true,
-    "characterCount": 70,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (70 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 156,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -18293,7 +18274,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4672424",
       "hasDataLayer": true,
@@ -18386,22 +18366,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T08:06:05.261Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Cloudelier",
     "title": "Cloudelier - Quality UK-Made e-liquid - Creme de Vape",
-    "metaDescription": "Cloudelier e-liquid",
+    "metaDescription": "Experience the quality of Cloudelier's 10ml e-liquids, featuring diverse options like Golden Leaf and Spearmint. All UK-made for superior vaping.",
     "hasMetaDescription": true,
-    "characterCount": 19,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (19 chars) - recommended 120-160 characters",
-      "Meta description should end with punctuation"
-    ],
+    "characterCount": 145,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -18541,7 +18518,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4820737",
       "hasDataLayer": true,
@@ -18634,22 +18610,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T08:17:06.434Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/Brands/Geekvape",
     "title": "Geekvape - Creme de Vape",
-    "metaDescription": "Geek Vape atomisers and mods. Aegis 100W waterproof dustproof device. Aegis Solo 2 100W Mod.",
+    "metaDescription": "Seeking a reliable, high-performance vape? Geekvape's renowned Aegis series offers rugged, weather-resistant devices that redefine the limits. Intrigued?",
     "hasMetaDescription": true,
-    "characterCount": 92,
-    "status": "needs_attention",
-    "issues": [
-      "Meta description too short (92 chars) - recommended 120-160 characters",
-      "Contains repeated words: aegis, 100w"
-    ],
+    "characterCount": 153,
+    "status": "good",
+    "issues": [],
     "technicalSeo": {
       "hasViewport": true,
       "viewportContent": "width=device-width, initial-scale=1, maximum-scale=1",
@@ -18969,7 +18942,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4844475",
       "hasDataLayer": true,
@@ -19062,21 +19034,19 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
-    "hasChanged": false,
-    "changeType": null
+    "lastCrawled": "2025-10-01T08:21:01.471Z",
+    "hasChanged": true,
+    "changeType": "modified",
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/SvoeMesto/Kayfun-Five",
-    "title": "SvoeMesto Kayfun Five Series Atomisers - Crème de Vape",
-    "metaDescription": "SvoeMesto Kayfun 5 and Kayfun 5s RTAs",
+    "title": "SvoeMesto Kayfun Five Series RTAs | Creme de Vape",
+    "metaDescription": "High-end German-made SvoeMesto Kayfun 5 Squared Rebuildable Atomiser (RTA) for Direct Lung (DL) style sub-ohm vaping. Enlarged build deck for big coils",
     "hasMetaDescription": true,
-    "characterCount": 37,
+    "characterCount": 151,
     "status": "needs_attention",
     "issues": [
-      "Meta description too short (37 chars) - recommended 120-160 characters",
-      "Contains repeated words: kayfun",
       "Meta description should end with punctuation"
     ],
     "technicalSeo": {
@@ -19090,11 +19060,11 @@
       "jsonLdData": [
         {
           "type": "ItemList",
-          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Kayfun 5\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-333\",\"name\":\"Svoemesto Kayfun 5 Squared Special Edition RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-113\",\"name\":\"Kayfun 5s Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-301\",\"name\":\"Kayfun 5 Squared Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-102\",\"name\":\"Kayfun 5 Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-101\",\"name\":\"Kayfun 5/5s spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-302\",\"name\":\"Kayfun 5 Squared spares pack by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-303\",\"name\":\"Kayfun 5 Squared insulator kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-104\",\"name\":\"Kayfun 5/5s Drip Tip base only by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-POMTIP\",\"name\":\"Kayfun 5/5s/Prime POM threaded tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-107\",\"name\":\"Kayfun 5/5s Centre Pin by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":11,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":12,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-304\",\"name\":\"Kayfun 5 Squared Ultem kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":13,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-305\",\"name\":\"Kayfun 5 Squared 810 top cap by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":14,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/STEAMT-39\",\"name\":\"Clear tube for Kayfun 5 Squared Nano kit by Steam Tuners\"},{\"@type\":\"ListItem\",\"position\":15,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-306\",\"name\":\"Kayfun 5 Squared rounded tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":16,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-105\",\"name\":\"Kayfun 5/5s MTL Airflow reducer set by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":17,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-103\",\"name\":\"Kayfun 5/5s Insulator Kit by Svoemesto\"}]}",
+          "content": "{\"@context\":\"http://schema.org\",\"@type\":\"ItemList\",\"name\":\"Svoemesto Kayfun 5 Series RTAs\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-333\",\"name\":\"Svoemesto Kayfun 5 Squared Special Edition RTA\"},{\"@type\":\"ListItem\",\"position\":2,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-113\",\"name\":\"Kayfun 5s Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":3,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-301\",\"name\":\"Kayfun 5 Squared Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":4,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-102\",\"name\":\"Kayfun 5 Glass tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":5,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-101\",\"name\":\"Kayfun 5/5s spares kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":6,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-302\",\"name\":\"Kayfun 5 Squared spares pack by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":7,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-303\",\"name\":\"Kayfun 5 Squared insulator kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":8,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-104\",\"name\":\"Kayfun 5/5s Drip Tip base only by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":9,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-POMTIP\",\"name\":\"Kayfun 5/5s/Prime POM threaded tip by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":10,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-107\",\"name\":\"Kayfun 5/5s Centre Pin by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":11,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-114\",\"name\":\"Replacement 510 contact screw by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":12,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-304\",\"name\":\"Kayfun 5 Squared Ultem kit by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":13,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-305\",\"name\":\"Kayfun 5 Squared 810 top cap by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":14,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/STEAMT-39\",\"name\":\"Clear tube for Kayfun 5 Squared Nano kit by Steam Tuners\"},{\"@type\":\"ListItem\",\"position\":15,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-306\",\"name\":\"Kayfun 5 Squared rounded tank by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":16,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-105\",\"name\":\"Kayfun 5/5s MTL Airflow reducer set by Svoemesto\"},{\"@type\":\"ListItem\",\"position\":17,\"url\":\"https://www.cremedevape.com/epages/yxve46fvrnud.sf/en_GB/?ObjectPath=/Shops/yxve46fvrnud/Products/SM-103\",\"name\":\"Kayfun 5/5s Insulator Kit by Svoemesto\"}]}",
           "parsed": {
             "@context": "http://schema.org",
             "@type": "ItemList",
-            "name": "Kayfun 5",
+            "name": "Svoemesto Kayfun 5 Series RTAs",
             "itemListElement": [
               {
                 "@type": "ListItem",
@@ -19211,7 +19181,7 @@
           "properties": {
             "itemListElement": "Kayfun 5",
             "item": "?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto",
-            "name": "Kayfun 5",
+            "name": "Svoemesto Kayfun 5 Series RTAs",
             "position": "4",
             "url": "http://www.cremedevape.com/epages/yxve46fvrnud.sf/?ObjectPath=/Shops/yxve46fvrnud/Categories/Brands/Brand_Svoemesto/Brands_SM_Kayfun_Five"
           },
@@ -19275,7 +19245,6 @@
       "crossSellingCount": 0,
       "crossSellingProducts": []
     },
-    "mboUrl": null,
     "dataLayer": {
       "objectId": "4846068",
       "hasDataLayer": true,
@@ -19368,10 +19337,9 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": null,
-    "lastCrawled": "2025-10-01T00:17:23.372Z",
-    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml",
+    "lastCrawled": "2025-10-01T08:30:59.499Z",
     "hasChanged": false,
-    "changeType": null
+    "sitemapUrl": "https://www.cremedevape.com/WebRoot/Store/Shops/yxve46fvrnud/Sitemaps/sitemap-1.xml"
   },
   {
     "url": "https://www.cremedevape.com/e-liquid/Cloudelier-E-liquid",

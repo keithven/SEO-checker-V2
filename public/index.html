@@ -788,6 +788,15 @@
                         </p>
 
                         <div class="mb-3">
+                            <label class="form-label"><strong>AI Provider:</strong></label>
+                            <select class="form-select" id="aiProviderSelect" style="max-width: 200px;">
+                                <option value="claude">Claude (Anthropic)</option>
+                                <option value="grok">Grok (xAI)</option>
+                            </select>
+                            <small class="text-muted">Choose which AI to use for generating meta descriptions</small>
+                        </div>
+
+                        <div class="mb-3">
                             <label class="form-label"><strong>AI Prompt:</strong></label>
                             <textarea class="form-control" id="aiPromptText" rows="15" style="font-family: monospace; font-size: 13px;"></textarea>
                             <small class="text-muted">You can edit this prompt before sending to AI</small>

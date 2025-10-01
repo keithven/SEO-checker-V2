@@ -1,4 +1,5 @@
 import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 import * as cheerio from 'cheerio';
 import dotenv from 'dotenv';
 
@@ -6,12 +7,42 @@ dotenv.config();
 
 export class AIService {
     constructor() {
-        this.client = new Anthropic({
-            apiKey: process.env.ANTHROPIC_API_KEY,
-        });
-        this.model = process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022';
+        // Determine which AI provider to use
+        this.provider = process.env.AI_PROVIDER || 'claude'; // 'claude' or 'grok'
         this.maxTokens = parseInt(process.env.CLAUDE_MAX_TOKENS) || 1000;
         this.temperature = parseFloat(process.env.CLAUDE_TEMPERATURE) || 0.7;
+
+        this.initializeProvider(this.provider);
+    }
+
+    /**
+     * Initialize or switch AI provider
+     */
+    initializeProvider(provider) {
+        this.provider = provider;
+
+        if (this.provider === 'grok') {
+            this.client = new OpenAI({
+                apiKey: process.env.GROK_API_KEY,
+                baseURL: 'https://api.x.ai/v1'
+            });
+            this.model = process.env.GROK_MODEL || 'grok-2-latest';
+        } else {
+            this.client = new Anthropic({
+                apiKey: process.env.ANTHROPIC_API_KEY,
+            });
+            this.model = process.env.CLAUDE_MODEL || 'claude-3-5-sonnet-20241022';
+        }
+    }
+
+    /**
+     * Switch AI provider dynamically
+     */
+    switchProvider(provider) {
+        if (provider !== 'claude' && provider !== 'grok') {
+            throw new Error('Invalid provider. Must be "claude" or "grok"');
+        }
+        this.initializeProvider(provider);
     }
 
     /**
@@ -56,25 +87,58 @@ export class AIService {
      */
     async generateFromPrompt(prompt, count = 5) {
         try {
-            const response = await this.client.messages.create({
-                model: this.model,
-                max_tokens: this.maxTokens,
-                temperature: this.temperature,
-                messages: [{
-                    role: 'user',
-                    content: prompt
-                }]
-            });
+            console.log(`🔍 Making API request to ${this.provider}...`);
+            const startTime = Date.now();
 
-            const suggestions = this.parseMetaDescriptionResponse(response.content[0].text);
+            let responseText;
+            let usage;
+
+            if (this.provider === 'grok') {
+                // Grok API call (OpenAI-compatible)
+                const response = await this.client.chat.completions.create({
+                    model: this.model,
+                    max_tokens: this.maxTokens,
+                    temperature: this.temperature,
+                    messages: [{
+                        role: 'user',
+                        content: prompt
+                    }]
+                });
+                responseText = response.choices[0].message.content;
+                usage = {
+                    input_tokens: response.usage.prompt_tokens,
+                    output_tokens: response.usage.completion_tokens
+                };
+            } else {
+                // Claude API call
+                const response = await this.client.messages.create({
+                    model: this.model,
+                    max_tokens: this.maxTokens,
+                    temperature: this.temperature,
+                    messages: [{
+                        role: 'user',
+                        content: prompt
+                    }]
+                });
+                responseText = response.content[0].text;
+                usage = {
+                    input_tokens: response.usage.input_tokens,
+                    output_tokens: response.usage.output_tokens
+                };
+            }
+
+            const endTime = Date.now();
+            console.log(`✅ ${this.provider} response received in ${endTime - startTime}ms`);
+
+            const suggestions = this.parseMetaDescriptionResponse(responseText);
 
             return {
                 success: true,
                 suggestions: suggestions.slice(0, count),
                 usage: {
-                    inputTokens: response.usage.input_tokens,
-                    outputTokens: response.usage.output_tokens,
-                    estimatedCost: this.calculateCost(response.usage)
+                    inputTokens: usage.input_tokens,
+                    outputTokens: usage.output_tokens,
+                    estimatedCost: this.calculateCost(usage)
                 }
             };
         } catch (error) {
@@ -112,36 +176,8 @@ export class AIService {
 
         const prompt = this.buildMetaDescriptionPrompt(url, title, currentMeta, pageContext);
 
-        try {
-            const response = await this.client.messages.create({
-                model: this.model,
-                max_tokens: this.maxTokens,
-                temperature: this.temperature,
-                messages: [{
-                    role: 'user',
-                    content: prompt
-                }]
-            });
-
-            const suggestions = this.parseMetaDescriptionResponse(response.content[0].text);
-
-            return {
-                success: true,
-                suggestions: suggestions.slice(0, count),
-                usage: {
-                    inputTokens: response.usage.input_tokens,
-                    outputTokens: response.usage.output_tokens,
-                    estimatedCost: this.calculateCost(response.usage)
-                }
-            };
-        } catch (error) {
-            console.error('AI Service Error:', error);
-            return {
-                success: false,
-                error: error.message,
-                suggestions: []
-            };
-        }
+        // Use the unified generateFromPrompt method
+        return this.generateFromPrompt(prompt, count);
     }
 
     /**
@@ -252,32 +288,31 @@ Current Meta Description: ${currentMeta || 'None'}
 ${pageContext ? `Page Content Summary:\n${pageContext}\n` : ''}
 
 Instructions:
-1. Analyze the page information provided above
-2. Identify the main products, services, or topics
-3. Extract key features, benefits, and selling points
+1. FIRST: Use web search to find additional information about the product(s), brand(s), or category mentioned in the page title and content. Look for key features, benefits, unique selling points, and current trends.
+2. Analyze the page information provided above combined with web search results
+3. Identify the main products, services, or topics
+4. Extract key features, benefits, and selling points from both the page content and web research
 
 Requirements for meta descriptions:
 - Length: 120-160 characters (optimal for Google search results)
 - Target keyword: "vape" - include this naturally where relevant
 - Include other relevant keywords based on the actual page content you fetched
-- Create urgency or curiosity to increase click-through rate
+- Create curiosity to increase click-through rate
 - Be specific and accurate to the page content
 - Include a call-to-action when appropriate
-- Avoid duplicate content from the title
-- Write in an engaging, human tone
-- DO NOT repeat words unnecessarily - keep language clean and concise
+- Write in an engaging, human yet professional tone
+- DO NOT repeat words - keep language clean and concise
 - Each description must be unique with varied vocabulary
 - Avoid redundant phrases or filler words
 - Use British English spelling (e.g., "flavour" not "flavor", "vapour" not "vapor", "customise" not "customize")
 
-Generate 5 different meta description options with different approaches:
+Generate 4 different meta description options with different approaches:
 1. Benefit-focused (emphasize user value)
 2. Action-oriented (strong call-to-action)
 3. Question-based (create curiosity)
 4. Feature-focused (highlight key features)
-5. Urgency-driven (time-sensitive or exclusive)
 
-Format your response as a numbered list (1-5), with ONLY the meta description text for each. No explanations or labels.`;
+Format your response as a numbered list (1-4), with ONLY the meta description text for each. No explanations or labels.`;
     }
 
     /**

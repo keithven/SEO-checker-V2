@@ -372,44 +372,58 @@
     "lastUpdated": "2025-09-30T17:05:21.020Z"
   },
   "https://www.cremedevape.com/e-liquid/Valley-Liquids": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.220Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T07:49:36.700Z",
+    "lastUpdated": "2025-10-01T07:49:36.700Z"
   },
   "https://www.cremedevape.com/Brands/Efest": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T07:51:47.682Z",
+    "lastUpdated": "2025-10-01T07:51:47.682Z"
   },
   "https://www.cremedevape.com/SvoeMesto/Kayfun-Mini-V3": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T07:54:17.067Z",
+    "lastUpdated": "2025-10-01T07:54:17.067Z"
   },
   "https://www.cremedevape.com/Brands/Kendo-Vape-Cotton": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T08:01:52.885Z",
+    "lastUpdated": "2025-10-01T08:01:52.885Z"
   },
   "https://www.cremedevape.com/Brands/Steam-Tuners": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T08:06:07.429Z",
+    "lastUpdated": "2025-10-01T08:06:07.429Z"
   },
   "https://www.cremedevape.com/Brands/Cloudelier": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T08:17:09.490Z",
+    "lastUpdated": "2025-10-01T08:17:09.490Z"
   },
   "https://www.cremedevape.com/Brands/Geekvape": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T08:21:55.245Z",
+    "lastUpdated": "2025-10-01T08:21:55.245Z"
   },
   "https://www.cremedevape.com/SvoeMesto/Kayfun-Five": {
     "seoStatus": "needs_attention",
     "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "lastAnalyzed": "2025-10-01T08:30:59.488Z"
   },
   "https://www.cremedevape.com/e-liquid/Cloudelier-E-liquid": {
     "seoStatus": "needs_attention",
