@@ -468,9 +468,11 @@
     "lastAnalyzed": "2025-09-30T22:38:46.221Z"
   },
   "https://www.cremedevape.com/Mixology/bottles": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:08:38.528Z",
+    "lastUpdated": "2025-10-01T00:08:38.535Z"
   },
   "https://www.cremedevape.com/SvoeMesto/Kayfun-Prime": {
     "seoStatus": "needs_attention",
@@ -493,9 +495,11 @@
     "lastAnalyzed": "2025-09-30T22:38:46.221Z"
   },
   "https://www.cremedevape.com/Brands/Vandy-Vape": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:12:06.627Z",
+    "lastUpdated": "2025-10-01T00:12:06.630Z"
   },
   "https://www.cremedevape.com/Brands/Psycho-Bunny-e-liquid": {
     "seoStatus": "needs_attention",
@@ -592,9 +596,11 @@
     "lastUpdated": "2025-09-30T22:50:35.423Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:23:40.888Z",
+    "lastUpdated": "2025-10-01T00:23:40.888Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers/USB-Chargers": {
     "seoStatus": "needs_attention",
@@ -719,19 +725,25 @@
     "lastUpdated": "2025-09-30T22:51:47.496Z"
   },
   "https://www.cremedevape.com/Brands/Taifun/Taifun-GTR": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:20:59.727Z",
+    "lastUpdated": "2025-10-01T00:20:59.732Z"
   },
   "https://www.cremedevape.com/Brands/Taifun/Taifun-BTD": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:21:35.280Z",
+    "lastUpdated": "2025-10-01T00:21:35.280Z"
   },
   "https://www.cremedevape.com/Brands/Taifun/Taifun-GX": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-01T00:22:05.506Z",
+    "lastUpdated": "2025-10-01T00:22:05.508Z"
   },
   "https://www.cremedevape.com/Brands/Dicodes/Boxes": {
     "status": "reviewed",
@@ -916,5 +928,155 @@
     "seoStatus": "needs_attention",
     "hasIssues": true,
     "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+  },
+  "https://www.cremedevape.com/Brands/Creme-de-Vape/Miscellaneous": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.364Z"
+  },
+  "https://www.cremedevape.com/Brands/Vapcell-Batteries": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Dicodes/Dicodes-Side-by-Side-Mod": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Disposables/Rechargeable": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Disposables/Pre-filled-Pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks/Pre-filled-Pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Vapes-Bars": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Gold-Bar-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid/Gold-Bar-Reload-Prefilled-Pod-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid/Gold-Bar-Apollo-Big-Puff-Pre-filled-PodKit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid/Gold-Bar-Nic-Salt-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid/Gold-Bar-Reload-Pre-filled-Pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Gold-Bar-vapes-and-e-liquid/Gold-Bar-Apollo-Pre-filled-Tanks-Refils": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/DV-Original-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Disposables/Big-Puff-Kits-Refills": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/SKE-Crystal/SKE-Crystal-CL6000-12ml-Prefilled-Pod-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Kits/Refillable-Vape-Kits": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Kits/Refillable-Tank-Style-Vape-Kits": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Bar-Juice-5000-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Bar-Juice-5000-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Avomi": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/That-Bar-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/That-Bar-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Lost-Mary/Lost-Mary-BM600-Pre-filled-Pod-Vape-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/SvoeMesto/SvoeMesto-Kayfun-BB": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Doozy-Temptations-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Seriously-Pod-Fill-by-Doozy-Vape-Co-e-liquid-1": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Seriously-Pod-Fill-by-Doozy-Vape-Co-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/e-liquid/Doozy-Pod-Fill-MAX-e-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
   }
 }
