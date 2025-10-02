@@ -595,7 +595,7 @@ class SEOCheckerV2 {
             path: '/',
             children: {},
             urls: [],
-            stats: { good: 0, warning: 0, error: 0, total: 0 }
+            stats: { good: 0, warning: 0, error: 0, total: 0, reviewed: 0 }
         };
 
         results.forEach(result => {
@@ -615,7 +615,7 @@ class SEOCheckerV2 {
                             path: currentPath,
                             children: {},
                             urls: [],
-                            stats: { good: 0, warning: 0, error: 0, total: 0 }
+                            stats: { good: 0, warning: 0, error: 0, total: 0, reviewed: 0 }
                         };
                     }
 
@@ -633,7 +633,7 @@ class SEOCheckerV2 {
 
         // Calculate stats recursively
         const calculateStats = (node) => {
-            let stats = { good: 0, warning: 0, error: 0, total: 0 };
+            let stats = { good: 0, warning: 0, error: 0, total: 0, reviewed: 0 };
 
             node.urls.forEach(url => {
                 const status = url.status;
@@ -645,6 +645,11 @@ class SEOCheckerV2 {
                     stats.warning++;
                 }
                 stats.total++;
+
+                // Count reviewed URLs
+                if (url.reviewStatus === 'reviewed' || url.reviewStatus === 'done') {
+                    stats.reviewed++;
+                }
             });
 
             Object.values(node.children).forEach(child => {
@@ -653,6 +658,7 @@ class SEOCheckerV2 {
                 stats.warning += childStats.warning;
                 stats.error += childStats.error;
                 stats.total += childStats.total;
+                stats.reviewed += childStats.reviewed;
             });
 
             node.stats = stats;
@@ -667,7 +673,29 @@ class SEOCheckerV2 {
         const treeRoot = document.getElementById('treeRoot');
         if (!treeRoot || !this.currentTree) return;
 
+        // Save currently expanded nodes before re-rendering
+        const expandedPaths = new Set();
+        document.querySelectorAll('.tree-children.expanded').forEach(children => {
+            const header = children.previousElementSibling;
+            const path = header?.querySelector('.tree-node-name')?.textContent;
+            if (path) expandedPaths.add(path);
+        });
+
         treeRoot.innerHTML = this.buildTreeHTML(this.currentTree);
+
+        // Restore expanded state
+        document.querySelectorAll('.tree-node-header').forEach(header => {
+            const nodeName = header.querySelector('.tree-node-name')?.textContent;
+            const children = header.nextElementSibling;
+
+            if (nodeName && expandedPaths.has(nodeName) && children) {
+                children.classList.add('expanded');
+                const icon = header.querySelector('.tree-node-icon i');
+                if (icon) {
+                    icon.className = 'fas fa-folder-open';
+                }
+            }
+        });
 
         // Add click handlers to tree nodes
         document.querySelectorAll('.tree-node-header').forEach(header => {
@@ -710,6 +738,7 @@ class SEOCheckerV2 {
                             ${node.stats.good > 0 ? `<span class="badge bg-success" style="font-size: 0.75rem;" title="${node.stats.good} good"><i class="fas fa-check"></i> ${node.stats.good}</span>` : ''}
                             ${node.stats.warning > 0 ? `<span class="badge bg-warning" style="font-size: 0.75rem;" title="${node.stats.warning} warnings"><i class="fas fa-exclamation-triangle"></i> ${node.stats.warning}</span>` : ''}
                             ${node.stats.error > 0 ? `<span class="badge bg-danger" style="font-size: 0.75rem;" title="${node.stats.error} errors"><i class="fas fa-times"></i> ${node.stats.error}</span>` : ''}
+                            ${node.stats.reviewed > 0 ? `<span class="badge bg-info" style="font-size: 0.75rem; background-color: rgb(13, 165, 240) !important;" title="${node.stats.reviewed} reviewed"><i class="fas fa-check-circle"></i> ${node.stats.reviewed}</span>` : ''}
                         </div>
                     </div>
                     <div class="tree-children">
@@ -718,14 +747,20 @@ class SEOCheckerV2 {
             html += '<div class="tree-children expanded">';
         }
 
-        // Render child folders
-        Object.values(node.children || {}).forEach(child => {
+        // Render child folders (sorted alphabetically)
+        const sortedChildren = Object.values(node.children || {}).sort((a, b) =>
+            a.name.localeCompare(b.name)
+        );
+        sortedChildren.forEach(child => {
             html += this.buildTreeHTML(child, level + 1);
         });
 
-        // Render URLs at this level
+        // Render URLs at this level (sorted alphabetically)
         if (hasUrls) {
-            node.urls.forEach(url => {
+            const sortedUrls = [...node.urls].sort((a, b) =>
+                a.url.localeCompare(b.url)
+            );
+            sortedUrls.forEach(url => {
                 html += this.renderUrlItemHTML(url, true);
             });
         }
@@ -861,7 +896,7 @@ class SEOCheckerV2 {
                     </div>
                     <div class="d-flex flex-column gap-1 align-items-end" style="flex-shrink: 0; margin-left: 10px;">
                         <span class="badge bg-${statusClass}">${result.status}</span>
-                        <span class="badge bg-${(result.reviewStatus || 'new') === 'reviewed' ? 'success' : 'secondary'}">${(result.reviewStatus || 'new') === 'reviewed' ? '<i class="fas fa-check"></i> ' : ''}${result.reviewStatus || 'new'}</span>
+                        ${(result.reviewStatus === 'reviewed' || result.reviewStatus === 'done') ? `<span class="badge bg-info" style="background-color: rgb(13, 165, 240) !important;"><i class="fas fa-check-circle"></i> Reviewed</span>` : ''}
                         ${result.hasChanged ? `<span class="badge bg-info"><i class="fas fa-history"></i> Changed</span>` : ''}
                         ${result.changeType === 'new' ? `<span class="badge bg-success"><i class="fas fa-plus"></i> New</span>` : ''}
                         ${result.issues && result.issues.length > 0 ? `<span class="badge bg-danger">${result.issues.length} issue${result.issues.length > 1 ? 's' : ''}</span>` : ''}

@@ -244,7 +244,7 @@ function buildUrlTree(results) {
 
   // Second pass: recursively calculate stats from bottom up
   function calculateStats(node) {
-    let stats = { good: 0, warning: 0, error: 0, total: 0 };
+    let stats = { good: 0, warning: 0, error: 0, total: 0, reviewed: 0 };
 
     // Add stats from direct URLs at this node
     node.urls.forEach(url => {
@@ -259,6 +259,11 @@ function buildUrlTree(results) {
         stats.warning++;
       }
       stats.total++;
+
+      // Count reviewed URLs
+      if (url.reviewStatus === 'reviewed' || url.reviewStatus === 'done') {
+        stats.reviewed++;
+      }
     });
 
     // Recursively add stats from child nodes
@@ -268,6 +273,7 @@ function buildUrlTree(results) {
       stats.warning += childStats.warning;
       stats.error += childStats.error;
       stats.total += childStats.total;
+      stats.reviewed += childStats.reviewed;
     });
 
     node.stats = stats;
