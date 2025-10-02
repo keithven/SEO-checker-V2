@@ -575,9 +575,11 @@
     "lastUpdated": "2025-10-01T12:42:21.667Z"
   },
   "https://www.cremedevape.com/Brands/Creme-de-Vape-E-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:30:26.944Z",
+    "lastUpdated": "2025-10-02T11:30:26.944Z"
   },
   "https://www.cremedevape.com/Mixology/Concentrated-Flavourings": {
     "status": "reviewed",
@@ -608,24 +610,32 @@
     "lastUpdated": "2025-09-30T22:50:14.923Z"
   },
   "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks/Pods": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:32:56.412Z",
+    "lastUpdated": "2025-10-02T11:32:56.412Z"
   },
   "https://www.cremedevape.com/Brands/Wotofo": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:35:44.401Z",
+    "lastUpdated": "2025-10-02T11:35:44.401Z"
   },
   "https://www.cremedevape.com/Brands/Cotton-Gods": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:42:32.866Z",
+    "lastUpdated": "2025-10-02T12:42:32.866Z"
   },
   "https://www.cremedevape.com/Brands/Fiber-n-Cotton": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:34:59.913Z",
+    "lastUpdated": "2025-10-02T13:34:59.913Z"
   },
   "https://www.cremedevape.com/Brands/Taifun": {
     "status": "reviewed",
@@ -649,9 +659,11 @@
     "lastUpdated": "2025-10-01T00:23:40.888Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers/USB-Chargers": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:35:07.519Z",
+    "lastUpdated": "2025-10-02T13:35:07.519Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers/Mains-Chargers": {
     "status": "reviewed",
@@ -661,14 +673,18 @@
     "lastUpdated": "2025-09-30T22:50:48.131Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers/Charging-Accessories": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:36:31.504Z",
+    "lastUpdated": "2025-10-02T13:36:31.504Z"
   },
   "https://www.cremedevape.com/Accessories/Chargers/Battery-Accessories": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:26:11.993Z",
+    "lastUpdated": "2025-10-02T12:26:11.993Z"
   },
   "https://www.cremedevape.com/all-e-liquid": {
     "status": "reviewed",
@@ -692,59 +708,81 @@
     "lastUpdated": "2025-09-30T22:51:13.357Z"
   },
   "https://www.cremedevape.com/e-liquid/Wick-Liquor-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:37:16.246Z",
+    "lastUpdated": "2025-10-02T13:37:16.246Z"
   },
   "https://www.cremedevape.com/Brands/Wick-Liquor-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:37:57.879Z",
+    "lastUpdated": "2025-10-02T13:37:57.879Z"
   },
   "https://www.cremedevape.com/Brands/FruktCyder-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:39:01.702Z",
+    "lastUpdated": "2025-10-02T13:39:01.702Z"
   },
   "https://www.cremedevape.com/Brands/SQZD-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:39:47.565Z",
+    "lastUpdated": "2025-10-02T13:39:47.565Z"
   },
   "https://www.cremedevape.com/e-liquid/FruktCyder-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:40:33.321Z",
+    "lastUpdated": "2025-10-02T13:40:33.321Z"
   },
   "https://www.cremedevape.com/e-liquid/SQZD-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:41:14.098Z",
+    "lastUpdated": "2025-10-02T13:41:14.098Z"
   },
   "https://www.cremedevape.com/e-liquid/My-Vapery-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:42:04.422Z",
+    "lastUpdated": "2025-10-02T13:42:04.422Z"
   },
   "https://www.cremedevape.com/Brands/My-Vapery-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:42:40.831Z",
+    "lastUpdated": "2025-10-02T13:42:40.831Z"
   },
   "https://www.cremedevape.com/Brands/Hellvape": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:43:25.751Z",
+    "lastUpdated": "2025-10-02T13:43:25.751Z"
   },
   "https://www.cremedevape.com/Brands/VooPoo": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T13:44:47.136Z",
+    "lastUpdated": "2025-10-02T13:44:47.136Z"
   },
   "https://www.cremedevape.com/Brands/Limelight": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T14:03:02.973Z",
+    "lastUpdated": "2025-10-02T14:03:02.973Z"
   },
   "https://www.cremedevape.com/Brands/Molicel-Batteries": {
     "status": "reviewed",
@@ -754,9 +792,11 @@
     "lastUpdated": "2025-09-30T22:51:38.590Z"
   },
   "https://www.cremedevape.com/Brands/DampfWatt-Agentur": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:52:41.065Z",
+    "lastUpdated": "2025-10-02T12:52:41.065Z"
   },
   "https://www.cremedevape.com/Brands/Leather-Sleeves": {
     "seoStatus": "needs_attention",
@@ -842,9 +882,11 @@
     "lastAnalyzed": "2025-09-30T22:38:46.222Z"
   },
   "https://www.cremedevape.com/Brands/Big-Tasty": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:41:38.256Z",
+    "lastUpdated": "2025-10-02T12:41:38.256Z"
   },
   "https://www.cremedevape.com/Brands/Taifun/Taifun-GT-V": {
     "status": "reviewed",
@@ -936,9 +978,11 @@
     "lastUpdated": "2025-09-30T22:52:56.161Z"
   },
   "https://www.cremedevape.com/Brands/Aromaxy-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:40:43.212Z",
+    "lastUpdated": "2025-10-02T12:40:43.212Z"
   },
   "https://www.cremedevape.com/e-liquid/Aromaxy-e-liquid": {
     "seoStatus": "needs_attention",
@@ -966,19 +1010,28 @@
     "lastAnalyzed": "2025-09-30T22:38:46.222Z"
   },
   "https://www.cremedevape.com/Brands/Creme-de-Vape/DIY-Flavourings": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:47:00.766Z",
+    "lastUpdated": "2025-10-02T12:47:00.766Z"
   },
   "https://www.cremedevape.com/Brands/Creme-de-Vape/DIY-Accessories": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.222Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:45:10.394Z",
+    "lastUpdated": "2025-10-02T12:45:10.394Z"
   },
   "https://www.cremedevape.com/Brands/Creme-de-Vape/Miscellaneous": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-01T00:17:23.364Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:48:58.573Z",
+    "lastUpdated": "2025-10-02T12:48:58.573Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-02T12:50:29.062Z"
   },
   "https://www.cremedevape.com/Brands/Vapcell-Batteries": {
     "seoStatus": "needs_attention",
@@ -1084,9 +1137,11 @@
     "lastAnalyzed": "2025-10-01T00:17:23.368Z"
   },
   "https://www.cremedevape.com/Brands/Bar-Juice-5000-e-liquid": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T12:35:08.808Z",
+    "lastUpdated": "2025-10-02T12:35:08.808Z"
   },
   "https://www.cremedevape.com/Brands/Avomi": {
     "status": "reviewed",
@@ -1134,5 +1189,623 @@
     "seoStatus": "needs_attention",
     "hasIssues": true,
     "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+  },
+  "https://www.cremedevape.com/Brands/Kumiho": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Brands/Lost-Mary/Lost-Mary-BM6000-Pre-filled-Big-Puf-Pod-Vape-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Big-Battery-Mods/SBS-Side-by-Side-Mod": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Big-Battery-Mods/Pipe-Mods": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:52:36.997Z",
+    "lastUpdated": "2025-10-02T10:52:36.997Z"
+  },
+  "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks/Pre-filled-and-refillable-replacement-pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Vape-Tank-Tubes": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:52:30.195Z",
+    "lastUpdated": "2025-10-02T10:52:30.195Z"
+  },
+  "https://www.cremedevape.com/Brands/Feoba": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Brands/EVE-Energy-Co-Batteries": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Brands/Sony/Murata-Batteries": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+  },
+  "https://www.cremedevape.com/Brands/Tenpower-Batteries": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Sinowatt-Batteries": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Hexus": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:52:50.174Z",
+    "lastUpdated": "2025-10-02T10:52:50.174Z"
+  },
+  "https://www.cremedevape.com/Aspire/Kits": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Aspire/Tanks-Pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Aspire/Coils": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Aspire/Spare-parts": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Aspire/Devices": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Elfbar/Elf-Bar-600-Prefilled-Pod-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Elfbar/Elf-Bar-ELFA-Pro-Pod-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Elfbar/Elfliq-Nic-Salts-E-liquid": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Elfbar/Elf-Bar-Prefilled-Pods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Taifun/Taifun-Box-Pro-by-SmokerStore-and-Dicodes": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:01.018Z",
+    "lastUpdated": "2025-10-02T10:53:01.018Z"
+  },
+  "https://www.cremedevape.com/Brands/Taifun/Spares-Accessories": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Vaporesso": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Brands/Solobar": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:08.510Z",
+    "lastUpdated": "2025-10-02T10:53:08.510Z"
+  },
+  "https://www.cremedevape.com/Brands/OXVA": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:16.132Z",
+    "lastUpdated": "2025-10-02T10:53:16.132Z"
+  },
+  "https://www.cremedevape.com/About-Us": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:25.207Z",
+    "lastUpdated": "2025-10-02T10:53:25.207Z"
+  },
+  "https://www.cremedevape.com/Brands/Dicodes/Dicodes-Boro-mods": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:36.059Z",
+    "lastUpdated": "2025-10-02T10:53:36.059Z"
+  },
+  "https://www.cremedevape.com/Terms": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/FAQs": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Safety": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Glossary": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Announcement": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:53:52.966Z",
+    "lastUpdated": "2025-10-02T10:53:52.966Z"
+  },
+  "https://www.cremedevape.com/ELiquidCalc": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Shipping": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:01.513Z",
+    "lastUpdated": "2025-10-02T10:54:01.513Z"
+  },
+  "https://www.cremedevape.com/510Connector": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:07.251Z",
+    "lastUpdated": "2025-10-02T10:54:07.251Z"
+  },
+  "https://www.cremedevape.com/Returns": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:11.667Z",
+    "lastUpdated": "2025-10-02T10:54:11.667Z"
+  },
+  "https://www.cremedevape.com/Delivery": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Collect": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:17.255Z",
+    "lastUpdated": "2025-10-02T10:54:17.256Z"
+  },
+  "https://www.cremedevape.com/Cookie-Policy": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/AgeVerification": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:21.726Z",
+    "lastUpdated": "2025-10-02T10:54:21.726Z"
+  },
+  "https://www.cremedevape.com/International-Customers": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:36.035Z",
+    "lastUpdated": "2025-10-02T10:54:36.035Z"
+  },
+  "https://www.cremedevape.com/Special-Delivery-Exceptions": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Review-and-Win": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/PaymentMethods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Privacy": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Blog/Connectivity-issues": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:15:59.949Z",
+    "lastUpdated": "2025-10-02T11:15:59.949Z"
+  },
+  "https://www.cremedevape.com/Blog/All-About-Resistance": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:15:45.807Z",
+    "lastUpdated": "2025-10-02T11:15:45.807Z"
+  },
+  "https://www.cremedevape.com/Blog/Affiliates": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:08.356Z",
+    "lastUpdated": "2025-10-02T11:16:08.356Z"
+  },
+  "https://www.cremedevape.com/Blog/Cloud9Vaping-wins-an-award": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:16.322Z",
+    "lastUpdated": "2025-10-02T11:16:16.322Z"
+  },
+  "https://www.cremedevape.com/Blog/Call-to-arms-why-ALL-vapers-must-act-now": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:26.645Z",
+    "lastUpdated": "2025-10-02T11:16:26.645Z"
+  },
+  "https://www.cremedevape.com/Blog/Survey": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:33.697Z",
+    "lastUpdated": "2025-10-02T11:16:33.697Z"
+  },
+  "https://www.cremedevape.com/Blog/Cloud9Vapings-response-to-the-MHRA-announcement": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:41.638Z",
+    "lastUpdated": "2025-10-02T11:16:41.638Z"
+  },
+  "https://www.cremedevape.com/Blog/Its-time-to-fight-for-vaping": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:16:52.717Z",
+    "lastUpdated": "2025-10-02T11:16:52.717Z"
+  },
+  "https://www.cremedevape.com/Blog/Important-information-for-Gmail-users": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:00.235Z",
+    "lastUpdated": "2025-10-02T11:17:00.235Z"
+  },
+  "https://www.cremedevape.com/Blog/ECig-Click-Awards": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:11.423Z",
+    "lastUpdated": "2025-10-02T11:17:11.423Z"
+  },
+  "https://www.cremedevape.com/Blog/2013-UKVapersorg-Awards": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:18.459Z",
+    "lastUpdated": "2025-10-02T11:17:18.459Z"
+  },
+  "https://www.cremedevape.com/EFVI": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Blog/Vapefest-2014": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:25.947Z",
+    "lastUpdated": "2025-10-02T11:17:25.947Z"
+  },
+  "https://www.cremedevape.com/Clones": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Blog/2014-Ecig-Click-Awards": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:34.470Z",
+    "lastUpdated": "2025-10-02T11:17:34.470Z"
+  },
+  "https://www.cremedevape.com/Blog/Charger-Safety": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:41.823Z",
+    "lastUpdated": "2025-10-02T11:17:41.823Z"
+  },
+  "https://www.cremedevape.com/Blog/2014-UKVapersorg-Awards": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:48.554Z",
+    "lastUpdated": "2025-10-02T11:17:48.554Z"
+  },
+  "https://www.cremedevape.com/Blog/Updating-the-YiHi-SX-Mini-M-Class": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:17:56.261Z",
+    "lastUpdated": "2025-10-02T11:17:56.261Z"
+  },
+  "https://www.cremedevape.com/Blog/liquid-testing": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:02.665Z",
+    "lastUpdated": "2025-10-02T11:18:02.665Z"
+  },
+  "https://www.cremedevape.com/Blog/Liquid-test-results": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:09.423Z",
+    "lastUpdated": "2025-10-02T11:18:09.423Z"
+  },
+  "https://www.cremedevape.com/Blog/Liquid-test-results-update": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:16.186Z",
+    "lastUpdated": "2025-10-02T11:18:16.186Z"
+  },
+  "https://www.cremedevape.com/Blog/Rebrand": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:23.417Z",
+    "lastUpdated": "2025-10-02T11:18:23.417Z"
+  },
+  "https://www.cremedevape.com/Blog/Age-Verification": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:30.525Z",
+    "lastUpdated": "2025-10-02T11:18:30.525Z"
+  },
+  "https://www.cremedevape.com/Blog/The-future-of-vaping-changes-in-May-2016": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:37.440Z",
+    "lastUpdated": "2025-10-02T11:18:37.440Z"
+  },
+  "https://www.cremedevape.com/Blog/Breaking-news-flash-RCP-report": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:43.837Z",
+    "lastUpdated": "2025-10-02T11:18:43.837Z"
+  },
+  "https://www.cremedevape.com/Blog/Call-to-Action-Please-write-to-your-local-MP": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:18:50.881Z",
+    "lastUpdated": "2025-10-02T11:18:50.881Z"
+  },
+  "https://www.cremedevape.com/Blog/Lords-last-ditch-attempt-to-save-vaping": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:01.604Z",
+    "lastUpdated": "2025-10-02T11:19:01.604Z"
+  },
+  "https://www.cremedevape.com/Blog/PHE-Issue-new-guidance-on-vaping-in-public": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:09.182Z",
+    "lastUpdated": "2025-10-02T11:19:09.182Z"
+  },
+  "https://www.cremedevape.com/Blog/UK-Vapefest-2016": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:16.119Z",
+    "lastUpdated": "2025-10-02T11:19:16.119Z"
+  },
+  "https://www.cremedevape.com/Blog/TPD-Update": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:24.505Z",
+    "lastUpdated": "2025-10-02T11:19:24.505Z"
+  },
+  "https://www.cremedevape.com/Blog/Shortfills-have-arrived": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:31.095Z",
+    "lastUpdated": "2025-10-02T11:19:31.095Z"
+  },
+  "https://www.cremedevape.com/Blog/Keiths-take-on-temperature-control": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:37.786Z",
+    "lastUpdated": "2025-10-02T11:19:37.786Z"
+  },
+  "https://www.cremedevape.com/Blog/How-long-does-an-atomiser-coil-last": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:44.531Z",
+    "lastUpdated": "2025-10-02T11:19:44.531Z"
+  },
+  "https://www.cremedevape.com/Blog/How-to-fix-a-leaky-tank": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:51.559Z",
+    "lastUpdated": "2025-10-02T11:19:51.559Z"
+  },
+  "https://www.cremedevape.com/Blog/Review-Win": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:19:58.064Z",
+    "lastUpdated": "2025-10-02T11:19:58.064Z"
+  },
+  "https://www.cremedevape.com/Blog/Nicotine-salts-a-quick-explanation": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:11.377Z",
+    "lastUpdated": "2025-10-02T11:20:11.377Z"
+  },
+  "https://www.cremedevape.com/Blog/USA-Flavour-ban": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:17.725Z",
+    "lastUpdated": "2025-10-02T11:20:17.725Z"
+  },
+  "https://www.cremedevape.com/Blog/Urgent-Call-to-Action-Protect-Your-Vaping-Choices": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:23.744Z",
+    "lastUpdated": "2025-10-02T11:20:23.744Z"
+  },
+  "https://www.cremedevape.com/Blog/SAY-NO-to-the-proposed-ban-on-flavoured-e-liquids": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:30.177Z",
+    "lastUpdated": "2025-10-02T11:20:30.177Z"
+  },
+  "https://www.cremedevape.com/Blog/PayPal-is-BACK-for-our-UK-customers": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:35.886Z",
+    "lastUpdated": "2025-10-02T11:20:35.886Z"
+  },
+  "https://www.cremedevape.com/Blog/Dealing-with-stuck-parts": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:42.600Z",
+    "lastUpdated": "2025-10-02T11:20:42.600Z"
+  },
+  "https://www.cremedevape.com/Blog/Youll-want-to-see-these-new-arrivals": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:49.344Z",
+    "lastUpdated": "2025-10-02T11:20:49.344Z"
+  },
+  "https://www.cremedevape.com/Blog/Aspire-M80-with-Nautilus-3-SR-kits-plus-Geekvape-Legend-5-have-arrived": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:20:55.951Z",
+    "lastUpdated": "2025-10-02T11:20:55.951Z"
+  },
+  "https://www.cremedevape.com/Blog/Meet-the-Next-Gen-OXVA-XLIM-Kits-Go-2-Pro-2-DNA": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:21:03.286Z",
+    "lastUpdated": "2025-10-02T11:21:03.286Z"
+  },
+  "https://www.cremedevape.com/Blog/Flying-with-vapes-what-you-need-to-know": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T11:21:10.906Z",
+    "lastUpdated": "2025-10-02T11:21:10.906Z"
+  },
+  "https://www.cremedevape.com/Contact-Us": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/Wholesale": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T10:54:48.151Z",
+    "lastUpdated": "2025-10-02T10:54:48.151Z"
+  },
+  "https://www.cremedevape.com/Syringe": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/B70-15": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/C72-06": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/B70-12-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/B70-06-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+  },
+  "https://www.cremedevape.com/B70-43-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
   }
 }
