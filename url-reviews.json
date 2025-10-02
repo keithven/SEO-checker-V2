@@ -799,9 +799,11 @@
     "lastUpdated": "2025-10-02T12:52:41.065Z"
   },
   "https://www.cremedevape.com/Brands/Leather-Sleeves": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-09-30T22:38:46.221Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T23:23:58.160Z",
+    "lastUpdated": "2025-10-02T23:23:58.160Z"
   },
   "https://www.cremedevape.com/Brands/Taifun/Taifun-GTIV": {
     "status": "reviewed",
@@ -1213,9 +1215,11 @@
     "lastUpdated": "2025-10-02T10:52:36.997Z"
   },
   "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks/Pre-filled-and-refillable-replacement-pods": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:41:32.896Z",
+    "lastUpdated": "2025-10-02T18:41:32.896Z"
   },
   "https://www.cremedevape.com/Vape-Tank-Tubes": {
     "status": "reviewed",
@@ -1257,29 +1261,39 @@
     "lastUpdated": "2025-10-02T10:52:50.174Z"
   },
   "https://www.cremedevape.com/Aspire/Kits": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:36:20.835Z",
+    "lastUpdated": "2025-10-02T18:36:20.836Z"
   },
   "https://www.cremedevape.com/Aspire/Tanks-Pods": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:41:05.724Z",
+    "lastUpdated": "2025-10-02T18:41:05.724Z"
   },
   "https://www.cremedevape.com/Aspire/Coils": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:33:19.304Z",
+    "lastUpdated": "2025-10-02T18:33:19.304Z"
   },
   "https://www.cremedevape.com/Aspire/Spare-parts": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:37:34.007Z",
+    "lastUpdated": "2025-10-02T18:37:34.007Z"
   },
   "https://www.cremedevape.com/Aspire/Devices": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T18:35:01.773Z",
+    "lastUpdated": "2025-10-02T18:35:01.773Z"
   },
   "https://www.cremedevape.com/Brands/Elfbar/Elf-Bar-600-Prefilled-Pod-Kit": {
     "seoStatus": "needs_attention",
@@ -1794,9 +1808,11 @@
     "lastAnalyzed": "2025-10-02T10:52:04.194Z"
   },
   "https://www.cremedevape.com/B70-12-5pk": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-02T23:32:56.075Z",
+    "lastUpdated": "2025-10-02T23:32:56.075Z"
   },
   "https://www.cremedevape.com/B70-06-5pk": {
     "seoStatus": "needs_attention",
