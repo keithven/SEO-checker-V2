@@ -1058,9 +1058,11 @@
     "lastAnalyzed": "2025-10-01T00:17:23.368Z"
   },
   "https://www.cremedevape.com/Atomisers-Cartomisers-Tanks/Pre-filled-Pods": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-01T00:17:23.368Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-04T06:47:43.044Z",
+    "lastUpdated": "2025-10-04T06:47:43.044Z"
   },
   "https://www.cremedevape.com/Brands/Vapes-Bars": {
     "seoStatus": "needs_attention",
@@ -1203,9 +1205,11 @@
     "lastAnalyzed": "2025-10-02T10:52:04.193Z"
   },
   "https://www.cremedevape.com/Big-Battery-Mods/SBS-Side-by-Side-Mod": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.193Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-04T06:50:12.983Z",
+    "lastUpdated": "2025-10-04T06:50:12.983Z"
   },
   "https://www.cremedevape.com/Big-Battery-Mods/Pipe-Mods": {
     "status": "reviewed",
@@ -1219,7 +1223,10 @@
     "assignee": null,
     "notes": null,
     "lastReviewed": "2025-10-02T18:41:32.896Z",
-    "lastUpdated": "2025-10-02T18:41:32.896Z"
+    "lastUpdated": "2025-10-02T18:41:32.896Z",
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T06:37:16.203Z"
   },
   "https://www.cremedevape.com/Vape-Tank-Tubes": {
     "status": "reviewed",
@@ -1798,9 +1805,11 @@
     "lastAnalyzed": "2025-10-02T10:52:04.194Z"
   },
   "https://www.cremedevape.com/B70-15": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-04T06:33:29.883Z",
+    "lastUpdated": "2025-10-04T06:33:29.883Z"
   },
   "https://www.cremedevape.com/C72-06": {
     "seoStatus": "needs_attention",
@@ -1815,13 +1824,517 @@
     "lastUpdated": "2025-10-02T23:32:56.075Z"
   },
   "https://www.cremedevape.com/B70-06-5pk": {
-    "seoStatus": "needs_attention",
-    "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-04T06:36:11.029Z",
+    "lastUpdated": "2025-10-04T06:36:11.029Z"
   },
   "https://www.cremedevape.com/B70-43-5pk": {
+    "status": "reviewed",
+    "assignee": null,
+    "notes": null,
+    "lastReviewed": "2025-10-04T06:35:11.095Z",
+    "lastUpdated": "2025-10-04T06:35:11.095Z"
+  },
+  "https://www.cremedevape.com/RY4-Flavour-Concentrate-100ml": {
     "seoStatus": "needs_attention",
     "hasIssues": true,
-    "lastAnalyzed": "2025-10-02T10:52:04.194Z"
+    "lastAnalyzed": "2025-10-04T08:01:40.793Z"
+  },
+  "https://www.cremedevape.com/BusinessCards": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/DIY-WIRE": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Glass-Fibre-Wick-5m": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/USB-Car-Adapter": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/EVOD-650": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kanger-EVOD-USB-Charger": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/EVOD-BCC-HEADS": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/C9V-100ml-Menthol-Flavour-Concentrate": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kanger-Upgraded-Dual-Coil-Heads": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-Mini-Nautilus-glass": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Cellucotton": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Microcoil-Jig": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-BVC-heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Evolv-DNA40-Replacement-Screen": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Ceramic-Tipped-Tweezer": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-PTFE-Cup-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-PTFE-PawnPlus-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-PTFE-Mignon-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-PTFE-Nucleus-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-PTFE-Tork-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Steel-Mignon-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Cotton-Bacon-V2": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Steel-Nucleus-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Steel-Tork-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Delrin-Cup-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Delrin-Mignon-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Delrin-Nucleus-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Frenchy-Fog-Delrin-Tork-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/XTAR-MC1-Pl-Charger": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-Mug-full-of-toffees": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-Battery-Case": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-E-Liquid-Variety-Pack-2-Tobacco": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:03:51.368Z"
+  },
+  "https://www.cremedevape.com/Propylene-Glycol-PG-100ml-1": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Propylene-Glycol-PG-250ml-1": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Vegetable-Glycerine-VG-100m": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Vegetable-Glycerine-VG-250ml-1": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Wire-cutter-by-Youde": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Cotton-ick-tool-by-Youde": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/NichromResistance-Wire": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-Dani-V2-Extensio": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/NiFe30-Resistance-wire": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Pack-of-50-pre-built-Kanthal-coils": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-CustomWire-Rods": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Efest-Single-26650-Battery-Case": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-by-SvoeMesto": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-spares-kit-by-SvoeMesto": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Glass-tank-by-SvoeMesto": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/50ml-dropper-bottle": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-Vape-Band": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kendo-Vape-Cotton": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-Cleito-Heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-2395-Extension-Tube": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Steel-tank-Type-I": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Steel-tank-Type-II": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Steel-tank-Type-III": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-K4/Cleit-Heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/XTAR-VP4-Charger-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Insulator-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-Mini-V3-Centre-Pin": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Flashing-Micro-USB-Cable": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Efest-IMR18650-batteries-in-case": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-K3-Tank": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-Nautilus-X-Heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Stainless-Steel-Wire": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Innokin-T18-replacement-heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-spares-kit-by-SvoeMesto": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-Glass-tank": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-Insulator-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-Drip-Tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-MTL-Airflow-reducer": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Pack-of-10-Speciality-pre-built-coils": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Vape-Pocket-double-decker-storage-case-by-UD": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-Centre-Pin": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kayfun-5-POM-tip": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/15mm-slotted-screwdriver": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/UD-Ferris-Wheel-Pack-of-70-Speciality-pre-built-coils": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Eden-Mods-Rose-3": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Jackly-45-in-1-Precision-Tool-Kit": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/UD-Wire-Tamer-5-pack": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/VapeDroid-C1D1-DNA75-Device": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Innokin-Endura/T18E-replacement-heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/100ml-dropper-bottle": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-2395": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-2395T": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-Dani-Extreme-V3": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-BF60-board": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-FL80-board": {
+    "seoStatus": "good",
+    "hasIssues": false,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Aspire-PockeX-Heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-Flavourless-Nicotine": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Dicodes-CS1-Charging-Dock": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kanger-EVOD-SOCC-Heads-5pk": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Kanger-EVOD-SOCC-Cartomiser-Single": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Creme-de-Vape-Variety-Pack-Fruity": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Micro-Mesh-polishing-pads": {
+    "seoStatus": "needs_attention",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Self-laminating-labels-9x4cm-20pk": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Sony-VTC5A-2600mAh-Battery": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Prostate-Cancer-UK-Donation": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
+  },
+  "https://www.cremedevape.com/Bigs-Tips-Drip-Tip-Standard-bore": {
+    "seoStatus": "error",
+    "hasIssues": true,
+    "lastAnalyzed": "2025-10-04T08:01:40.795Z"
   }
 }
