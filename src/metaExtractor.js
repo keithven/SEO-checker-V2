@@ -3,6 +3,7 @@ import * as cheerio from 'cheerio';
 export class MetaExtractor {
   extractMetaData(html, url) {
     if (!html) {
+      console.log(`❌ [META EXTRACTOR] No HTML provided for ${url}`);
       return {
         url,
         title: null,
@@ -14,10 +15,58 @@ export class MetaExtractor {
       };
     }
 
+    console.log(`\n🔍 [META EXTRACTOR] Processing: ${url}`);
+    console.log(`📄 HTML length: ${html.length} bytes`);
+
     const $ = cheerio.load(html);
 
     const title = $('title').text().trim() || null;
-    const metaDescription = $('meta[name="description"]').attr('content')?.trim() || null;
+    console.log(`📌 Title extracted: ${title || 'NONE'}`);
+
+    // Find all meta tags for debugging
+    const allMetaTags = $('meta').length;
+    console.log(`🏷️  Total meta tags found: ${allMetaTags}`);
+
+    // Try multiple methods to find meta description
+    let metaDescription = null;
+
+    // Method 1: Standard selector (case-sensitive)
+    metaDescription = $('meta[name="description"]').attr('content')?.trim() || null;
+
+    if (metaDescription) {
+      console.log(`✅ Method 1 SUCCESS - Found meta description: "${metaDescription.substring(0, 80)}..."`);
+    } else {
+      console.log(`⚠️ Method 1 FAILED - meta[name="description"] not found`);
+
+      // Method 2: Case-insensitive search through all meta tags
+      $('meta').each((i, el) => {
+        const $el = $(el);
+        const name = $el.attr('name');
+        const property = $el.attr('property');
+        const content = $el.attr('content');
+
+        // Debug: Log first few meta tags
+        if (i < 5) {
+          console.log(`  Meta tag ${i}: name="${name}" property="${property}" content="${content?.substring(0, 50)}..."`);
+        }
+
+        if (!metaDescription && name && name.toLowerCase() === 'description') {
+          metaDescription = content?.trim() || null;
+          console.log(`✅ Method 2 SUCCESS - Found with name="${name}": "${metaDescription?.substring(0, 80)}..."`);
+          return false; // break
+        }
+
+        if (!metaDescription && property && property.toLowerCase() === 'description') {
+          metaDescription = content?.trim() || null;
+          console.log(`✅ Method 2 SUCCESS - Found with property="${property}": "${metaDescription?.substring(0, 80)}..."`);
+          return false; // break
+        }
+      });
+
+      if (!metaDescription) {
+        console.log(`❌ Method 2 FAILED - No description meta tag found (case-insensitive)`);
+      }
+    }
 
     const characterCount = metaDescription ? metaDescription.length : 0;
     const hasMetaDescription = !!metaDescription;

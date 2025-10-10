@@ -278,6 +278,18 @@ export class WebCrawler {
         await page.waitForTimeout(2000);
       }
 
+      // Wait for meta description tag to be present in the DOM
+      console.log(`⏳ Waiting for meta description tag on ${url}...`);
+      try {
+        await page.waitForSelector('meta[name="description"]', { timeout: 5000 });
+        console.log(`✅ Meta description tag found`);
+      } catch (e) {
+        console.log(`⚠️ Meta description tag not found after 5s, continuing anyway...`);
+      }
+
+      // Give any dynamic content a bit more time to settle
+      await page.waitForTimeout(1000);
+
       // Now extract the actual data
       dataLayerInfo = await page.evaluate(() => {
         try {
@@ -326,6 +338,30 @@ export class WebCrawler {
       });
 
       const html = await page.content();
+
+      // Log HTML info for debugging
+      console.log(`📄 HTML fetched: ${html.length} bytes`);
+
+      // Check if meta description is in the HTML
+      const hasMetaDesc = html.includes('meta name="description"') ||
+                          html.includes('meta name=description') ||
+                          html.includes('meta name="Description"');
+      console.log(`🔍 Meta description in fetched HTML: ${hasMetaDesc ? 'YES' : 'NO'}`);
+
+      if (hasMetaDesc) {
+        // Extract and log the meta description for verification
+        const metaMatch = html.match(/<meta\s+name=["']description["']\s+content=["']([^"']+)["']/i);
+        if (metaMatch) {
+          console.log(`📝 Meta description content: "${metaMatch[1].substring(0, 100)}..."`);
+        }
+      } else {
+        console.log(`⚠️ WARNING: Meta description NOT found in HTML for ${url}`);
+        // Log first 1000 chars of head section for debugging
+        const headMatch = html.match(/<head[^>]*>([\s\S]{0,1000})/i);
+        if (headMatch) {
+          console.log(`📋 Head section preview:\n${headMatch[1]}\n`);
+        }
+      }
 
       // Extract visible body text for AI analysis
       const bodyText = await page.evaluate(() => {
